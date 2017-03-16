@@ -155,3 +155,10 @@ There are some important addressing modes in the following table. Make sure you 
 <p align="center">
   <img src="http://uupload.ir/files/dai1_table_of_examples.png">
 </p>
+
+
+# ATmega Programming
+In this section I'll provide some good practices on programming an ATmega microcontroller in assembly language with AtmelStudio 7.
+
+## Writing to EEPROM
+This program is the first program I'll cover in these series. The objective is to write numbers 0-9 to the EEPROM Memory.
