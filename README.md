@@ -136,7 +136,9 @@ Important commands: **CLC** and **RET**
   <img src="http://uupload.ir/files/0tw_indirect_program_addressing_mode.png">
 </p>
 These instructions use Z register to point to the program memory.
-* **ICALL** (Indirect call to Z)
-* **IJMP** (Indirect jump to Z)
+
+1. **ICALL** (Indirect call to Z)
+2. **IJMP** (Indirect jump to Z)
+
 
 
