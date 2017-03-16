@@ -145,8 +145,8 @@ These instructions use Z register to point to the program memory.
   <img src="http://uupload.ir/files/o1y_relative_program_addressing_mode.png">
 </p>
 
-Instructions in this addressing mode are **RCALL** and **RJMP** which are used to with an offset to change the current position of program counter.
+Instructions in this addressing mode are **RCALL** and **RJMP** which are used with an offset to change the current position of program counter.
 * Usage Example:
-1. RCALL k (STACK = PC + 1 , PC = PC + k + 1)
-2. RJMP k (PC = PC + k + 1)
+1. **RCALL k** (STACK = PC + 1 , PC = PC + k + 1)
+2. **RJMP k** (PC = PC + k + 1)
 
