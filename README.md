@@ -162,11 +162,13 @@ In this section I'll provide some good practices on programming an ATmega microc
 
 ## Writing to EEPROM
 This program is the first program I'll cover in these series. The objective is to write numbers 0-9 to the EEPROM Memory. In order to write the data into the EEPROM memory, we have to deal with some important registers:
-* EEARL & EEARH (EEPROM Address Register - Low & High bytes)
-* EEDR (EEPROM Data Register)
-* EECR (EEPROM Control Register)
+* **EEARL** & **EEARH** (EEPROM Address Register - Low & High bytes)
+* **EEDR** (EEPROM Data Register)
+* **EECR** (EEPROM Control Register)
+
 I believe two first registers are understandable for you. But the third register which is the EECR has to be explained more. EEPROM Control Register has 8 bits in which 4 of them are used by the microcontroller and is reserved. But the other 4 bits are known as:
-* EERE (EEPROM Read Enable bit)
-* EEWE (EEPROM Write Enable bit)
-* EEMWE (EEPROM Master Write Enable bit)
-* EERIE (EEPROM Read Interrup Enable bit)
+* **EERE** (EEPROM Read Enable bit)
+* **EEWE** (EEPROM Write Enable bit)
+* **EEMWE** (EEPROM Master Write Enable bit)
+* **EERIE** (EEPROM Read Interrup Enable bit)
+
