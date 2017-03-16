@@ -42,9 +42,9 @@ There are 5 sections in ATmega16 which have relationships with **data and progra
 3. Store back in same register
 
 * Usage examples:
-1. INC R0
-2. DEC R5
-3. LSL R9
+1. **INC R0**
+2. **DEC R5**
+3. **LSL R9**
 
 
 ## Register Direct (Two Registers) mode
@@ -62,23 +62,23 @@ There are 5 sections in ATmega16 which have relationships with **data and progra
 3. Store the result in the destination register
 
 * Usage Examples:
-1. ADD R1,R3
-2. SUB R5,R7
+1. **ADD R1,R3**
+2. **SUB R5,R7**
 
 ## Immediate mode
 * Constant value is in the instruction.
 * Operates on the register and that constant value and stores the result back in the register.
 * Usage Examples:
-1. SUBI R4,8 (Subtract with Immediate: R4 = R4 - 8)
-2. ADIW R26,5 (Add Immediate to Word: R27:R26 = R27:R26 + 5)
+1. **SUBI R4,8** (Subtract with Immediate: R4 = R4 - 8)
+2. **ADIW R26,5** (Add Immediate to Word: R27:R26 = R27:R26 + 5)
 
 ## I/O direct mode
 Instructions are used to access I/O space **(64 I/O registers)** but **not extended I/O registers**.
 * Usage Examples:
-1. IN R10,PORTADDRESS
-2. OUT PORTADDRESS,R10
-3. IN Rd,PORTADDRESS
-4. OUT PORTADDRESS,Rs
+1. **IN R10,PORTADDRESS**
+2. **OUT PORTADDRESS,R10**
+3. **IN Rd,PORTADDRESS**
+4. **OUT PORTADDRESS,Rs**
 * PORTADDRESS is between 0x00 to 0x3F
 * Rs and Rd are any registers from register file
 
@@ -89,8 +89,8 @@ Instructions are used to access I/O space **(64 I/O registers)** but **not exten
 
 Two word instructions are used in this mode. One of the words is the address of the data memory space.
 * Usage Examples:
-1. STS K,Rs (Store dircet SRAM - Put the Rs contents in place K - K is a 16 bit address)
-2. LDS Rd,K (Load direct from SRAM - Grab the contents of place K in the SRAM and put it in the Rd register)
+1. **STS K,Rs** (Store dircet SRAM - Put the Rs contents in place K - K is a 16 bit address)
+2. **LDS Rd,K** (Load direct from SRAM - Grab the contents of place K in the SRAM and put it in the Rd register)
 
 
 ## Data indirect mode
