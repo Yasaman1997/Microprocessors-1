@@ -13,6 +13,7 @@ The following is a quick start on basic concepts of ATmega16 microcontroller.
 ## Instruction Set
 This is a set of instructions for ATmega16 microcontroller which decides what operations the microcontroller can perform. Each instruction can control some parts of microcontroller.
 
-##
+## Addressing Modes
+Instructions can be categorized based on **how they access data** and **how they perform operations** on those data. This category consist of about 10 modes that controls this access and operation.
 
 #ATmega 16 Addressing Modes
