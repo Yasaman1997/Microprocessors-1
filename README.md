@@ -121,3 +121,22 @@ For extended I/O registers, we cannot use commands like **IN** or **OUT**. Inste
 4. **CBR** - clear bits in register
 5. **SBRS** - Skip if bit in register is set
 6. **SBRC** - Skip if bit in register is clear
+
+# Direct program memory addressing mode
+Important command:
+* Call: Call a subroutine and put the return address on the stack 
+* Usage Example:
+1. **CALL k** (This will do the following: first, STACK = PC + 1 and then, PC = k)
+
+# Implicit addressing mode
+Important commands: **CLC** and **RET**
+
+# Indirect program addressing mode
+<p align="center">
+  <img src="http://uupload.ir/files/0tw_indirect_program_addressing_mode.png">
+</p>
+These instructions use Z register to point to the program memory.
+* **ICALL** (Indirect call to Z)
+* **IJMP** (Indirect jump to Z)
+
+
