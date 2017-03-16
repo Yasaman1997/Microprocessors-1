@@ -29,7 +29,7 @@ There are 5 sections in ATmega16 which have relationships with **data and progra
 * EEPROM (**512** bytes)
 * Flash Memory (AKA Program Memory - **16** Kbytes of On-chip In-system reprogrammable flash memory)
 
-## Register Direct (Single Register)
+## Register Direct (Single Register) Mode
 <p align="center">
   <img src="http://uupload.ir/files/2xms_register_direct.png">
 </p>
@@ -47,7 +47,7 @@ There are 5 sections in ATmega16 which have relationships with **data and progra
 3. LSL R9
 
 
-## Register Direct (Two Registers)
+## Register Direct (Two Registers) Mode
 <p align="center">
   <img src="http://uupload.ir/files/7nky_register_direct(two_regs).png">
 </p>
@@ -71,3 +71,13 @@ There are 5 sections in ATmega16 which have relationships with **data and progra
 * Usage Examples:
 1. SUBI R4,8 (Subtract with Immediate: R4 = R4 - 8)
 2. ADIW R26,5 (Add Immediate to Word: R27:R26 = R27:R26 + 5)
+
+## I/O Direct Mode
+Instructions are used to access I/O space **(64 I/O registers)** but **not extended I/O registers**.
+* Usage Examples:
+1. IN R10,PORTADDRESS
+2. OUT PORTADDRESS,R10
+3. IN Rd,PORTADDRESS
+4. OUT PORTADDRESS,Rs
+* PORTADDRESS is between 0x00 to 0x3F
+* Rs and Rd are any registers from register file
