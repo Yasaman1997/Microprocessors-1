@@ -102,14 +102,22 @@ It's similar to the data direct except that:
 * It has one word only
 * The address of the memory location is stored in register Y or Z
 * Usage Examples:
-1. LD Rd,X+ (Load indirect with post increment: Rd = X , X = X + 1)
-2. ELD Rd,X (Extended indirect load: Rd = R27:R26)
-3. LDD Rd,(Y+q) (Load indirect with displacement: Rd = (Y+q) () are showing the contents)
-4. ST -Y,Rs
+1. **LD Rd,X+** (Load indirect with post increment: Rd = X , X = X + 1)
+2. **ELD Rd,X** (Extended indirect load: Rd = R27:R26)
+3. **LDD Rd,(Y+q)** (Load indirect with displacement: Rd = (Y+q) () are showing the contents)
+4. **ST -Y,Rs**
 
 # I/O Ports using indirect mode
 I/O ports can be accessed using indirect SRAM commands.
 * Usage Examples:
-1. LDI R16,HIGH(PORTB+32)
+1. **LDI R16,HIGH(PORTB+32)**
 
 # Extended I/O mode
+For extended I/O registers, we cannot use commands like **IN** or **OUT**. Instead we need to use the direct and indirect SRAM access commands like LDS, STS, etc.
+* Some important commands are:
+1. **LDS** - Load from SRAM
+2. **STS** - Store to SRAM 
+3. **SBR** - Set bits in register
+4. **CBR** - clear bits in register
+5. **SBRS** - Skip if bit in register is set
+6. **SBRC** - Skip if bit in register is clear
