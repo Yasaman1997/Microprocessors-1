@@ -172,3 +172,11 @@ I believe two first registers are understandable for you. But the third register
 * **EEMWE** (EEPROM Master Write Enable bit)
 * **EERIE** (EEPROM Read Interrup Enable bit)
 
+The exact procedure of writing data into the EEPROM is as follows:
+1. Wait untill the **EEWE** bit gets 0.
+2. Wait untill the **SPMEN** bit in **SPMCR** gets 0.
+3. Write the **new address** of EEPROM in which our data is going to be stored at.
+4. Write the **new data** into the **EEDR**.
+5. Write the **logical 1** into the **EEMWE** bit.
+6. Write the **logical 1** into the **EEWE** in 4 cycles after turning the **EEMWE** 1.
+
