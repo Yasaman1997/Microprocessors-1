@@ -91,3 +91,17 @@ Two word instructions are used in this mode. One of the words is the address of 
 * Usage Examples:
 1. STS K,Rs (Store dircet SRAM - Put the Rs contents in place K - K is a 16 bit address)
 2. LDS Rd,K (Load direct from SRAM - Grab the contents of place K in the SRAM and put it in the Rd register)
+
+
+## Data Indirect Mode
+<p align="center">
+  <img src="http://uupload.ir/files/l6vn_data_indirect_mode.png">
+</p>
+It's similar to the data direct except that:
+* It has one word only
+* The address of the memory location is stored in register Y or Z
+* Usage Examples:
+1. LD Rd,X+ (Load indirect with post increment: Rd = X , X = X + 1)
+2. ELD Rd,X (Extended indirect load: Rd = R27:R26)
+3. LDD Rd,(Y+q) (Load indirect with displacement: Rd = (Y+q) () are showing the contents)
+4. ST -Y,Rs
