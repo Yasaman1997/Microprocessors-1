@@ -97,6 +97,7 @@ Two word instructions are used in this mode. One of the words is the address of 
 <p align="center">
   <img src="http://uupload.ir/files/l6vn_data_indirect_mode.png">
 </p>
+
 It's similar to the data direct except that:
 * It has one word only
 * The address of the memory location is stored in register Y or Z
