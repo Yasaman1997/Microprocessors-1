@@ -107,12 +107,12 @@ It's similar to the data direct except that:
 3. **LDD Rd,(Y+q)** (Load indirect with displacement: Rd = (Y+q) () are showing the contents)
 4. **ST -Y,Rs**
 
-# I/O Ports using indirect mode
+## I/O Ports using indirect mode
 I/O ports can be accessed using indirect SRAM commands.
 * Usage Examples:
 1. **LDI R16,HIGH(PORTB+32)**
 
-# Extended I/O mode
+## Extended I/O mode
 For extended I/O registers, we cannot use commands like **IN** or **OUT**. Instead we need to use the direct and indirect SRAM access commands like LDS, STS, etc.
 * Some important commands are:
 1. **LDS** - Load from SRAM
@@ -122,16 +122,16 @@ For extended I/O registers, we cannot use commands like **IN** or **OUT**. Inste
 5. **SBRS** - Skip if bit in register is set
 6. **SBRC** - Skip if bit in register is clear
 
-# Direct program memory addressing mode
+## Direct program memory addressing mode
 Important command:
 * Call: Call a subroutine and put the return address on the stack 
 * Usage Example:
 1. **CALL k** (This will do the following: first, STACK = PC + 1 and then, PC = k)
 
-# Implicit addressing mode
+## Implicit addressing mode
 Important commands: **CLC** and **RET**
 
-# Indirect program addressing mode
+## Indirect program addressing mode
 <p align="center">
   <img src="http://uupload.ir/files/0tw_indirect_program_addressing_mode.png">
 </p>
@@ -140,7 +140,7 @@ These instructions use Z register to point to the program memory.
 1. **ICALL** (Indirect call to Z)
 2. **IJMP** (Indirect jump to Z)
 
-# Relative program addressing mode
+## Relative program addressing mode
 <p align="center">
   <img src="http://uupload.ir/files/o1y_relative_program_addressing_mode.png">
 </p>
