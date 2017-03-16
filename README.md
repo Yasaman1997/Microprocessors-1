@@ -29,7 +29,7 @@ There are 5 sections in ATmega16 which have relationships with **data and progra
 * EEPROM (**512** bytes)
 * Flash Memory (AKA Program Memory - **16** Kbytes of On-chip In-system reprogrammable flash memory)
 
-## Register Direct (Single Register) Mode
+## Register Direct (Single Register) mode
 <p align="center">
   <img src="http://uupload.ir/files/2xms_register_direct.png">
 </p>
@@ -47,7 +47,7 @@ There are 5 sections in ATmega16 which have relationships with **data and progra
 3. LSL R9
 
 
-## Register Direct (Two Registers) Mode
+## Register Direct (Two Registers) mode
 <p align="center">
   <img src="http://uupload.ir/files/7nky_register_direct(two_regs).png">
 </p>
@@ -65,14 +65,14 @@ There are 5 sections in ATmega16 which have relationships with **data and progra
 1. ADD R1,R3
 2. SUB R5,R7
 
-## Immediate Mode
+## Immediate mode
 * Constant value is in the instruction.
 * Operates on the register and that constant value and stores the result back in the register.
 * Usage Examples:
 1. SUBI R4,8 (Subtract with Immediate: R4 = R4 - 8)
 2. ADIW R26,5 (Add Immediate to Word: R27:R26 = R27:R26 + 5)
 
-## I/O Direct Mode
+## I/O direct mode
 Instructions are used to access I/O space **(64 I/O registers)** but **not extended I/O registers**.
 * Usage Examples:
 1. IN R10,PORTADDRESS
@@ -82,7 +82,7 @@ Instructions are used to access I/O space **(64 I/O registers)** but **not exten
 * PORTADDRESS is between 0x00 to 0x3F
 * Rs and Rd are any registers from register file
 
-## Data Direct Mode
+## Data direct mode
 <p align="center">
   <img src="http://uupload.ir/files/m8vm_datadirect_mode.png">
 </p>
@@ -93,7 +93,7 @@ Two word instructions are used in this mode. One of the words is the address of 
 2. LDS Rd,K (Load direct from SRAM - Grab the contents of place K in the SRAM and put it in the Rd register)
 
 
-## Data Indirect Mode
+## Data indirect mode
 <p align="center">
   <img src="http://uupload.ir/files/l6vn_data_indirect_mode.png">
 </p>
@@ -106,3 +106,10 @@ It's similar to the data direct except that:
 2. ELD Rd,X (Extended indirect load: Rd = R27:R26)
 3. LDD Rd,(Y+q) (Load indirect with displacement: Rd = (Y+q) () are showing the contents)
 4. ST -Y,Rs
+
+# I/O Ports using indirect mode
+I/O ports can be accessed using indirect SRAM commands.
+* Usage Examples:
+1. LDI R16,HIGH(PORTB+32)
+
+# Extended I/O mode
