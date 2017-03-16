@@ -81,3 +81,13 @@ Instructions are used to access I/O space **(64 I/O registers)** but **not exten
 4. OUT PORTADDRESS,Rs
 * PORTADDRESS is between 0x00 to 0x3F
 * Rs and Rd are any registers from register file
+
+## Data Direct Mode
+<p align="center">
+  <img src="http://uupload.ir/files/m8vm_datadirect_mode.png">
+</p>
+
+Two word instructions are used in this mode. One of the words is the address of the data memory space.
+* Usage Examples:
+1. STS K,Rs (Store dircet SRAM - Put the Rs contents in place K - K is a 16 bit address)
+2. LDS Rd,K (Load direct from SRAM - Grab the contents of place K in the SRAM and put it in the Rd register)
