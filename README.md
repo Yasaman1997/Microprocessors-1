@@ -35,8 +35,13 @@ There are 5 sections in ATmega16 which have relationships with **data and progra
 </p>
 
 * Can operate on any 32 registers of the register file.
-* Operations: 1- Read contents of registers. 2- Operate on contents. 3- Store back in same register.
+
+* Operations:
+1. Read contents of registers 
+2. Operate on contents
+3. Store back in same register
+
 * Usage examples:
-** INC R0
-** DEC R5
-** LSL R9
+1. INC R0
+2. DEC R5
+3. LSL R9
