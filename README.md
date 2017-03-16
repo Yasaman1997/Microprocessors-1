@@ -64,3 +64,10 @@ There are 5 sections in ATmega16 which have relationships with **data and progra
 * Usage Examples:
 1. ADD R1,R3
 2. SUB R5,R7
+
+## Immediate Mode
+* Constant value is in the instruction.
+* Operates on the register and that constant value and stores the result back in the register.
+* Usage Examples:
+1. SUBI R4,8 (Subtract with Immediate: R4 = R4 - 8)
+2. ADIW R26,5 (Add Immediate to Word: R27:R26 = R27:R26 + 5)
