@@ -28,3 +28,15 @@ There are 5 sections in ATmega16 which have relationships with **data and progra
 * SRAM (Data Memory - Separate from those mentioned above - out of CPU - **1024** Bytes considering 96 bytes for the above sections)
 * EEPROM (**512** bytes)
 * Flash Memory (AKA Program Memory - **16** Kbytes of On-chip In-system reprogrammable flash memory)
+
+## Register Direct (Single Register)
+<p align="center">
+  <img src="http://uupload.ir/files/2xms_register_direct.png">
+</p>
+
+* Can operate on any 32 registers of the register file.
+* Operations: 1- Read contents of registers. 2- Operate on contents. 3- Store back in same register.
+* Usage examples:
+** INC R0
+** DEC R5
+** LSL R9
