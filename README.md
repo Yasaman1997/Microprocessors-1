@@ -150,3 +150,8 @@ Instructions in this addressing mode are **RCALL** and **RJMP** which are used w
 1. **RCALL k** (STACK = PC + 1 , PC = PC + k + 1)
 2. **RJMP k** (PC = PC + k + 1)
 
+# Useful Examples
+There are some important addressing modes in the following table. Make sure you practice hard :D
+<p align="center">
+  <img src="http://uupload.ir/files/dai1_table_of_examples.png">
+</p>
