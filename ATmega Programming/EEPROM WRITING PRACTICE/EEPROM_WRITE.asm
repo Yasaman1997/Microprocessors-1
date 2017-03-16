@@ -23,7 +23,7 @@ EEPROM_WRITE:
 	rjmp EEPROM_WRITE
 	
 	/* Write the address to be filled with the number :D */
-	out EEARH,R18
+	out EEARL,R18
 	out EEARH,R19	
 	
 	/* Write the data */
@@ -33,8 +33,15 @@ EEPROM_WRITE:
 	/* Write logical one to the EEMWE */
 	/* Set bit immediate */
 	sbi EECR,EEMWE
+
+	/* Start write */
+	sbi EECR,EEWE
+
 	/* Add 1 to the counter */
 	add R16,1
+	/* Go to the next address on EEPROM */
+	add R18,1
+
 	/* Check the loop end point */
 	cp R16,R17
 	brne EEPROM_WRITE
