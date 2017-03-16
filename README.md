@@ -45,3 +45,22 @@ There are 5 sections in ATmega16 which have relationships with **data and progra
 1. INC R0
 2. DEC R5
 3. LSL R9
+
+
+## Register Direct (Two Registers)
+<p align="center">
+  <img src="http://uupload.ir/files/7nky_register_direct(two_regs).png">
+</p>
+
+* Two registers are included in this mode:
+1. Rs: Source Register
+2. Rd: Destination Register
+
+* Operations:
+1. Read two registers
+2. Operate on the content
+3. Store the result in the destination register
+
+* Usage Examples:
+1. ADD R1,R3
+2. SUB R5,R7
