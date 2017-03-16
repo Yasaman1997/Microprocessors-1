@@ -6,3 +6,5 @@
 </p>
 
 AVR ATmega16 Microcontroller programming and simulation using AtmelStudio and Proteus.
+
+#ATmega 16 Addressing Modes
