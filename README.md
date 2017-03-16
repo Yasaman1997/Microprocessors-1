@@ -22,3 +22,9 @@ Each instruction in ATmega16 consists of two parts:
 * Operands: Numbers on which the ALU operates.
 
 #ATmega 16 Addressing Modes
+There are 5 sections in ATmega16 which have relationships with **data and program**. So the addressing mode category will spread over these 5 areas and they are mentioned down here:
+* Register File (32 Registers - A part of SRAM which is built into the CPU - **32** bytes | 32 registers of 1 Byte)
+* I/O Registers (64 Registers - A part of SRAM which is built into the CPU - **64** bytes | 64 registers of 1 Byte)
+* SRAM (Data Memory - Separate from those mentioned above - out of CPU - **1024** Bytes considering 96 bytes for the above sections)
+* EEPROM (512 bytes)
+* Flash Memory (AKA Program Memory - 16 Kbytes of On-chip In-system reprogrammable flash memory)
