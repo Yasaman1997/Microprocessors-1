@@ -15,8 +15,6 @@ adder_subroutine:
 	/* Make a copy of R10 in the R9 */ 
 	/* R9 is to check the end of the loop */
 	mov R9,R10
-	/* Store the temporary result of addition in a separate register */ 
-	ldi R8,0
 	/* Find the square of the number */ 
 	/* R7 will start this procedure from 0 and will be added 5 more each time */
 	ldi R7,0
