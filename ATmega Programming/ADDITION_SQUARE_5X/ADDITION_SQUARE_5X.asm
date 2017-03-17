@@ -15,8 +15,10 @@ adder_subroutine:
 	/* Make a copy of R10 in the R9 */ 
 	/* R9 is to check the end of the loop */
 	mov R9,R10
+	/* Store the temporary result of addition in a separate register */ 
+	ldi R8,0
 
-	/* Check if we have reached the n */
+	/* Check if we have reached the end of the loop */
 	cp R9,R10
 	brne adder_subroutine
 
