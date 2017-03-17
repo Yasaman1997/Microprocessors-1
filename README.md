@@ -182,4 +182,4 @@ The exact procedure of writing data into the EEPROM is as follows:
 
 ## Calculating the addition of square of 5X numbers
 In this coding procedure, I will show you how to find the addition of square of 5X numbers (5, 10, 15, 20 ...) and store them in the R1:R0 registers.
-So the result will be something like (25 + 100 + 225 + 400 + ...)
+So the result will be something like (25 + 100 + 225 + 400 + ...) and we need to store this result in those two registers.
