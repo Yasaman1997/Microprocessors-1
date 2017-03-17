@@ -9,7 +9,7 @@
 ; Replace with your application code
 start:
 adder_subroutine:
-	.def n,25
+	.def n=25
 	/* The number n must be stored in R10 according to the problem definition */ 
 	ldi R10,n
 	/* Find the square of the number */ 
@@ -33,5 +33,8 @@ adder_subroutine:
 	/* Check if we have reached the end of the loop */
 	cp R7,R10
 	brne adder_subroutine
+	/* Final addition result is stored in R4:R3 */ 
+	/* Put the result back to the R1:R0 */
+	movw R1:R0,R4:R3
 
   rjmp start
