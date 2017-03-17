@@ -18,9 +18,15 @@ adder_subroutine:
 	/* Sqaure the R7 and put the result in R1:R0(mul does this by default) */
 	mul R7,R7
 	/* We need to use R6 with R7 as a pair(since ADIW will put the result in a pair) */
-	ldi R6,0
+	/*ldi R6,0 (shame) */
 	/* Add immediate 5 to the word R7:R6 (because we need the sqaure of 5X numbers) */
-	adiw R7:R6,5
+	/*adiw R7:R6,5 (shame) */
+	/* i guess we need to increment R7 5 times :| */ 
+	inc R7
+	inc R7
+	inc R7
+	inc R7 
+	inc R7
 	/* Check if we have reached the end of the loop */
 	cp R7,R10
 	brne adder_subroutine
