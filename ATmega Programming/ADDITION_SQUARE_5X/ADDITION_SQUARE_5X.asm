@@ -10,11 +10,11 @@
 start:
 adder_subroutine:
 	/* The number n must be stored in R10 according to the problem definition */ 
-	ldi R25,25
+	ldi R25,$25
 	mov R10,R25
 	/* Find the square of the number */ 
 	/* R7 will start this procedure from 0 and will be added 5 more each time */
-	ldi R20,0
+	ldi R20,$0
 	/* Sqaure the R20 and put the result in R1:R0(mul does this by default) */
 	mul R20,R20
 	/* add the result to the R4:R3 (we need addition! not replacement :D) */
