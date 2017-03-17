@@ -19,6 +19,8 @@ adder_subroutine:
 	mul R7,R7
 	/* We need to use R6 with R7 as a pair(since ADIW will put the result in a pair) */
 	ldi R6,0
+	/* Add immediate 5 to the word R7:R6 (because we need the sqaure of 5X numbers) */
+	adiw R7:R6,5
 	/* Check if we have reached the end of the loop */
 	cp R7,R10
 	brne adder_subroutine
