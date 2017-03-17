@@ -17,6 +17,9 @@ adder_subroutine:
 	ldi R7,0
 	/* Sqaure the R7 and put the result in R1:R0(mul does this by default) */
 	mul R7,R7
+	/* add the result to the R4:R3 (we need addition! not replacement :D) */
+	add R3,R0
+	adc R4,R1			
 	/* We need to use R6 with R7 as a pair(since ADIW will put the result in a pair) */
 	/*ldi R6,0 (shame) */
 	/* Add immediate 5 to the word R7:R6 (because we need the sqaure of 5X numbers) */
