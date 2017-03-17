@@ -18,7 +18,7 @@ adder_subroutine:
 	/* Find the square of the number */ 
 	/* R7 will start this procedure from 0 and will be added 5 more each time */
 	ldi R7,0
-	/* Sqaure the R7 and put the result in R1:R0 */
+	/* Sqaure the R7 and put the result in R1:R0(mul does this by default) */
 	mul R7,R7
 
 
