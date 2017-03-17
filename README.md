@@ -180,3 +180,6 @@ The exact procedure of writing data into the EEPROM is as follows:
 5. Write the **logical 1** into the **EEMWE** bit.
 6. Write the **logical 1** into the **EEWE** in 4 cycles after turning the **EEMWE** 1.
 
+## Calculating the addition of square of 5X numbers
+In this coding procedure, I will show you how to find the addition of square of 5X numbers (5, 10, 15, 20 ...) and store them in the R1:R0 registers.
+So the result will be something like (25 + 100 + 225 + 400 + ...)
