@@ -10,7 +10,8 @@
 start:
 adder_subroutine:
 	/* The number n must be stored in R10 according to the problem definition */ 
-	ldi R10,25
+	ldi R25,25
+	mov R10,R25
 	/* Find the square of the number */ 
 	/* R7 will start this procedure from 0 and will be added 5 more each time */
 	ldi R20,0
