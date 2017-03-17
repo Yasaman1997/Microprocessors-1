@@ -17,8 +17,8 @@ adder_subroutine:
 	ldi R7,0
 	/* Sqaure the R7 and put the result in R1:R0(mul does this by default) */
 	mul R7,R7
-
-
+	/* We need to use R6 with R7 as a pair(since ADIW will put the result in a pair) */
+	ldi R6,0
 	/* Check if we have reached the end of the loop */
 	cp R7,R10
 	brne adder_subroutine
