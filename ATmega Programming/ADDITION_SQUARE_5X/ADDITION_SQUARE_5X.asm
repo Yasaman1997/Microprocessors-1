@@ -12,9 +12,6 @@ adder_subroutine:
 	.def n,25
 	/* The number n must be stored in R10 according to the problem definition */ 
 	ldi R10,n
-	/* Make a copy of R10 in the R9 */ 
-	/* R9 is to check the end of the loop */
-	mov R9,R10
 	/* Find the square of the number */ 
 	/* R7 will start this procedure from 0 and will be added 5 more each time */
 	ldi R7,0
@@ -23,7 +20,7 @@ adder_subroutine:
 
 
 	/* Check if we have reached the end of the loop */
-	cp R9,R10
+	cp R7,R10
 	brne adder_subroutine
 
   rjmp start
