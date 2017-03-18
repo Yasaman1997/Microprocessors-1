@@ -23,6 +23,11 @@ start:
 OUTER_LOOP:
 	
 
+
 	/* Increment the R16 */
 	inc R16
+	/* Compare the R16 value with immediate 99 (100 elements) */
+	cp
+	/* Branch to the OUTER_LOOP if we havent reached the end yet */
+	brne
     rjmp start 
