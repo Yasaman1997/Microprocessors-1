@@ -185,3 +185,6 @@ In this coding procedure, I will show you how to find the addition of square of 
 So the result will be something like (25 + 100 + 225 + 400 + ...) and we need to store this result in those two registers.
 
 ## Sorting the array elements in the program memory
+Lets talk a bit about the flash(program) memory in ATmega16. The flash memory in ATmega16 is a **In-system On-chip programmable memory** that contains **16 Kbytes** of space.
+Since the instructions need at most 16 or 32 bits in to run, the words in program memory are 16 bits, Hence there are 8K of these 16-bit words that is 16Kbytes in total.
+The program memory is separated into two main parts: The **Boot** section and the **Application** section. The flash memory is able to be programmed about **1000** times. The **program counter** in ATmega16 is a **13 bit register**, hence it can point to the 8K space in the program memory.
