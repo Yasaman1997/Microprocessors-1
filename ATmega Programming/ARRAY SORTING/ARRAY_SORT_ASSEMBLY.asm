@@ -46,9 +46,10 @@ INNER_LOOP:
 	swap
 	/* Its better to define a subroutine to put the R20 in place (n)th in memory and the R19 to (n+1)th place */
 
-
-
-
+	/* Check if we have reached the end of the inner_loop */
+	/* Compare the R20 value with the address of 99 elements later from ARRAY (must be defined above) */
+	cp R20,
+	brne INNER_LOOP
 
 	/* Increment the R16 */
 	inc R16
