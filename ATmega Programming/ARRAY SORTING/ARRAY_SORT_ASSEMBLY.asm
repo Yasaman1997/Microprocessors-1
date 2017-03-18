@@ -40,6 +40,12 @@ INNER_LOOP:
 	lpm R20,R18
 
 	/* Compare the result */
+	/* R19 = (n)th element & R20 = (n+1)th element */
+	cp R20,R19
+	/* swap if R20 is greater than R19 */
+
+
+
 
 
 
