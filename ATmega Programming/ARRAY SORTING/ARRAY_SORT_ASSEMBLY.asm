@@ -22,6 +22,15 @@ start:
 	mov R16,ARRAY
 OUTER_LOOP:
 	
+INNER_LOOP:
+	/* we need to keep track of two words each time we loop through the INNER_LOOP */
+	/* Take a copy of R16 (starting point of the main loop) in R17 */
+	mov R17,R16;
+	inc R17;
+	mov R18,R17;
+	dec R17;
+	/* Now we have that (n)th and that (n+1)th element address in R17 and R18 respectively :D */
+
 
 
 	/* Increment the R16 */
