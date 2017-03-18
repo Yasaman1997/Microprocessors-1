@@ -30,6 +30,16 @@ INNER_LOOP:
 	mov R18,R17;
 	dec R17;
 	/* Now we have that (n)th and that (n+1)th element address in R17 and R18 respectively :D */
+	/* Get the contents of R17 and R18 for comparison from that memory */
+	/* The content of program memory of address R17 and R18 will be stored in R19 and R20 for comparison */
+	/* use the LPM instruction to read those addresses */
+
+	/* load R19 with the content from address R17 in program memory */
+	lpm R19,R17
+	/* load R20 with the content from address R18 in program memory */
+	lpm R20,R18
+
+	/* Compare the result */
 
 
 
