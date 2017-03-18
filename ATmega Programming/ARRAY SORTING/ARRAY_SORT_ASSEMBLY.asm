@@ -44,7 +44,7 @@ INNER_LOOP:
 	cp R20,R19
 	/* swap if R20 is greater than R19 */
 	swap
-
+	/* Its better to define a subroutine to put the R20 in place (n)th in memory and the R19 to (n+1)th place */
 
 
 
