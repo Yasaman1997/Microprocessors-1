@@ -43,6 +43,7 @@ INNER_LOOP:
 	/* R19 = (n)th element & R20 = (n+1)th element */
 	cp R20,R19
 	/* swap if R20 is greater than R19 */
+	swap
 
 
 
