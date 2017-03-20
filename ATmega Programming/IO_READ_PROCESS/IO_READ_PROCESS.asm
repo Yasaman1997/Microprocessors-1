@@ -22,3 +22,12 @@ IO_READ_SUB:
 	* R(7:4) ← Rd(3:0), R(3:0) ← Rd(7:4) */
 	swap R5
 
+	/* Clear the bit 3 in the register R5 */
+	/* We can simply use the CBR instruction 
+	* This is how CBR works: 
+	* Clears the specified bits in register Rd. Performs the logical AND
+	* between the contents of register Rd and the complement of the constant mask K.
+	* The result will be placed in register Rd. */ 
+	/* So the mask should be 00001000 to make the bit number 3 cleared */
+	CBR R5,8
+
