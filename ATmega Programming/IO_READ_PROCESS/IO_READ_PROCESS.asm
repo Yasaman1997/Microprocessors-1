@@ -12,6 +12,7 @@ start:
 	call IO_READ_SUB
     rjmp start
 
-
 IO_READ_SUB:
-	
+	/* Grab the data from IO Address: 0x25 */
+	/* Put it in the R5 in register file */
+	in R5,0x25
