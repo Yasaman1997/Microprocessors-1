@@ -192,3 +192,10 @@ The program memory is separated into two main parts: The **Boot** section and th
 ## I/O Read and processing example
 In this example, I'll show you how to read the data from an specific I/O address and processing that data with swap,tst and ...
 This is an awesome example to learn more about ATmega16 programming.
+
+## The Stack
+The Stack is used by the ALU to store return addresses from subroutines.
+
+Imagine you can't remember where you just left. You'd have to write down where you left and, if you're visiting several locations, put the notes onto a stack. Your stack pointer tells you where that stack is. A microcontroller is just doing that - when a subroutine is called, it leaves the place in flash where it was just working and saves the return address on the stack.
+
+The Stack needs a stack pointer (SP) and space in SRAM (the stack pointer must point above the first SRAM address). When a return address is stored, the SP is **post-decremented**. In other words: The stack is **growing** towards **smaller SRAM addresses**. The biggest stack possible is initialised to **RAMEND**. It can then grow all the way down to the first SRAM address.
