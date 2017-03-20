@@ -31,3 +31,13 @@ IO_READ_SUB:
 	/* So the mask should be 00001000 to make the bit number 3 cleared */
 	CBR R5,8
 
+	/* Check the bit number 5 to see if it is set or cleared */
+	/* To do this we can use AND operation but we need the contents of R5
+	* So its better to use SBRC: Skip if Bit in Register is cleared */
+	sbrc R5,5
+	/* skip this line if it was cleared */
+	/* if it was set */
+	call ST_IND_DAT_Z
+	/* if it was cleared */
+	call SHIFT_MUL_STR
+
