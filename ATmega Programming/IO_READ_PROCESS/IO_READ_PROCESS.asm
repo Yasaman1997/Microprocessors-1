@@ -49,7 +49,11 @@ IO_READ_SUB:
 	mul R5,5
 	/* mul result is stored at R1:R0 */
 	/* Put the result on stack */
-
+	/* We need to set up the stack first */
+	ldi	R16, low(RAMEND)
+	out	SPL, R16
+	ldi	R16, high(RAMEND)
+	out	SPH, R16
 ST_IND_DAT_Z:
 	/* I will use STD instruction to store the content of register R5
 	* into the address Z+0x10 in the data space */
