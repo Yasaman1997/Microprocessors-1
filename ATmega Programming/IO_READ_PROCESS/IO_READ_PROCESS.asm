@@ -39,7 +39,16 @@ IO_READ_SUB:
 	/* if it was set */
 	jmp ST_IND_DAT_Z
 	/* if it was cleared */
-	call SHIFT_MUL_STR
+	/* Operate a ASR on the R5 */
+	/* This is how ASR works: 
+	* Shifts all bits in Rd one place to the right. Bit 7 is held constant.
+	* Bit 0 is loaded into the C flag of the SREG. */
+	asr R5					// R5 = R5/2
+
+	/* Perform a multiplication on R5 and constant 5 */
+	mul R5,5
+	/* mul result is stored at R1:R0 */
+	/* Put the result on stack */
 
 ST_IND_DAT_Z:
 	/* I will use STD instruction to store the content of register R5
