@@ -37,7 +37,11 @@ IO_READ_SUB:
 	sbrc R5,5
 	/* skip this line if it was cleared */
 	/* if it was set */
-	call ST_IND_DAT_Z
+	jmp ST_IND_DAT_Z
 	/* if it was cleared */
 	call SHIFT_MUL_STR
 
+ST_IND_DAT_Z:
+	/* I will use STD instruction to store the content of register R5
+	* into the address Z+0x10 in the data space */
+	STD Z+0x10,R5			// Store R5 in data space loc. Z+0x10
