@@ -54,6 +54,9 @@ IO_READ_SUB:
 	out	SPL, R16
 	ldi	R16, high(RAMEND)
 	out	SPH, R16
+    /* push the result of R1:R0 */ 
+	push R1
+	push R0
 ST_IND_DAT_Z:
 	/* I will use STD instruction to store the content of register R5
 	* into the address Z+0x10 in the data space */
