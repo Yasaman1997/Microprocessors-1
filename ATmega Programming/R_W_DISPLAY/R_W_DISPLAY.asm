@@ -75,6 +75,12 @@ EEPROM_READ:
 	/* Wait for completion of write procedure */
 	sbic EECR,EEWE
 	rjmp EEPROM_READ
+	/* Set up the reading address */
+	ldi R18,0
+	ldi R19,0
+	out EEARH,R19
+	out EEARH,R18
+
 
 	/* Check the loop end point */
 	cp R16,R17
