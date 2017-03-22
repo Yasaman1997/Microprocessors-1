@@ -80,6 +80,9 @@ EEPROM_READ:
 	ldi R19,0
 	out EEARH,R19
 	out EEARH,R18
+	/* set bit EERE in EECR */
+	sbi EECR,EERE
+
 
 
 	/* Check the loop end point */
