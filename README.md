@@ -203,3 +203,6 @@ further reading: http://www.avr-tutorials.com/general/avr-microcontroller-stack-
 
 ## 7-Segment connection 
 In this section, I'll show you how to connect a 7-Segment to the PORT B of the ATmega16 and encoding the numbers 0-9 to the what is going to be shown on the 7-Segment. So what we need is connecting to the PORT B with that 7-Segment at first. Then storing those numbers somewhere in program memory.
+
+## Write to EEPROM, Configure the PORTS, Read from EEPROM and show the result (MERGED)
+In this section, I'll merge some described sections together to write the 0-9 numbers to the EEPROM memory, configure the port B and finally read those data from EEPROM memory and printing them in the configured 7 Segment.
