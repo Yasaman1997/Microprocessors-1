@@ -34,9 +34,9 @@ EEPROM_WRITE:
 	/* Start write */
 	sbi EECR,EEWE
 	/* Add 1 to the counter */
-	add R16,1
+	inc R16
 	/* Go to the next address on EEPROM */
-	add R18,1
+	inc R18
 	/* Check the loop end point */
 	cp R16,R17
 	brne EEPROM_WRITE
@@ -82,9 +82,11 @@ EEPROM_READ:
 	out EEARH,R18
 	/* set bit EERE in EECR */
 	sbi EECR,EERE
+	/* Read data from data register */
+	in R20,EEDR
 
-
-
+	/* increment R16 */
+	inc R16
 	/* Check the loop end point */
 	cp R16,R17
 	brne EEPROM_READ
