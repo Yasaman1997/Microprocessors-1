@@ -64,5 +64,6 @@ EEPROM_WRITE:
 	BCDTo7-Seg: .DB 0xCF, 0xA4, 0xB0, 0x00, 0x99, 0x92, 0x82, 0xF8, 0x80
 	/**************************/
 
+	/* Read the data from EEPROM and Display on 7 Segment */
 
     rjmp start
