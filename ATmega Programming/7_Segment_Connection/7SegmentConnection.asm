@@ -22,6 +22,7 @@ start:
 	* In order to be able to refer to the reserved locations, the DB directive should be preceded by a label. 
 	* The DB directive takes a list of expressions,
 	* and must contain at least one expression. The DB directive must be placed in a Code Segment or an EEPROM Segment. */
-	
+	.CSEG	; Notify to make place on code segment (program memory)
+
    
     rjmp start		
