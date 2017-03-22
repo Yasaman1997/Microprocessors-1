@@ -75,6 +75,6 @@ EEPROM_READ:
 	
 
 	/* Check the loop end point */
-
-
+	cp R16,R17
+	brne EEPROM_READ
     rjmp start
