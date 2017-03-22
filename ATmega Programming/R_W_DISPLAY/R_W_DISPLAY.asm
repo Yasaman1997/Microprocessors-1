@@ -61,9 +61,20 @@ EEPROM_WRITE:
 	* The DB directive takes a list of expressions,
 	* and must contain at least one expression. The DB directive must be placed in a Code Segment or an EEPROM Segment. */
 	.CSEG
-	BCDTo7-Seg: .DB 0xCF, 0xA4, 0xB0, 0x00, 0x99, 0x92, 0x82, 0xF8, 0x80
+	BCDTo7_Seg: .DB 0xCF, 0xA4, 0xB0, 0x00, 0x99, 0x92, 0x82, 0xF8, 0x80
 	/**************************/
 
+	/**************************/
 	/* Read the data from EEPROM and Display on 7 Segment */
+	/* Start the reading loop */
+	/* a counter is defined already as R16 */
+	/* Just reload R16 with 0 and R17 with 9 */ 
+	ldi R16,0
+	ldi R17,9
+EEPROM_READ:
+	
+
+	/* Check the loop end point */
+
 
     rjmp start
