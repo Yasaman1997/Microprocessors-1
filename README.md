@@ -200,3 +200,6 @@ Imagine you can't remember where you just left. You'd have to write down where y
 
 The Stack needs a stack pointer (SP) and space in SRAM (the stack pointer must point above the first SRAM address). When a return address is stored, the SP is **post-decremented**. In other words: The stack is **growing** towards **smaller SRAM addresses**. The biggest stack possible is initialised to **RAMEND**. It can then grow all the way down to the first SRAM address.
 further reading: http://www.avr-tutorials.com/general/avr-microcontroller-stack-operation-and-stack-pointer
+
+## 7-Segment connection 
+In this section, I'll show you how to connect a 7-Segment to the PORT B of the ATmega16 and encoding the numbers 0-9 to the what is going to be shown on the 7-Segment. So what we need is connecting to the PORT B with that 7-Segment at first. Then storing those numbers somewhere in program memory.
