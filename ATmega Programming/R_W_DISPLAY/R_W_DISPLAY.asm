@@ -72,7 +72,9 @@ EEPROM_WRITE:
 	ldi R16,0
 	ldi R17,9
 EEPROM_READ:
-	
+	/* Wait for completion of write procedure */
+	sbic EECR,EEWE
+	rjmp EEPROM_READ
 
 	/* Check the loop end point */
 	cp R16,R17
