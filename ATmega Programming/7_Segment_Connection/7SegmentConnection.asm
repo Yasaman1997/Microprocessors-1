@@ -23,6 +23,7 @@ start:
 	* The DB directive takes a list of expressions,
 	* and must contain at least one expression. The DB directive must be placed in a Code Segment or an EEPROM Segment. */
 	.CSEG	; Notify to make place on code segment (program memory)
+	sevenSegEncodings: .DB 
 
    
     rjmp start		
