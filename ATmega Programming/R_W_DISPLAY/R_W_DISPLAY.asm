@@ -86,7 +86,14 @@ EEPROM_READ:
 	in R20,EEDR
 	/* ok, now we have the number in R20
 	* Let's display it on 7-Segment */
-	/* find the number in the BCDTo7-Seg Table*/ 
+	/* find the number in the BCDTo7_Seg Table */
+
+	/* put the address of first element of BCDTo7_Seg in R25 */
+	ld R25,BCDTo7_Seg
+WALK_THROUGH:
+	/* put the value of each element in R24 */
+	ld R24,BCDTo7_Seg[1]
+
 
 
 	/* increment R16 */
