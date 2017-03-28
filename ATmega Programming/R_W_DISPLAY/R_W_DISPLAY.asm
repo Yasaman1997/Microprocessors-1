@@ -84,6 +84,10 @@ EEPROM_READ:
 	sbi EECR,EERE
 	/* Read data from data register */
 	in R20,EEDR
+	/* ok, now we have the number in R20
+	* Let's display it on 7-Segment */
+	/* find the number in the BCDTo7-Seg Table*/ 
+
 
 	/* increment R16 */
 	inc R16
