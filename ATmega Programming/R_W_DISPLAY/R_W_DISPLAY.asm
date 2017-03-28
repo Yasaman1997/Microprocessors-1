@@ -76,8 +76,8 @@ EEPROM_READ:
 	sbic EECR,EEWE
 	rjmp EEPROM_READ
 	/* Set up the reading address */
-	ldi R18,0
-	ldi R19,0
+	ldi R18,0x00
+	ldi R19,0x00
 	out EEARH,R19
 	out EEARH,R18
 	/* set bit EERE in EECR */
