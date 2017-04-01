@@ -37,11 +37,23 @@ BLINK_MODE:
 	out PORTB,R18
 
 	/* Create a delay */
+	call LONG_DELAY
 
 	/* Turn off the LED */
 
 	/* Increment the counter */
 
 	/* Check the content of the counter */
+
+	/* Delay function */
+LONG_DELAY:
+	ldi r25,0xFF
+LOOP:
+	nop
+	dec R25
+	cpi R25,0x00
+	brne LOOP
+ret
+
 	
 rjmp start
