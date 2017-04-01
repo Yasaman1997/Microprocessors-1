@@ -23,13 +23,19 @@ OFF_MODE:
 	ldi R18,0x00
 	out PORTB,R18
 	/* Check the content of PINB0 */
+	/* Wait for the PINB to get pressed by the user */
 	ldi R19,0x01	; Load 0b00000001 in R19
 	cp PINB,R19		; Compare the contents to see if the button is pressed
 	brne OFF_MODE	; Branch to the OFF_MODE if the key isn't pressed yet
-ON_MODE:
+
+BLINK_MODE:
+	/* Define a counter */
+	ldi R20,0
+	/* Turn on the LED */
 	/* Put the PORTB to 1 */
 	ldi R18,0xFF
 	out PORTB,R18
+
 	/* Check the content of PINB0 */
 	ldi R19,0x01	; Load 0b00000001 in R19
 	cp PINB,R19		; Compare the contents to see if the button is unpressed */
