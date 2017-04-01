@@ -42,9 +42,10 @@ BLINK_MODE:
 	/* Turn off the LED */
 	ldi R18,0x00
 	out PORTB,R18
-
+	
 	/* Increment the counter */
-
+	inc R20
+	
 	/* Check the content of the counter */
 
 	/* Delay function */
