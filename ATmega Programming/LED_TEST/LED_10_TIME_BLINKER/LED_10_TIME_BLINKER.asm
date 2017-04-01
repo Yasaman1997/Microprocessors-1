@@ -40,6 +40,8 @@ BLINK_MODE:
 	call LONG_DELAY
 
 	/* Turn off the LED */
+	ldi R18,0x00
+	out PORTB,R18
 
 	/* Increment the counter */
 
