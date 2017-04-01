@@ -8,5 +8,7 @@
 
 ; Replace with your application code
 start:
-    inc r16
-    rjmp start
+    /* set the port b data direction to 0 for input */
+	ldi R16, 0x0F	; Load 0b00000001 in R16
+    out DDRB,R16	; Configure the PORTB0 as output
+	rjmp start
