@@ -36,8 +36,12 @@ BLINK_MODE:
 	ldi R18,0xFF
 	out PORTB,R18
 
-	/* Check the content of PINB0 */
-	ldi R19,0x01	; Load 0b00000001 in R19
-	cp PINB,R19		; Compare the contents to see if the button is unpressed */
-	brne ON_MODE	; Branch to the ON_MODE if the key isn't unpressed yet
+	/* Create a delay */
+
+	/* Turn off the LED */
+
+	/* Increment the counter */
+
+	/* Check the content of the counter */
+	
 rjmp start
