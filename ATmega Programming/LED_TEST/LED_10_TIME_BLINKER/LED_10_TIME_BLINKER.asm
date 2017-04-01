@@ -47,6 +47,8 @@ BLINK_MODE:
 	inc R20
 	
 	/* Check the content of the counter */
+	cpi R20,0x0A
+	brne BLINK_MODE
 
 	/* Delay function */
 LONG_DELAY:
