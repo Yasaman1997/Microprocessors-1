@@ -33,4 +33,5 @@ ON_MODE:
 	/* Check the content of PINB0 */
 	ldi R19,0x01	; Load 0b00000001 in R19
 	cp PINB,R19		; Compare the contents to see if the button is unpressed */
+	brne ON_MODE	; Branch to the ON_MODE if the key isn't unpressed yet
 	rjmp start
