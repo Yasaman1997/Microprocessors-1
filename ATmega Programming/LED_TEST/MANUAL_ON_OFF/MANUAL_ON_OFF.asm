@@ -11,10 +11,12 @@ start:
     /* set the PINB0 data direction to 0 for input */
 	ldi R16, 0x01	; Load 0b00000001 in R16
     out DDRB,R16	; Configure the PINB0 as input
+
 	/* set the PORTB data direction to 1 for output */
 	/* this one causes the LED to be ON/OFF */
 	ldi R17, 0x80	; Load 0b10000000 in R17
-	out DDRB,R17
+	out DDRB,R17	; Configure the PORTB7 as output
+
 OFF_MODE:
 	/* Put the PORTB
 	/* Check the content of PORTB0 */
