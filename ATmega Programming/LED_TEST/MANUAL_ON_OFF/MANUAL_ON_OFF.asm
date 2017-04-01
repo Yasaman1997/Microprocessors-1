@@ -18,7 +18,10 @@ start:
 	out DDRB,R17	; Configure the PORTB7 as output
 
 OFF_MODE:
-	/* Put the PORTB
+	/* Put the PORTB to 0 */ 
+	ldi R18,0x00
+	out PORTB,R18
+	
 	/* Check the content of PORTB0 */
 	ldi R17,0x01	; Load 0b00000001 in R16
 	cp PINB,R17		; Compare the contents to see if the button is pressed
