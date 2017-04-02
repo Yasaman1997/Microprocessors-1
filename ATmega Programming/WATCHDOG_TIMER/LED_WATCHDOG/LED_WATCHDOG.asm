@@ -59,4 +59,18 @@ OFF_MODE:
 	cp PINB,R19		; Compare the contents to see if the button is pressed
 	brne OFF_MODE	; Branch to the OFF_MODE if the key isn't pressed yet
 
+	/* Keep the LED in ON_MODE for unlimited seconds - This will cause the WDT to reset everything */
+ON_MODE:
+	/* Put the PORTB to 1 */
+	ldi R18,0xFF
+	out PORTB,R18
+	/* Check the other button if the user make this reset manually */
+	/* Check the content of PINB1 */
+	ldi R19,0x02	; Load 0b00000010 in R19
+	cp PINB,R19		; Compare the contents to see if the button is unpressed */
+	brne ON_MODE	; Branch to the ON_MODE if the key isn't unpressed yet
+
+	/* Simply reset the watchdog if the button is pressed */
+	wdr
+
     rjmp start
