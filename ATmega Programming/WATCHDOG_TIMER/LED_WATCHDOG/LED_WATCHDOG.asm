@@ -10,6 +10,8 @@
 
 ; Replace with your application code
 start:
+	/******************************************/
+	/* Configure the input and output ports */
     /* set the PINB0 data direction to 0 for input */
 	/* This one simulates the key */
 	ldi R16, 0x01	; Load 0b00000001 in R16
@@ -26,5 +28,23 @@ start:
 	/* this one causes the LED to be ON/OFF */
 	ldi R17, 0x80	; Load 0b10000000 in R17
 	out DDRB,R17	; Configure the PORTB7 as output
+
+
+
+	/********************************/
+	/* Configure the Watchdog timer initial values for a 2.1s timeout */
+	; WDP2, WDP1, WDP0 must be confgure in order to use the 2.1 s timeout in wdt prescaling
+	; those bits are in WDTCR
+	; to use 2.1(s) timeout we need to put WDP2..WDP0 to "111" according to the data sheet
+	
+	/* Prepare the number that must be written in WDTCR */
+	ldi R20,0x0F	; Write 0b00001111 in R20
+
+	/* last 1 is for the WDE(Watchdog Enable) */
+	/* First three 1s are for the 2.1s config */
+	/* Put the result in the WDTCR */
+	out WDTCR,R20
+	/* Now we have the initialized WDT for a 2.1(s) delay */
+
 
     rjmp start
