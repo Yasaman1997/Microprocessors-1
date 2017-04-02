@@ -22,6 +22,7 @@ start:
 	lsl R20
 
 	/* Put the result in the WDTCR */
+	out WDTCR,R20
 
 	/* Now we have the initialized WDT for a 2.1(s) delay */
 
