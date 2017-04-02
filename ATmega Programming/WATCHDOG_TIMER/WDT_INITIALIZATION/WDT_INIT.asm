@@ -13,18 +13,13 @@ start:
 	; those bits are in WDTCR
 	; to use 2.1(s) timeout we need to put WDP2..WDP0 to "111" according to the data sheet
 	
-	/* Simply put 0 in a register */
-	ldi R20,0x00
+	/* Prepare the number that must be written in WDTCR */
+	ldi R20,0x0F	; Write 0b00001111 in R20
 
-	/* Shift this register three times*/
-	lsl R20
-	lsl R20
-	lsl R20
-
+	/* last 1 is for the WDE(Watchdog Enable) */
+	/* First three 1s are for the 2.1s config */
 	/* Put the result in the WDTCR */
 	out WDTCR,R20
 
 	/* Now we have the initialized WDT for a 2.1(s) delay */
-
-
     rjmp start
