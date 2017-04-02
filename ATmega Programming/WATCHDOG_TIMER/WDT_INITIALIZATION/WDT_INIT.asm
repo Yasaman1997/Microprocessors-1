@@ -14,6 +14,7 @@ start:
 	; to use 2.1(s) timeout we need to put WDP2..WDP0 to "111" according to the data sheet
 	
 	/* Simply put 0 in a register */
+	ldi R20,0x00
 
 	/* Shift this register three times*/
 
