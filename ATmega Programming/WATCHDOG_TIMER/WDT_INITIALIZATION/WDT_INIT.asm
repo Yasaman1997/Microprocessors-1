@@ -9,5 +9,5 @@
 
 ; Replace with your application code
 start:
-    inc r16
+    ; WDP2, WDP1, WDP0 must be confgure in order to use the 2.1 s timeout in wdt prescaling
     rjmp start
