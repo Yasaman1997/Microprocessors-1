@@ -17,6 +17,9 @@ start:
 	ldi R20,0x00
 
 	/* Shift this register three times*/
+	lsl R20
+	lsl R20
+	lsl R20
 
 	/* Put the result in the WDTCR */
 
