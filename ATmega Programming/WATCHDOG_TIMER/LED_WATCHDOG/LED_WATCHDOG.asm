@@ -46,5 +46,17 @@ start:
 	out WDTCR,R20
 	/* Now we have the initialized WDT for a 2.1(s) delay */
 
+	/************************************/
+	/* Wait for the button to make the LED on */
+OFF_MODE:
+	/* Put the PORTB to 0 */
+	/* Keep the LED off */ 
+	ldi R18,0x00
+	out PORTB,R18
+	/* Check the content of PINB0 */
+	/* Wait for the PINB to get pressed by the user */
+	ldi R19,0x01	; Load 0b00000001 in R19
+	cp PINB,R19		; Compare the contents to see if the button is pressed
+	brne OFF_MODE	; Branch to the OFF_MODE if the key isn't pressed yet
 
     rjmp start
