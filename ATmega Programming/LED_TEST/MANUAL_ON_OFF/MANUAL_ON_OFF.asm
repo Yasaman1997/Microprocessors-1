@@ -24,7 +24,11 @@ OFF_MODE:
 	out PORTB,R18
 	/* Check the content of PINB0 */
 	ldi R19,0x01	; Load 0b00000001 in R19
-	cp PINB,R19		; Compare the contents to see if the button is pressed
+	//cp PINB,R19		; Compare the contents to see if the button is pressed
+	/* We cannot compare PIN or PORT registers with another Register from Regsiter file */
+	/* Just copy the PINB to R20 and compare R20 and R19 */
+	in R20,PINB
+	cp R20,R19
 	brne OFF_MODE	; Branch to the OFF_MODE if the key isn't pressed yet
 ON_MODE:
 	/* Put the PORTB to 1 */
