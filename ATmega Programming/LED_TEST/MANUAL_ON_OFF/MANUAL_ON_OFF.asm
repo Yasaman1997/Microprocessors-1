@@ -11,7 +11,7 @@ start:
     /* set the PINB0 data direction to 0 for input */
 	/* This one simulates the key */
 	cli
-	ldi R16, 0x01	; Load 0b00000001 in R16
+	ldi R16, (0 << PD2)	; Make PD2 as input
     out DDRB,R16	; Configure the PINB0 as input
 
 	/* set the PORTB7 data direction to 1 for output */
