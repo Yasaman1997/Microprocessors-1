@@ -7,7 +7,10 @@
 ; Program to test the LED ON/OFF states manually
 
 .org 0x00
-	jmp isr_here
+	jmp ISR_HERE
+
+ISR_HERE:
+	
 start:
     /* set the PINB0 data direction to 0 for input */
 	/* This one simulates the key */
