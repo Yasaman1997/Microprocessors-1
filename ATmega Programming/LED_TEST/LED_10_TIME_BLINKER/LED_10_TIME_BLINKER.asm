@@ -31,15 +31,15 @@ BLINK_MODE:
 	/* Define a counter */
 	ldi R20,0
 	/* Turn on the LED */
-	/* Put the PORTB to 1 */
-	ldi R18,0xFF
+	/* Put the PORTB7 to 1 */
+	ldi R18,(1 << PB7)
 	out PORTB,R18
 
 	/* Create a delay */
 	call LONG_DELAY
 
 	/* Turn off the LED */
-	ldi R18,0x00
+	ldi R18,(0 << PB7)
 	out PORTB,R18
 	
 	/* Increment the counter */
@@ -49,6 +49,8 @@ BLINK_MODE:
 	cpi R20,0x0A
 	brne BLINK_MODE
 	jmp	OFF_MODE
+rjmp start
+
 	/* Delay function */
 LONG_DELAY:
 	ldi r25,0xFF
@@ -58,5 +60,3 @@ LOOP:
 	cpi R25,0x00
 	brne LOOP
 ret
-
-rjmp start
