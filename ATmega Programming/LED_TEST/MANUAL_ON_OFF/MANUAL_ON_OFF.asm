@@ -27,7 +27,7 @@ ISR_HERE:
 	/* this one causes the LED to be ON/OFF */
 	ldi R17, (1 << PB7)	; Make PB7 as output 
 	out DDRB,R17	; Configure the PORTB7 as output
-
+	sei
 
 	
 start:
