@@ -36,7 +36,7 @@ ON_MODE:
 	ldi R18,(1 << PB7)
 	out PORTB,R18
 	/* Check the content of PINB0 */
-	ldi R19,0x01	; Load 0b00000001 in R19
+	ldi R19,(1 << PB0)	; Load 0b00000001 in R19
 	/* We cannot compare PIN or PORT registers with another Register from Regsiter file */
 	/* Just copy the PINB to R20 and compare R20 and R19 */
 	in R20,PINB
