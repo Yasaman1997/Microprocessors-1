@@ -36,6 +36,9 @@ ON_MODE:
 	out PORTB,R18
 	/* Check the content of PINB0 */
 	ldi R19,0x01	; Load 0b00000001 in R19
-	cp PINB,R19		; Compare the contents to see if the button is unpressed */
+	/* We cannot compare PIN or PORT registers with another Register from Regsiter file */
+	/* Just copy the PINB to R20 and compare R20 and R19 */
+	in R20,PINB
+	cp R20,R19		; Compare the contents to see if the button is unpressed */
 	brne ON_MODE	; Branch to the ON_MODE if the key isn't unpressed yet
 rjmp start
