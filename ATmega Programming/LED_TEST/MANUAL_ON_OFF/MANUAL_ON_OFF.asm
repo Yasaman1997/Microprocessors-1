@@ -21,7 +21,7 @@ start:
 
 OFF_MODE:
 	/* Put the PORTB7 to 0 */ 
-	ldi R18,0x00
+	ldi R18,(0 << PB7)
 	out PORTB,R18
 	/* Check the content of PINB0 */
 	ldi R19,0x01	; Load 0b00000001 in R19
