@@ -11,9 +11,7 @@
 
 ISR_HERE:
 	cli
-	
-start:
-    /* set the PINB0 data direction to 0 for input */
+	/* set the PINB0 data direction to 0 for input */
 	/* This one simulates the key */
 	ldi R16, (0 << PB2)	; Make PB2 as input
     out DDRB,R16	; Configure the PINB0 as input
@@ -22,7 +20,8 @@ start:
 	/* this one causes the LED to be ON/OFF */
 	ldi R17, (1 << PB7)	; Make PB7 as output 
 	out DDRB,R17	; Configure the PORTB7 as output
-
+	
+start:
 OFF_MODE:
 	/* Put the PORTB7 to 0 */ 
 	ldi R18,(0 << PB7)
