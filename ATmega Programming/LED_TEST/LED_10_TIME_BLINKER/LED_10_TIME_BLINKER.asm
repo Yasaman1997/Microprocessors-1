@@ -19,8 +19,8 @@ start:
 	out DDRB,R17	; Configure the PORTB7 as output
 
 OFF_MODE:
-	/* Put the PORTB to 0 */ 
-	ldi R18,0x00
+	/* Put the PORTB0 to 0 */ 
+	ldi R18,(0 << PB0)
 	out PORTB,R18
 	/* Check the content of PINB0 */
 	/* Wait for the PINB to get pressed by the user */
