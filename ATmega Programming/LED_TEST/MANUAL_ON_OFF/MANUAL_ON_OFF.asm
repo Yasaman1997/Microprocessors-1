@@ -15,6 +15,8 @@ ISR_HERE:
 	/* This one simulates the key */
 	ldi R16, (0 << PD2)	; Make PD2 as input
     out DDRB,R16	; Configure the PIND0 as input
+	ldi R16, (1 << PD2)	; PD2 Pull-Up
+	out PORTD,R16
 
 
 	/* set the PORTB7 data direction to 1 for output */
