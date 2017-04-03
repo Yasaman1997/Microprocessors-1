@@ -48,15 +48,17 @@ BLINK_MODE:
 	/* Check the content of the counter */
 	cpi R20,0x0A
 	brne BLINK_MODE
+	/* Clear the input to avoid duplicate press virtualization */
+	cbi PINB,0
 	jmp	OFF_MODE
 rjmp start
 
 	/* Delay function */
 LONG_DELAY:
-	ldi r25,0xFF
+	ldi r25,10
 LOOP:
 	nop
 	dec R25
-	cpi R25,0x00
+	cpi R25,0
 	brne LOOP
 ret
