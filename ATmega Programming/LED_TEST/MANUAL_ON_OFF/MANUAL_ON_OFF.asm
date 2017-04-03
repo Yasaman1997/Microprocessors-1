@@ -16,7 +16,7 @@ start:
 
 	/* set the PORTB7 data direction to 1 for output */
 	/* this one causes the LED to be ON/OFF */
-	ldi R17, 0x80	; Load 0b10000000 in R17
+	ldi R17, (1 << PB7)	; Make PB7 as output 
 	out DDRB,R17	; Configure the PORTB7 as output
 
 OFF_MODE:
