@@ -36,10 +36,9 @@
 		sbis PIND,2
 		jmp ON_MODE	; Branch to the ON_MODE if the key isn't unpressed yet
 	rjmp start
-	delay:
-		ldi r16, 0xFF
-	delay_loop_1:
-		dec r16
-		cpi r16, 0x00
-		jmp delay_loop_1
-	ret
+delay:
+    ldi r16, 0xFF
+delay_loop_1:
+    dec r16
+    brne delay_loop_1
+    ret
