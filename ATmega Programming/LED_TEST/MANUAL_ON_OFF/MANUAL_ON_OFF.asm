@@ -35,14 +35,14 @@ OFF_MODE:
 	/* Put the PORTB7 to 0 */ 
 	ldi R18,(0 << PB7)
 	out PORTB,R18
-	/* Skip if PIN 1 in PORT D is set */
-	sbis $D,0
+	/* Skip if PIN 0 in PORT D is set */
+	sbis $12,0
 	brne OFF_MODE	; Branch to the OFF_MODE if the key isn't pressed yet
 ON_MODE:
 	/* Put the PORTB to 1 */
 	ldi R18,(1 << PB7)
 	out PORTB,R18
-	/* Skip if PIN 1 in PORT D is set */
-	sbis $D,7
+	/* Skip if PIN 0 in PORT D is set */
+	sbis $12,7
 	brne ON_MODE	; Branch to the ON_MODE if the key isn't unpressed yet
 rjmp start
