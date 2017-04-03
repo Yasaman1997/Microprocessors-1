@@ -20,18 +20,19 @@
 		/* Put the PORTB7 to 0 */ 
 		ldi R18,(0 << PB7)
 		out PORTB,R18
-		call delay
 		/* Skip if PIN 2 in PORT D is set */
 		sbis PIND,2
 		jmp OFF_MODE	; Branch to the OFF_MODE if the key isn't pressed yet
 
+		/* Make sure to clear the PIND2 before we continue */
+		cbi PIND,2
 	ON_MODE:
 		nop
 		/* Put the PORTB to 1 */
 		ldi R18,(1 << PB7)
 		out PORTB,R18
-		call delay
 		/* Skip if PIN 2 in PORT D is set */
+
 		sbis PIND,2
 		jmp ON_MODE	; Branch to the ON_MODE if the key isn't unpressed yet
 	rjmp start
