@@ -20,7 +20,7 @@ start:
 	out DDRB,R17	; Configure the PORTB7 as output
 
 OFF_MODE:
-	/* Put the PORTB to 0 */ 
+	/* Put the PORTB7 to 0 */ 
 	ldi R18,0x00
 	out PORTB,R18
 	/* Check the content of PINB0 */
