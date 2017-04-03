@@ -10,7 +10,7 @@
 start:
     /* set the PINB0 data direction to 0 for input */
 	/* This one simulates the key */
-	ldi R16, 0x01	; Load 0b00000001 in R16
+	ldi R16, (0 << PB0)	; Load 0b00000001 in R16
     out DDRB,R16	; Configure the PINB0 as input
 
 	/* set the PORTB data direction to 1 for output */
@@ -60,5 +60,4 @@ LOOP:
 	brne LOOP
 ret
 
-	
 rjmp start
