@@ -18,6 +18,10 @@ ISR_HERE:
 	ldi R16, (1 << PD2)	; PD2 Pull-Up
 	out PORTD,R16
 
+	/* Enable the Interrupt System */
+	ldi R16, (1 << INT0)
+	out GICR, R16
+
 
 	/* set the PORTB7 data direction to 1 for output */
 	/* this one causes the LED to be ON/OFF */
