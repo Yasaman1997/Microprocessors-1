@@ -10,11 +10,11 @@
 	jmp ISR_HERE
 
 ISR_HERE:
+	cli
 	
 start:
     /* set the PINB0 data direction to 0 for input */
 	/* This one simulates the key */
-	cli
 	ldi R16, (0 << PB2)	; Make PB2 as input
     out DDRB,R16	; Configure the PINB0 as input
 
