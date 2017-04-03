@@ -9,14 +9,14 @@
 		/* set the PIND2 data direction to 0 for input */
 		/* This one simulates the key */
 		ldi R16, (0 << PD2)	; Make PD2 as input
-		out DDRB,R16	; Configure the PIND2 as input
-
+		out DDRD,R16	; Configure the PIND2 as input
 		/* set the PORTB7 data direction to 1 for output */
 		/* this one causes the LED to be ON/OFF */
 		ldi R17, (1 << PB7)	; Make PB7 as output 
 		out DDRB,R17	; Configure the PORTB7 as output
 
 	OFF_MODE:
+		nop
 		/* Put the PORTB7 to 0 */ 
 		ldi R18,(0 << PB7)
 		out PORTB,R18
@@ -26,6 +26,7 @@
 		jmp OFF_MODE	; Branch to the OFF_MODE if the key isn't pressed yet
 
 	ON_MODE:
+		nop
 		/* Put the PORTB to 1 */
 		ldi R18,(1 << PB7)
 		out PORTB,R18
