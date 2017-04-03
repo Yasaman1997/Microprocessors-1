@@ -33,7 +33,7 @@ OFF_MODE:
 	brne OFF_MODE	; Branch to the OFF_MODE if the key isn't pressed yet
 ON_MODE:
 	/* Put the PORTB to 1 */
-	ldi R18,0xFF
+	ldi R18,(1 << PB7)
 	out PORTB,R18
 	/* Check the content of PINB0 */
 	ldi R19,0x01	; Load 0b00000001 in R19
