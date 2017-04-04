@@ -28,7 +28,6 @@ EEPROM_WRITE:
 	/* Counter can be used itself */
 	out EEDR,R16
 	/* Write logical one to the EEMWE */
-	/* Set bit immediate */
 	sbi EECR,EEMWE
 	/* Start write */
 	sbi EECR,EEWE
