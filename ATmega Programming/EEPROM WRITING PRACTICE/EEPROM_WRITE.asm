@@ -10,6 +10,7 @@
 start:
 	/* Define a counter in R16 */
 	ldi R16,0
+	/* Define a counter in R17 */
 	ldi R17,8
 	/* EEPROM Address to be written */
 	ldi R18,0x00
@@ -32,9 +33,9 @@ EEPROM_WRITE:
 	/* Start write */
 	sbi EECR,EEWE
 	/* Add 1 to the counter */
-	add R16,1
+	inc R16
 	/* Go to the next address on EEPROM */
-	add R18,1
+	inc R18
 	/* Check the loop end point */
 	cp R16,R17
 	brne EEPROM_WRITE
