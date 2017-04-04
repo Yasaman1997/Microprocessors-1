@@ -27,6 +27,7 @@ OFF_MODE:
 	sbis PINB,0
 	brne OFF_MODE	; Branch to the OFF_MODE if the key isn't pressed yet
 
+	    ldi R20, 10
 BLINK_MODE:
 	/* Define a counter */
 	ldi R20,0
@@ -42,8 +43,8 @@ BLINK_MODE:
 	ldi R18,(0 << PB7)
 	out PORTB,R18
 	
-	/* Increment the counter */
-	inc R20
+	/* dec the counter */
+	dec R20
 	
 	/* Check the content of the counter */
 	cpi R20,0x0A
