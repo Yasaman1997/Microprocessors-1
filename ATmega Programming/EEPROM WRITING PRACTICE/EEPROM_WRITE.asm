@@ -35,6 +35,6 @@ EEPROM_WRITE:
 	inc R18
 	/* Check the loop end point */
 	brne EEPROM_WRITE
-    rjmp EEPROM_WRITE
+    .EXIT
 	rjmp start
 
