@@ -9,9 +9,7 @@
 ; Replace with your application code
 start:
 	/* Define a counter in R16 */
-	ldi R16,0
-	/* Define a counter in R17 */
-	ldi R17,8
+	ldi R16,9
 	/* EEPROM Address to be written */
 	ldi R18,0x00
 	ldi R19,0x00
@@ -31,12 +29,11 @@ EEPROM_WRITE:
 	sbi EECR,EEMWE
 	/* Start write */
 	sbi EECR,EEWE
-	/* Add 1 to the counter */
-	inc R16
+	/* dec the counter */
+	dec R16
 	/* Go to the next address on EEPROM */
 	inc R18
 	/* Check the loop end point */
-	cp R16,R17
 	brne EEPROM_WRITE
     rjmp EEPROM_WRITE
 	rjmp start
