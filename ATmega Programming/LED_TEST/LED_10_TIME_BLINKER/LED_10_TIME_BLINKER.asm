@@ -47,7 +47,7 @@ BLINK_MODE:
     ldi R18,(0 << PB7)
     out PORTB,R18
 
-    /* Increment the counter */
+    /* decrement the counter */
     dec R20
     brne BLINK_MODE
     /* Clear the input to avoid duplicate press virtualization */
