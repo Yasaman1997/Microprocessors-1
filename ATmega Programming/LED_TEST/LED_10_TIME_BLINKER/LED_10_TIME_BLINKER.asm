@@ -60,6 +60,5 @@ LONG_DELAY:
 LOOP:
 	nop
 	dec R25
-	cpi R25,0
 	brne LOOP
 ret
