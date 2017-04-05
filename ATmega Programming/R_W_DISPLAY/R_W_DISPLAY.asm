@@ -84,7 +84,9 @@ EEPROM_READ:
 	/* Simply start reading from program memory */
 	/* The reading from program memory must be done with the starting address: BCDTo7_Seg LABEL */
 	/* we can access the other stored data by simply adding the value of R20 each time to the address of BCDTo7_Seg value */
-
+	/* INITIALIZE Z POINTER */
+	ldi ZH,high(BCDTo7_Seg << 1)
+	ldi ZL,low(BCDTo7_Seg << 1)
 
 	/* decrement R16 */
 	dec R16
