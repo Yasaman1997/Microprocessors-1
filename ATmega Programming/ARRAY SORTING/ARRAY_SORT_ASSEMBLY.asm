@@ -28,7 +28,10 @@ OUTER_LOOP:
 	
 INNER_LOOP:
 	/* we need to keep track of two words each time we loop through the INNER_LOOP */
-	/* Take a copy of R16 (starting point of the main loop) in R17 */
+	/* Take a copy of Z (starting point of the main loop) in 24 */
+	mov R24,Z
+
+	/* Load Z and Z+ contents into R17 and R18 for comparison */
 	lpm R17,Z+;
 	lpm R18,Z;
 	/* Now we have that (n)th and that (n+1)th element value in R17 and R18 respectively :D */
@@ -53,4 +56,9 @@ INNER_LOOP:
 
 SWAP_ROUTINE:
 	/* Change the content of R17 and R18 addresses */
+	/* We have the address of R17 atm in R24 */
+	/* We have the address of R18 in the Z pointer */
+	/* We need to swap the contents of R17 and R18 */
+
+	spm 
 	
