@@ -19,16 +19,8 @@ adder_subroutine:
 	/* add the result to the R4:R3 (we need addition! not replacement :D) */
 	add R3,R0
 	adc R4,R1			
-	/* We need to use R19 with R20 as a pair(since ADIW will put the result in a pair) */
-	/*ldi R19,0 (shame) */
-	/* Add immediate 5 to the word R20:R19 (because we need the sqaure of 5X numbers) */
-	/*adiw R20:R19,5 (shame) */
-	/* i guess we need to increment R20 5 times :| */ 
-	inc R20
-	inc R20
-	inc R20
-	inc R20 
-	inc R20
+	/* Add immediate 5 to the R20 (because we need the sqaure of 5X numbers) */
+	add R20,R21
 	/* Check if we have reached the end of the loop */
 	cp R20,R10
 	brne adder_subroutine
