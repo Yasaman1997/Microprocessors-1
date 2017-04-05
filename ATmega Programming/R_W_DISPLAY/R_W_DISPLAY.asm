@@ -90,6 +90,12 @@ R_W:
 	clr R23
 	/* R23 contains the data must be written to the 7 segment */
 	lpm R23,Z+
+
+	/* Display R23 Value on the 7-Segment */
+	/* Port B is set to the output before */ 
+	/* Simply show the result on the port b */
+	out PORTB,R23
+
 	/* decrement R16 */
 	dec R16
 	/* Check the loop end point */
