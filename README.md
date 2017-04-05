@@ -206,3 +206,13 @@ In this section, I'll show you how to connect a 7-Segment to the PORT B of the A
 
 ## Write to EEPROM, Configure the PORTS, Read from EEPROM and show the result (MERGED)
 In this section, I'll merge some described sections together to write the 0-9 numbers to the EEPROM memory, configure the port B and finally read those data from EEPROM memory and printing them in the configured 7 Segment.
+
+## Reading from program memory (LPM)
+Using **LMP** instruction we can simply access 64K of program memory bytes (**32K** words). The address which we read from is defined in the **Z** pointer and it has **Low** and **High** bytes.
+* **Example**:
+```
+ldi ZH, high(Table_1<<1) ; Initialize Z pointer
+ldi ZL, low(Table_1<<1)
+lpm r16, Z ; Load constant from program
+; memory pointed to by Z (r31:r30)
+```
