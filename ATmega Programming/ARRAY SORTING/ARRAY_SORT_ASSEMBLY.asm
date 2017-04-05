@@ -33,7 +33,7 @@ INNER_LOOP:
 	inc R17;
 	mov R18,R17;
 	dec R17;
-	/* Now we have that (n)th and that (n+1)th element address in R17 and R18 respectively :D */
+	/* Now we have that (n)th and that (n+1)th element value in R17 and R18 respectively :D */
 	/* Get the contents of R17 and R18 for comparison from that memory */
 	/* The content of program memory of address R17 and R18 will be stored in R19 and R20 for comparison */
 	/* use the LPM instruction to read those addresses */
@@ -66,4 +66,5 @@ INNER_LOOP:
     rjmp start 
 
 SWAP_ROUTINE:
-	swap 
+	/* Change the content of R17 and R18 addresses */
+	
