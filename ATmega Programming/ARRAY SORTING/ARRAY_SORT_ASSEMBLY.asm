@@ -39,9 +39,9 @@ INNER_LOOP:
 	/* use the LPM instruction to read those addresses */
 
 	/* load R19 with the content from address R17 in program memory */
-	lpm R19,R17
+	mov R19,R17
 	/* load R20 with the content from address R18 in program memory */
-	lpm R20,R18
+	mov R20,R18
 
 	/* Compare the result */
 	/* R19 = (n)th element & R20 = (n+1)th element */
