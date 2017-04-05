@@ -5,6 +5,12 @@
 ; Author : Ali Gholami
 ;
 start:
+	/* Stack Setup */ 
+    ldi r16, 0
+    out SPH, r16
+    ldi r16, 0xf0
+    out SPL, r16
+
 	/***********************************/
 		/*  EEPROM WRITE  */
 
