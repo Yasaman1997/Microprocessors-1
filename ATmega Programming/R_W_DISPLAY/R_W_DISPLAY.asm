@@ -61,11 +61,10 @@ EEPROM_WRITE:
 
 
 	/*****************************/
-	/* Read the data from EEPROM and Display on 7 Segment */
+	/* Read & Display */
+
 	/* Start the reading loop */
-	/* a counter is defined already as R16 */
-	/* Just reload R16 with 0 and R17 with 9 */ 
-	ldi R16,0
+	/* Just reload R16 with 0 and R17 with 9 */
 	ldi R17,9
 EEPROM_READ:
 	/* Wait for completion of write procedure */
@@ -81,9 +80,8 @@ EEPROM_READ:
 	/* Read data from data register */
 	in R20,EEDR
 
-	/* increment R16 */
-	inc R16
+	/* decrement R16 */
+	dec R16
 	/* Check the loop end point */
-	cp R16,R17
 	brne EEPROM_READ
     rjmp start
