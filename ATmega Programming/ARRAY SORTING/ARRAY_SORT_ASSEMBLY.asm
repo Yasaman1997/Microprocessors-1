@@ -62,7 +62,7 @@ SWAP_ROUTINE:
 	/* We need to swap the contents of R17 and R18 */
 	/* Create a temp register */
 	mov R26,R18		;	Backup R18
-	spm R17,Z		;	Swapping
+	spm R17			;	Swapping
 	/* Put the R24(Copy of R17 address) in the Z */
 	mov Z,R24
-	spm R26,Z
+	spm R26	
