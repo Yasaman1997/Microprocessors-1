@@ -66,10 +66,13 @@ EEPROM_WRITE:
 	/* Start the reading loop */
 	/* Just reload R16 with 0 and R17 with 9 */
 	ldi R17,9
-EEPROM_READ:
+	/* INITIALIZE Z POINTER */
+	ldi ZH,high(BCDTo7_Seg << 1)
+	ldi ZL,low(BCDTo7_Seg << 1)
+R_W:
 	/* Wait for completion of write procedure */
 	sbic EECR,EEWE
-	rjmp EEPROM_READ
+	rjmp R_W
 	/* Set up the reading address */
 	ldi R18,0
 	ldi R19,0
@@ -81,17 +84,14 @@ EEPROM_READ:
 	in R20,EEDR
 
 	/* The data is in the R20 Register */ 
-	/* Simply start reading from program memory */
-	/* The reading from program memory must be done with the starting address: BCDTo7_Seg LABEL */
-	/* we can access the other stored data by simply adding the value of R20 each time to the address of BCDTo7_Seg value */
-	/* INITIALIZE Z POINTER */
-	ldi ZH,high(BCDTo7_Seg << 1)
-	ldi ZL,low(BCDTo7_Seg << 1)
-	clr R23
-	/* R23 contains the data must be written to the 7 segment */
-	lpm R23,Z+
-	/* decrement R16 */
-	dec R16
-	/* Check the loop end point */
-	brne EEPROM_READ
-    rjmp start
+		/* Simply start reading from program memory */
+		/* The reading from program memory must be done with the starting address: BCDTo7_Seg LABEL */
+		/* we can access the other stored data by simply adding the value of R20 each time to the address of BCDTo7_Seg value */
+		clr R23
+		/* R23 contains the data must be written to the 7 segment */
+		lpm R23,Z+
+		/* decrement R16 */
+		dec R16
+		/* Check the loop end point */
+		brne R_W
+		rjmp start
