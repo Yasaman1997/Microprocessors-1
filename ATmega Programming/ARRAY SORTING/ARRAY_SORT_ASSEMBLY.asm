@@ -24,6 +24,9 @@ start:
 	ldi ZH,high(ARRAY << 1)
 	ldi ZL,low(ARRAY << 1)
 
+	/* Initialize counters */
+	ldi R20,100
+	ldi R16,100
 OUTER_LOOP:
 	
 INNER_LOOP:
@@ -64,3 +67,4 @@ SWAP_ROUTINE:
 	spm R17,Z		;	Swapping
 	/* Put the R24(Copy of R17 address) in the Z */
 	mov Z,R24
+	spm R26,Z
