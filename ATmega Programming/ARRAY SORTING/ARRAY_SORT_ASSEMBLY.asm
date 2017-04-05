@@ -46,15 +46,13 @@ INNER_LOOP:
 
 	/* Check if we have reached the end of the inner_loop */
 	dec R20
-	cp R20,
 	brne INNER_LOOP
 
-	/* Increment the R16 */
-	inc R16
-	/* Compare the R16 value with immediate 99 (100 elements) */
-	cp
+	/* decrement the R16 */
+	dec R16
+	/* Check if we have reached the end of the outer_loop */
 	/* Branch to the OUTER_LOOP if we havent reached the end yet */
-	brne
+	brne OUTER_LOOP
     rjmp start 
 
 SWAP_ROUTINE:
