@@ -29,10 +29,8 @@ OUTER_LOOP:
 INNER_LOOP:
 	/* we need to keep track of two words each time we loop through the INNER_LOOP */
 	/* Take a copy of R16 (starting point of the main loop) in R17 */
-	lpm R17,Z;
-	inc R17;
-	mov R18,R17;
-	dec R17;
+	lpm R17,Z+;
+	lpm R18,Z;
 	/* Now we have that (n)th and that (n+1)th element value in R17 and R18 respectively :D */
 	/* Get the contents of R17 and R18 for comparison from that memory */
 	/* The content of program memory of address R17 and R18 will be stored in R19 and R20 for comparison */
