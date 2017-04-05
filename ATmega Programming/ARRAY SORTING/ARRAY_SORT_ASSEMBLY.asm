@@ -29,7 +29,7 @@ OUTER_LOOP:
 INNER_LOOP:
 	/* we need to keep track of two words each time we loop through the INNER_LOOP */
 	/* Take a copy of R16 (starting point of the main loop) in R17 */
-	mov R17,R16;
+	lpm R17,Z;
 	inc R17;
 	mov R18,R17;
 	dec R17;
