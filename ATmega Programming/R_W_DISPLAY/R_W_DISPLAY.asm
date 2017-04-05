@@ -4,15 +4,12 @@
 ; Created: 3/22/2017 11:05:18 PM
 ; Author : Ali Gholami
 ;
-
-
-; Replace with your application code
 start:
-    /**************************/
-	/* EEPROM WRITE */
-		/* Define a counter in R16 */
-	ldi R16,0
-	ldi R17,8
+	/***********************************/
+		/*  EEPROM WRITE  */
+
+	/* Define a counter in R16 */
+	ldi R16,9
 	/* EEPROM Address to be written */
 	ldi R18,0x00
 	ldi R19,0x00
@@ -29,24 +26,21 @@ EEPROM_WRITE:
 	/* Counter can be used itself */
 	out EEDR,R16
 	/* Write logical one to the EEMWE */
-	/* Set bit immediate */
 	sbi EECR,EEMWE
 	/* Start write */
 	sbi EECR,EEWE
-	/* Add 1 to the counter */
-	inc R16
+	/* dec the counter */
+	dec R16
 	/* Go to the next address on EEPROM */
 	inc R18
 	/* Check the loop end point */
-	cp R16,R17
 	brne EEPROM_WRITE
-    rjmp EEPROM_WRITE
 	/**************************/
 
 
 	/**************************/
-	/* Configure port B and 7 SEG */
-		/* Connect the PORT B to the 7-Segment */
+	/* 7 Segment Configuration */
+	/* Connect the PORT B to the 7-Segment */
 	/* This part must be done in the proteus simulator */
 
 	/* Put the direction of port B to output */
@@ -76,25 +70,14 @@ EEPROM_READ:
 	sbic EECR,EEWE
 	rjmp EEPROM_READ
 	/* Set up the reading address */
-	ldi R18,0x00
-	ldi R19,0x00
+	ldi R18,0
+	ldi R19,0
 	out EEARH,R19
 	out EEARH,R18
 	/* set bit EERE in EECR */
 	sbi EECR,EERE
 	/* Read data from data register */
 	in R20,EEDR
-	/* ok, now we have the number in R20
-	* Let's display it on 7-Segment */
-	/* find the number in the BCDTo7_Seg Table */
-
-	/* put the address of first element of BCDTo7_Seg in R25 */
-	ld R25,BCDTo7_Seg
-WALK_THROUGH:
-	/* put the value of each element in R24 */
-	ld R24,BCDTo7_Seg[1]
-
-
 
 	/* increment R16 */
 	inc R16
