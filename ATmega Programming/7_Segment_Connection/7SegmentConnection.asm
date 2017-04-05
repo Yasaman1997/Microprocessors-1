@@ -22,6 +22,6 @@ start:
 	* In order to be able to refer to the reserved locations, the DB directive should be preceded by a label. 
 	* The DB directive takes a list of expressions,
 	* and must contain at least one expression. The DB directive must be placed in a Code Segment or an EEPROM Segment. */
-	.CSEG
+	.CSEG	; write to the program memory 
 	BCDTo7_Seg: .DB 0xCF, 0xA4, 0xB0, 0x00, 0x99, 0x92, 0x82, 0xF8, 0x80, 0x00	; The size of reserved memory using .db directive must be even number
     rjmp start		
