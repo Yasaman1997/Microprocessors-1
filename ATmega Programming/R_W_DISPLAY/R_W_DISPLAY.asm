@@ -80,6 +80,12 @@ EEPROM_READ:
 	/* Read data from data register */
 	in R20,EEDR
 
+	/* The data is in the R20 Register */ 
+	/* Simply start reading from program memory */
+	/* The reading from program memory must be done with the starting address: BCDTo7_Seg LABEL */
+	/* we can access the other stored data by simply adding the value of R20 each time to the address of BCDTo7_Seg value */
+
+
 	/* decrement R16 */
 	dec R16
 	/* Check the loop end point */
