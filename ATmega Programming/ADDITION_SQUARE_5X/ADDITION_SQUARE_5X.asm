@@ -26,5 +26,6 @@ adder_subroutine:
 	brne adder_subroutine
 	/* Final addition result is stored in R4:R3 */ 
 	/* Put the result back to the R1:R0 */
-	movw R1:R0,R4:R3
+	mov R1,R4
+	mov R0,R3
   rjmp start
