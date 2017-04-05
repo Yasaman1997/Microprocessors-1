@@ -87,6 +87,8 @@ EEPROM_READ:
 	/* INITIALIZE Z POINTER */
 	ldi ZH,high(BCDTo7_Seg << 1)
 	ldi ZL,low(BCDTo7_Seg << 1)
+	/* R23 contains the data must be written to the 7 segment */
+	lmp R23,Z
 
 	/* decrement R16 */
 	dec R16
