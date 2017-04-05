@@ -59,6 +59,8 @@ SWAP_ROUTINE:
 	/* We have the address of R17 atm in R24 */
 	/* We have the address of R18 in the Z pointer */
 	/* We need to swap the contents of R17 and R18 */
-
-	spm 
-	
+	/* Create a temp register */
+	mov R26,R18		;	Backup R18
+	spm R17,Z		;	Swapping
+	/* Put the R24(Copy of R17 address) in the Z */
+	mov Z,R24
