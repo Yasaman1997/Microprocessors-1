@@ -93,11 +93,21 @@ R_W:
 
 	/* Display R23 Value on the 7-Segment */
 	/* Port B is set to the output before */ 
-	/* Simply show the result on the port b */
+	/* Send the result to the port B */
 	out PORTB,R23
-
+	/* Call the delay function */
+	call LONG_DELAY
 	/* decrement R16 */
 	dec R16
 	/* Check the loop end point */
 	brne R_W
 	rjmp start
+
+	    /* Delay function */
+LONG_DELAY:
+    ldi r25,10
+LOOP:
+    dec R25
+    brne LOOP
+    ret
+
