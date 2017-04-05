@@ -25,10 +25,10 @@ start:
 	ldi ZL,low(ARRAY << 1)
 
 	/* Initialize counters */
-	ldi R20,100
 	ldi R16,100
 OUTER_LOOP:
-	
+	/* Initialize counters */
+	ldi R20,100
 INNER_LOOP:
 	/* we need to keep track of two words each time we loop through the INNER_LOOP */
 	/* Take a copy of Z (starting point of the main loop) in 24 */
@@ -45,7 +45,7 @@ INNER_LOOP:
 	/* Its better to define a subroutine to put the R20 in place (n)th in memory and the R19 to (n+1)th place */
 
 	/* Check if we have reached the end of the inner_loop */
-	/* Compare the R20 value with the address of 99 elements later from ARRAY (must be defined above) */
+	dec R20
 	cp R20,
 	brne INNER_LOOP
 
