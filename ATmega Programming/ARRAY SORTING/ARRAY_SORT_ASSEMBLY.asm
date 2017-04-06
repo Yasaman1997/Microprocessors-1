@@ -101,3 +101,13 @@ Wait_spm:
 	; disable interrupts if enabled, store status
 	in temp2, SREG
 	cli
+	; check that no EEPROM write access is present
+Wait_ee:
+	sbic EECR, EEPE
+	rjmp Wait_ee
+	; SPM timed sequence
+	out SPMCSR, spmcrval
+	spm
+	; restore SREG (to enable interrupts if originally enabled)
+	out SREG, temp2
+	ret
