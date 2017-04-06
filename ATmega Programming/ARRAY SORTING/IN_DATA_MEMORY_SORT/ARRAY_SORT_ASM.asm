@@ -66,7 +66,14 @@ write_page:
     ;transfer data from RAM to Flash page buffer
 	ldi looplo, low(PAGESIZEB) ;init loop variable
 	ldi loophi, high(PAGESIZEB) ;not required for PAGESIZEB<=256
-
+wrloop:
+	ld r0, Y+
+	ld r1, Y+
+	ldi spmcrval, (1<<SPMEN)
+	call do_spm
+	adiw ZH:ZL, 2
+	sbiw loophi:looplo, 2	;use subi for PAGESIZEB<=256
+	brne wrloop
 
 forever:
 	rjmp forever
