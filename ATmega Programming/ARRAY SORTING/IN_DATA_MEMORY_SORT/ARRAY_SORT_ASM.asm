@@ -27,8 +27,9 @@
 
 	/* Sorting logic */
 	/* define counters for inner and outer loops */
+	ldi R20,10
 OUTER_LOOP:
-
+	ldi R21,10
 INNER_LOOP:
 
 	brne INNER_LOOP
