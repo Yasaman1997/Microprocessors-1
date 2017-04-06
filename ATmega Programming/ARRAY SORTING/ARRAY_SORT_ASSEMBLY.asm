@@ -6,7 +6,13 @@
 ;
 
 
-; Replace with your application code
+/* Register Defs */
+.def	looplo		= R21
+.def	loophi		= R22
+.def	temp1		= r16
+.def	temp2		= r17
+.def	spmcrval	= r20
+
 start:
 
 	/* Setup the stack */
@@ -35,10 +41,10 @@ start:
 	ldi ZL,low(ARRAY << 1)
 
 	/* Initialize counters */
-	ldi R16,100
+	ldi R16,10
 OUTER_LOOP:
 	/* Initialize counters */
-	ldi R20,100
+	ldi R20,10
 INNER_LOOP:
 	/* we need to keep track of two words each time we loop through the INNER_LOOP */
 	/* Take a copy of Z (starting point of the main loop) in 24 */
@@ -66,6 +72,7 @@ INNER_LOOP:
     rjmp start 
 
 SWAP_ROUTINE:
+	ldi SPMCRVAL,(1<<PGWRT)|(1<<SPMEN)	;enable page write and spm
 	/* Change the content of R17 and R18 addresses */
 	/* We have the address of R17 atm in R24 */
 	/* We have the address of R18 in the Z pointer */
@@ -83,3 +90,4 @@ SWAP_ROUTINE:
 	mov R0,R26
 	spm				;	Swapping
 	ret
+
