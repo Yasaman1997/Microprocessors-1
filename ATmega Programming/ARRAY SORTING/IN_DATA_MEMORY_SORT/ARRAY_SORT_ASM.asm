@@ -57,3 +57,9 @@ flash2ram:
 	dec flashsize
 	brne flash2ram
 	ret
+
+SWAP_ROUTINE:
+	/* Change the content of R22 and R23 addresses */
+	/* We have the address of R23 atm in Y */
+	/* We have the address of R17 in the -Y pointer */
+	/* We need to swap the contents of R22 and R23 */
