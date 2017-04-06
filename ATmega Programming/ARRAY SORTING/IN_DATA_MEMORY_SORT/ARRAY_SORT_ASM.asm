@@ -63,7 +63,9 @@ write_page:
 	;page erase
 	ldi spmcrval, (1<<PGERS) + (1<<SPMEN)
 	call do_spm
-
+    ;transfer data from RAM to Flash page buffer
+	ldi looplo, low(PAGESIZEB) ;init loop variable
+	ldi loophi, high(PAGESIZEB) ;not required for PAGESIZEB<=256
 
 
 forever:
