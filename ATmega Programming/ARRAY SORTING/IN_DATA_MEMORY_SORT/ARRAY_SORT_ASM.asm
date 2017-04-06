@@ -34,9 +34,10 @@ INNER_LOOP:
 	/* Load numbers into registers using Y pointer */
 	ld R22,Y+
 	ld R23,Y
-
+	dec R21
 	brne INNER_LOOP
 
+	dec R20
 	brne OUTER_LOOP
 
 	 
