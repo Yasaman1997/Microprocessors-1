@@ -31,6 +31,9 @@
 OUTER_LOOP:
 	ldi R21,10
 INNER_LOOP:
+	/* Load numbers into registers using Y pointer */
+	ld R22,Y+
+	ld R23,Y
 
 	brne INNER_LOOP
 
