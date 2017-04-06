@@ -9,9 +9,9 @@
 /* Register Defs */
 .def	looplo		= R21
 .def	loophi		= R22
-.def	temp1		= r16
-.def	temp2		= r17
-.def	spmcrval	= r20
+.def	temp1		= R23
+.def	temp2		= R25
+.def	spmcrval	= R19
 
 start:
 
