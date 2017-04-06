@@ -5,6 +5,11 @@
 ; Author : Ali Gholami
 ;
 
+;***** Register defs
+
+		.def	looplo		= R18
+		.def	temp2		= R24
+		.def	spmcrval	= R17
 		.equ  BLOCK1   =$60        ;start address of SRAM array #1
 		.CSEG	; write to the program memory 
 	ARRAY: .DB 1, 5, 4, 6, 2, 8, 7, 4, 9, 3	; The stored numbers in program memory
@@ -56,6 +61,26 @@ HERE:
 	//inc bubble
 	brne OUTER_LOOP
 
+		/* Copy the data to the ram */
+flash2ram:
+	lpm 
+	st Y+,R0
+	adiw Zl,1
+	dec flashsize
+	brne flash2ram
+	ret
+
+SWAP_ROUTINE:
+	/* Change the content of R22 and R23 addresses */
+	/* We have the address of R23 atm in Y */
+	/* We have the address of R22 in the -Y pointer */
+	/* We need to swap the contents of R22 and R23 */
+	/* Swap */
+	st X,R22	; Store the contents of R22 in R23's pointer place in SRAM
+	st -X,R23	; Store the contents of R23 in R22's pointer place in SRAM
+	inc XL
+	jmp HERE
+
 ram2flash:
 	 .equ PAGESIZEB = 20	;PAGESIZEB is page size in BYTES, not words
 .org SMALLBOOTSTART
@@ -65,14 +90,13 @@ write_page:
 	call do_spm
     ;transfer data from RAM to Flash page buffer
 	ldi looplo, low(PAGESIZEB) ;init loop variable
-	ldi loophi, high(PAGESIZEB) ;not required for PAGESIZEB<=256
 wrloop:
 	ld r0, Y+
 	ld r1, Y+
 	ldi spmcrval, (1<<SPMEN)
 	call do_spm
 	adiw ZH:ZL, 2
-	sbiw loophi:looplo, 2	;use subi for PAGESIZEB<=256
+	subi looplo, 2	;use subi for PAGESIZEB<=256
 	brne wrloop
 
 	;execute page write
@@ -101,25 +125,6 @@ wait:
 forever:
 	rjmp forever
 
-	/* Copy the data to the ram */
-flash2ram:
-	lpm 
-	st Y+,R0
-	adiw Zl,1
-	dec flashsize
-	brne flash2ram
-	ret
-
-SWAP_ROUTINE:
-	/* Change the content of R22 and R23 addresses */
-	/* We have the address of R23 atm in Y */
-	/* We have the address of R22 in the -Y pointer */
-	/* We need to swap the contents of R22 and R23 */
-	/* Swap */
-	st X,R22	; Store the contents of R22 in R23's pointer place in SRAM
-	st -X,R23	; Store the contents of R23 in R22's pointer place in SRAM
-	inc XL
-	jmp HERE
 
 
 
