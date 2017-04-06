@@ -95,6 +95,9 @@ wait:
 	;SPM timed sequence
 	out SPMCR, spmcrval
 	spm
+	;restore SREG (to enable interrupts if originally enabled)
+	out SREG, temp2
+	ret	
 forever:
 	rjmp forever
 
