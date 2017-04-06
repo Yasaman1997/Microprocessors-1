@@ -16,8 +16,11 @@
     out SPL, r16
 
 start:
-
-    rjmp start
+	/* Z pointer configuration (source in flash) */
+	ldi ZH,high(ARRAY << 1)
+	ldi ZL,low(ARRAY << 1)
+	
+	rjmp start
 
 	/* Copy the data to the ram */
 flash2ram:
