@@ -11,3 +11,11 @@
 start:
 
     rjmp start
+
+flash2ram:
+	lpm 
+	st Y+,R0
+	adiw Zl,1
+	dec flashsize
+	brne flash2ram
+	ret
