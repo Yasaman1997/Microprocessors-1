@@ -15,6 +15,9 @@ start:
     ldi r16, 0xf0
     out SPL, r16
 
+		.CSEG	; write to the program memory 
+	ARRAY: .DB 1, 5, 4, 6, 2, 8, 7, 4, 9, 3	; The stored numbers in program memory
+
 	/* Using bubble sort to sort the array */
 	/* The data is pre-written into the ARRAY label in the program memory */ 
 	/* So we can access the ARRAY address by writing array in any instruction */
