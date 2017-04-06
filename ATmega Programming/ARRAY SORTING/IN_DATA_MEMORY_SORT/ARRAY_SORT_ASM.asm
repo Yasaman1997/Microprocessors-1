@@ -27,7 +27,13 @@
 
 	/* Sorting logic */
 	/* define counters for inner and outer loops */
+OUTER_LOOP:
 
+INNER_LOOP:
+
+	brne INNER_LOOP
+
+	brne OUTER_LOOP
 
 	 
 forever:
