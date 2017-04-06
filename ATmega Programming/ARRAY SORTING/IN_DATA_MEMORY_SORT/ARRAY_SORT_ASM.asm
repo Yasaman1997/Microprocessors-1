@@ -35,9 +35,9 @@
 
 	/* Sorting logic */
 	/* define counters for inner and outer loops */
-	ldi R20,10
+	ldi R20,9
 OUTER_LOOP:
-	ldi R21,10
+	ldi R21,9
 	mov XL,bubble
 INNER_LOOP:
 	/* Load numbers into registers using Y pointer */
