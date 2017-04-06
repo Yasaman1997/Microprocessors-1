@@ -8,6 +8,13 @@
 
 ; Replace with your application code
 start:
+
+	/* Setup the stack */
+	ldi r16, 0
+    out SPH, r16
+    ldi r16, 0xf0
+    out SPL, r16
+
 	/* Using bubble sort to sort the array */
 	/* The data is pre-written into the ARRAY label in the program memory */ 
 	/* So we can access the ARRAY address by writing array in any instruction */
@@ -72,3 +79,4 @@ SWAP_ROUTINE:
 	/* Put the data into the R1:R0 */ 
 	mov R0,R26
 	spm				;	Swapping
+	ret
