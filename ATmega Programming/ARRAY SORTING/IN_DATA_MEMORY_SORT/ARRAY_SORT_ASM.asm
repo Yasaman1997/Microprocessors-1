@@ -56,6 +56,8 @@ HERE:
 	//inc bubble
 	brne OUTER_LOOP
 
+ram2flash:
+	 .equ PAGESIZEB = 20	;PAGESIZEB is page size in BYTES, not words
 	 
 forever:
 	rjmp forever
