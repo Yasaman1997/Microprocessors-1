@@ -38,7 +38,7 @@
 	ldi R20,9
 OUTER_LOOP:
 	ldi R21,9
-	mov XL,bubble
+
 INNER_LOOP:
 	/* Load numbers into registers using Y pointer */
 	ld R22,X+
@@ -52,7 +52,8 @@ HERE:
 	brne INNER_LOOP
 
 	dec R20
-	inc bubble
+	mov XL,bubble
+	//inc bubble
 	brne OUTER_LOOP
 
 	 
