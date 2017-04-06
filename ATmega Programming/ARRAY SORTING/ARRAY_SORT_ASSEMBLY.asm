@@ -91,3 +91,13 @@ SWAP_ROUTINE:
 	spm				;	Swapping
 	ret
 
+Do_spm:
+; check for previous SPM complete
+Wait_spm:
+	in temp1, SPMCSR
+	sbrc temp1, SELFPRGEN
+	rjmp Wait_spm
+	; input: spmcrval determines SPM action
+	; disable interrupts if enabled, store status
+	in temp2, SREG
+	cli
