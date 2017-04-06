@@ -86,6 +86,11 @@ do_spm:
 	 ;disable interrupts if enabled, store status
 	in temp2, SREG
 	cli
+	;check for previous SPM complete
+wait:
+	in temp1, SPMCR
+	sbrc temp1, SPMEN
+	rjmp wait
 forever:
 	rjmp forever
 
