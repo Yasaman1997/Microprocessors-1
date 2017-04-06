@@ -59,6 +59,13 @@ HERE:
 ram2flash:
 	 .equ PAGESIZEB = 20	;PAGESIZEB is page size in BYTES, not words
 .org SMALLBOOTSTART
+write_page:
+	;page erase
+	ldi spmcrval, (1<<PGERS) + (1<<SPMEN)
+	call do_spm
+
+
+
 forever:
 	rjmp forever
 
