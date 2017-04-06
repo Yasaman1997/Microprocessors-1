@@ -23,7 +23,7 @@ start:
 	ldi YH,high(BLOCK1)
 	ldi YL,low(BLOCK1)
 
-
+	ldi flashsize,10
 
 	rjmp start
 
