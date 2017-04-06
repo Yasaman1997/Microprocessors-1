@@ -81,14 +81,14 @@ SWAP_ROUTINE:
 	mov R26,R18		;	Backup R18
 	/* Put the data into the R1:R0 */
 	mov R0,R17
-	spm 			;	Swapping
+	call Do_spm 			;	Swapping
 
 	/* Put the R24(Copy of R17 address) in the Z */
 	mov ZL,R24	
 
 	/* Put the data into the R1:R0 */ 
 	mov R0,R26
-	spm				;	Swapping
+	call Do_spm				;	Swapping
 	ret
 
 Do_spm:
