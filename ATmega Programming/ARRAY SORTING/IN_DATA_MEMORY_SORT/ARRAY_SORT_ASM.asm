@@ -80,6 +80,12 @@ wrloop:
 	sbci ZH, high(PAGESIZEB) ;not required for PAGESIZEB<=256
 	ldi spmcrval, (1<<PGWRT) + (1<<SPMEN)
 	call do_spm
+
+do_spm:
+	 ;input: spmcrval determines SPM action
+	 ;disable interrupts if enabled, store status
+	in temp2, SREG
+	cli
 forever:
 	rjmp forever
 
