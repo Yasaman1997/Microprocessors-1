@@ -91,6 +91,10 @@ wait:
 	in temp1, SPMCR
 	sbrc temp1, SPMEN
 	rjmp wait
+
+	;SPM timed sequence
+	out SPMCR, spmcrval
+	spm
 forever:
 	rjmp forever
 
