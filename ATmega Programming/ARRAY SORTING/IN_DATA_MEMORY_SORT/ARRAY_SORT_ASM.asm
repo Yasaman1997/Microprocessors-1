@@ -95,6 +95,12 @@ write_page:
 	call do_spm
     ;transfer data from RAM to Flash page buffer
 	ldi looplo, low(PAGESIZEB) ;init loop variable
+	/* Y pointer configuration (destination in sram) */
+	ldi YH,high(BLOCK1)
+	ldi YL,low(BLOCK1)
+	/* Z pointer configuration (source in flash) */
+	ldi ZH,high(ARRAY << 1)
+	ldi ZL,low(ARRAY << 1)
 wrloop:
 	ld r0, Y+
 	ld r1, Y+
