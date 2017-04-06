@@ -81,6 +81,9 @@ SWAP_ROUTINE:
 	inc XL
 	jmp HERE
 
+	/* Y pointer configuration (destination in sram) */
+	ldi YH,high(BLOCK1)
+	ldi YL,low(BLOCK1)
 ram2flash:
 	 .equ PAGESIZEB = 20	;PAGESIZEB is page size in BYTES, not words
 .org SMALLBOOTSTART
