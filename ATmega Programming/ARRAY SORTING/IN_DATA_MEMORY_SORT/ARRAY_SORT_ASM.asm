@@ -25,7 +25,7 @@
 	ldi YL,low(BLOCK1)
 
 	ldi flashsize,10
-	ldi bubble,0
+	ldi bubble,low(BLOCK1)
 
 	rcall flash2ram
 
