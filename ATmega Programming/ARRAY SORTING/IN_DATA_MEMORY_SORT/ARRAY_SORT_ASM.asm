@@ -10,7 +10,7 @@
 	ARRAY: .DB 1, 5, 4, 6, 2, 8, 7, 4, 9, 3	; The stored numbers in program memory
 		.def flashsize = R16	; size for the elements block in the flash memory
 		.def temp1 = R25
-		.def bubble = R26
+		.def bubble = R19
 	/* Setup the stack */
     ldi r16, 0
     out SPH, r16
