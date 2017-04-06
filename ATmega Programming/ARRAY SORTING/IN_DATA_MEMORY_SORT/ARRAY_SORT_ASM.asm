@@ -15,7 +15,6 @@
     ldi r16, 0xf0
     out SPL, r16
 
-start:
 	/* Z pointer configuration (source in flash) */
 	ldi ZH,high(ARRAY << 1)
 	ldi ZL,low(ARRAY << 1)
@@ -24,8 +23,10 @@ start:
 	ldi YL,low(BLOCK1)
 
 	ldi flashsize,10
-
-	rjmp start
+	rcall flash2ram
+	 
+forever:
+	rjmp forever
 
 	/* Copy the data to the ram */
 flash2ram:
