@@ -34,6 +34,11 @@ INNER_LOOP:
 	/* Load numbers into registers using Y pointer */
 	ld R22,Y+
 	ld R23,Y
+	
+	/* compare two numbers */
+	cp R22,R23
+	brlt SWAP_ROUTINE
+
 	dec R21
 	brne INNER_LOOP
 
