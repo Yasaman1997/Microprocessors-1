@@ -91,6 +91,7 @@ SWAP_ROUTINE:
 	call Do_spm				;	Swapping
 	ret
 
+.org SMALLBOOTSTART
 Do_spm:
 ; check for previous SPM complete
 Wait_spm:
