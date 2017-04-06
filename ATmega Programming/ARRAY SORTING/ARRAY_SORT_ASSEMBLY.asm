@@ -32,7 +32,7 @@ OUTER_LOOP:
 INNER_LOOP:
 	/* we need to keep track of two words each time we loop through the INNER_LOOP */
 	/* Take a copy of Z (starting point of the main loop) in 24 */
-	mov R24,Z
+	mov R24,ZL
 
 	/* Load Z and Z+ contents into R17 and R18 for comparison */
 	lpm R17,Z+;
@@ -67,7 +67,7 @@ SWAP_ROUTINE:
 	spm 			;	Swapping
 
 	/* Put the R24(Copy of R17 address) in the Z */
-	mov Z,R24	
+	mov ZL,R24	
 
 	/* Put the data into the R1:R0 */ 
 	mov R0,R26
