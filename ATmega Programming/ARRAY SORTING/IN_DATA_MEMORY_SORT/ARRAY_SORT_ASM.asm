@@ -75,6 +75,11 @@ wrloop:
 	sbiw loophi:looplo, 2	;use subi for PAGESIZEB<=256
 	brne wrloop
 
+	;execute page write
+	subi ZL, low(PAGESIZEB) ;restore pointer
+	sbci ZH, high(PAGESIZEB) ;not required for PAGESIZEB<=256
+	ldi spmcrval, (1<<PGWRT) + (1<<SPMEN)
+	call do_spm
 forever:
 	rjmp forever
 
