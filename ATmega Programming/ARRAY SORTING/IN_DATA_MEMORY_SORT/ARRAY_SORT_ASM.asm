@@ -64,6 +64,7 @@ SWAP_ROUTINE:
 	/* We have the address of R23 atm in Y */
 	/* We have the address of R22 in the -Y pointer */
 	/* We need to swap the contents of R22 and R23 */
+	/* Swap */
 	st Y,R22	; Store the contents of R22 in R23's pointer place in SRAM
 	st -Y,R23	; Store the contents of R23 in R22's pointer place in SRAM
 
