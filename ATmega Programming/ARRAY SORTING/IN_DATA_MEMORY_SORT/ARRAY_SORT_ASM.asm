@@ -67,7 +67,8 @@ SWAP_ROUTINE:
 	/* Swap */
 	st Y,R22	; Store the contents of R22 in R23's pointer place in SRAM
 	st -Y,R23	; Store the contents of R23 in R22's pointer place in SRAM
-
+	inc YL
+	ret
 
 
 
