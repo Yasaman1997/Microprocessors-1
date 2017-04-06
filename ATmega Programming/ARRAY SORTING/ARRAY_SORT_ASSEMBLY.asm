@@ -95,7 +95,7 @@ Do_spm:
 ; check for previous SPM complete
 Wait_spm:
 	in temp1, SPMCSR
-	sbrc temp1, SELFPRGEN
+	sbrc temp1, SPMEN
 	rjmp Wait_spm
 	; input: spmcrval determines SPM action
 	; disable interrupts if enabled, store status
@@ -103,7 +103,7 @@ Wait_spm:
 	cli
 	; check that no EEPROM write access is present
 Wait_ee:
-	sbic EECR, EEPE
+	sbic EECR, EEWE
 	rjmp Wait_ee
 	; SPM timed sequence
 	out SPMCSR, spmcrval
