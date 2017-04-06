@@ -24,6 +24,11 @@
 
 	ldi flashsize,10
 	rcall flash2ram
+
+	/* Sorting logic */
+	/* define counters for inner and outer loops */
+
+
 	 
 forever:
 	rjmp forever
