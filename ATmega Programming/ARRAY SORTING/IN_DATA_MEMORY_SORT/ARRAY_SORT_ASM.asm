@@ -58,7 +58,7 @@ HERE:
 
 ram2flash:
 	 .equ PAGESIZEB = 20	;PAGESIZEB is page size in BYTES, not words
-	 
+.org SMALLBOOTSTART
 forever:
 	rjmp forever
 
