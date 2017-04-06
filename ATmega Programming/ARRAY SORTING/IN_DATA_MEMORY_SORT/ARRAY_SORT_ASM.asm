@@ -47,10 +47,9 @@ INNER_LOOP:
 	/* compare two numbers */
 	cp R22,R23
 	brlt SWAP_ROUTINE
-
+HERE:
 	dec R21
 	brne INNER_LOOP
-HERE:
 
 	dec R20
 	inc bubble
