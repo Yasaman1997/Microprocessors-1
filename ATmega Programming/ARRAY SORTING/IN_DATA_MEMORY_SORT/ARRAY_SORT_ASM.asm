@@ -9,6 +9,7 @@
 		.CSEG	; write to the program memory 
 	ARRAY: .DB 1, 5, 4, 6, 2, 8, 7, 4, 9, 3	; The stored numbers in program memory
 		.def flashsize = R16	; size for the elements block in the flash memory
+		.def temp1 = R25
 	/* Setup the stack */
     ldi r16, 0
     out SPH, r16
@@ -61,5 +62,9 @@ flash2ram:
 SWAP_ROUTINE:
 	/* Change the content of R22 and R23 addresses */
 	/* We have the address of R23 atm in Y */
-	/* We have the address of R17 in the -Y pointer */
+	/* We have the address of R22 in the -Y pointer */
 	/* We need to swap the contents of R22 and R23 */
+	st Y,R22	; Store the contents of R22 in R23's pointer place in SRAM
+
+
+
