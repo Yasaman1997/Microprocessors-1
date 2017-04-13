@@ -19,7 +19,14 @@ CONF_INT:
 CONF_INT_VEC:
 	jmp EXT_INT1
 
-
+; Main program start point
+.org $1C00
+RESET:
+	; Set stack pointer to the top of ram 
+	ldi R16,high(RAMEND)
+	out SPH,R16
+	ldi R16,low(RAMEND)
+	out SPL,R16
 	
 
 start:
