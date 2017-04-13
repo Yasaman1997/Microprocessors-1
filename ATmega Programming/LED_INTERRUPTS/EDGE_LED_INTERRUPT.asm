@@ -7,12 +7,20 @@
 ; A program to turn the LED on/off by pressing the SW1 button
 
 ; Configuration: IVSEL = 0, BOOTRST = 0
-CONFIG_INT:
+CONF_INT:
 	; Make sure that the IVSEL is set to 0
 	ldi R16,(0 << IVCE)
 	out GICR,R16
 	ldi R16,(0 << IVSEL)
 	out GICR,R16
+
+; Configuration: Put the interrupt 1 vector at address $002
+.org $002
+CONF_INT_VEC:
+	jmp EXT_INT1
+
+
+	
 
 start:
 	
