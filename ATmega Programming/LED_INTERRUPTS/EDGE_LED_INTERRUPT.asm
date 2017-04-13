@@ -37,6 +37,8 @@ start:
 
 	; Check for any interrupts from SW1 (Which is connected to PD3)
 INT_CHECK:
-	
+	sbis PIND,3
 	jmp INT_CHECK
+	; In case we detected any interrupts, jump to CONF_INT_VEC, then EXT_INT1 
+	jmp CONF_INT_VEC
     rjmp start
