@@ -17,7 +17,6 @@ CONF_INT:
 ; Configuration: Put the interrupt 1 vector at address $002
 .org $002
 CONF_INT_VEC:
-	jmp EXT_INT1
 
 ; Main program start point
 .org $1C00
@@ -31,5 +30,8 @@ RESET:
 	sei
 
 start:
-	
+	; Enable the input direction for PD3
+	ldi R16,(0 << PD3)
+	out DDRD,R16
+
     rjmp start
