@@ -26,6 +26,7 @@ RESET:
 	out SPH,R16
 	ldi R16,low(RAMEND)
 	out SPL,R16
+
 	; Enable interrupts
 	sei
 
@@ -34,4 +35,8 @@ start:
 	ldi R16,(0 << PD3)
 	out DDRD,R16
 
+	; Check for any interrupts from SW1 (Which is connected to PD3)
+INT_CHECK:
+	
+	jmp INT_CHECK
     rjmp start
