@@ -6,13 +6,6 @@
 ;
 ; A program to turn the LED on/off by pressing the SW1 button
 
-; Configuration: IVSEL = 0, BOOTRST = 0
-CONF_INT:
-	; Make sure that the IVSEL is set to 0
-	ldi R16,(0 << IVCE)
-	out GICR,R16
-	ldi R16,(0 << IVSEL)
-	out GICR,R16
 
 ; Configuration: Put the interrupt 1 vector at address $002
 .org $002
@@ -31,6 +24,14 @@ RESET:
 	; Enable interrupts
 	sei
 
+	; Configuration: IVSEL = 0, BOOTRST = 0
+CONF_INT:
+	; Make sure that the IVSEL is set to 0
+	ldi R16,(0 << IVCE)
+	out GICR,R16
+	ldi R16,(0 << IVSEL)
+	out GICR,R16
+
 start:
 	; Enable the input direction for PD3
 	ldi R16,(0 << PD3)
@@ -48,22 +49,3 @@ EXT_INT1:
 	; Turn on the LED here, set PD7 as output for LED
 	ldi R16,(1 << PD7)
 	out DDRD,R16
-	
-	; Control the data output, Keep the LED on untill another key-press interrupt comes in
-KEEP_ON:
-	ldi R16,(1 << PD7)
-	out PORTD,R16
-
-	sbis PIND,3
-	jmp KEEP_ON
-	
-	; Otherwise go to the KEEP_OFF
-KEEP_OFF:
-	ldi R16,(0 << PD7)
-	out PORTD,R16
-
-	sbis PIND,3
-	jmp KEEP_OFF
-	
-	; Otherwise, go out of interrupt
-	reti
