@@ -27,7 +27,8 @@ RESET:
 	out SPH,R16
 	ldi R16,low(RAMEND)
 	out SPL,R16
-	
+	; Enable interrupts
+	sei
 
 start:
 	
