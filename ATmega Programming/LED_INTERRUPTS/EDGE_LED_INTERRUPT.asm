@@ -17,6 +17,7 @@ CONF_INT:
 ; Configuration: Put the interrupt 1 vector at address $002
 .org $002
 CONF_INT_VEC:
+	jmp EXT_INT1
 
 ; Main program start point
 .org $1C00
@@ -42,3 +43,8 @@ INT_CHECK:
 	; In case we detected any interrupts, jump to CONF_INT_VEC, then EXT_INT1 
 	jmp CONF_INT_VEC
     rjmp start
+
+EXT_INT1:
+	; Turn on the LED here, set PD7 as output for LED
+	ldi R16,(1 << PD7)
+	out DDRD,R16
