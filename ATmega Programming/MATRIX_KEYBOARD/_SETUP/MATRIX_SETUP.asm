@@ -10,6 +10,7 @@
 ; This code is written to identify the pressed number in the keyboard
 .def col = R20
 .def row = R21
+.def ret = R1
 
 ; Reserved 2 bytes: jump to reset at the beginnning
 .org 0x00
@@ -78,16 +79,24 @@ ROW_FIND:
 
 SET_ROW_1:
 	ldi row,1
-	ret
+	jmp CALCULATE_AND_RETURN
 SET_ROW_2:
 	ldi row,2
-	ret	
+	jmp CALCULATE_AND_RETURN	
 SET_ROW_3:
 	ldi row,3
-	ret	
+	jmp CALCULATE_AND_RETURN	
 SET_ROW_4:
 	ldi row,4
-	ret
+	jmp CALCULATE_AND_RETURN
+
+CALCULATE_AND_RETURN:
+	mov ret,col
+	lsl ret
+	lsl ret
+	lsl ret
+	lsl ret
+	add ret,row
 
 
 .org $1C00
