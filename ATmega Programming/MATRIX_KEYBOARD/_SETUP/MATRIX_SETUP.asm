@@ -24,7 +24,11 @@ HANDLE_MATRIX_PRESS:
 
 .org $1C00
 RESET_ISR:
-
+	; Set stack pointer to the top of ram 
+	ldi R16,high(RAMEND)
+	out SPH,R16
+	ldi R16,low(RAMEND)
+	out SPL,R16
 
 start:
     rjmp start
