@@ -23,6 +23,8 @@
 HANDLE_MATRIX_PRESS:
 
 KEY_FIND:
+
+COL_FIND:
 	; Enable DDRC for LSBs of PC
 	ldi R16,(1 << PC0) | (1 << PC1) | (1 << PC2) | (1 << PC3) | (0 << PC4) | (0 << PC5) | (0 << PC6) | (0 << PC7) |
 	out DDRC,R16
@@ -40,6 +42,20 @@ KEY_FIND:
 	jmp SET_COL_3
 	sbis PINC,3
 	jmp SET_COL_4
+
+SET_COL_1:
+	ldi col,1
+	jmp ROW_FIND
+SET_COL_2:
+	ldi col,2
+	jmp ROW_FIND	
+SET_COL_3:
+	ldi col,3
+	jmp ROW_FIND	
+SET_COL_4:
+	ldi col,4
+	jmp ROW_FIND
+
 
 
 
