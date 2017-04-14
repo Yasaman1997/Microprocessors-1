@@ -15,21 +15,26 @@
 	jmp HANDLE_SW1
 
 HANDLE_SW1:
-	; Turn on the LED here, set PD7 as output for LED
-	ldi R16,(1 << PD7)
-	out DDRD,R16
-	out PORTD,R16
-	
-	; Control the data output, Keep the LED on untill another key-press interrupt comes in
-	; Skip if the previous status of LED is on
 	sbis PORTD,7
-	ret 
+	jmp ON_MODE
 
+OFF_MODE:
 	; Create a delay
 	call SHORT_DELAY
-
-	; Otherwise turn off the LED
+	; turn off the LED
 	ldi R16,(0 << PD7)
+	out PORTD,R16
+	; Enable Global interrupt flag
+	sei
+	ret 
+
+
+ON_MODE:
+	; Create a delay
+	call SHORT_DELAY
+	; Otherwise, Turn on the LED here, set PD7 as output for LED
+	ldi R16,(1 << PD7)
+	out DDRD,R16
 	out PORTD,R16
 
 	; Enable Global interrupt flag
@@ -57,17 +62,19 @@ RESET_ISR:
 
 	; Enable Global interrupt flag
 	sei
-
 start:
 	; Enable the input direction for PD3
 	ldi R16,(0 << PD3)
 	out DDRD,R16
-    rjmp start
+	; Listen for interrupt!
+	sbic PIND,3
+	call HANDLE_SW1
+	rjmp start
 
 	; A short delay for synchronization between press and reaction
 SHORT_DELAY:
-    ldi r25,5
+	ldi r25,5
 LOOP:
-    dec R25
-    brne LOOP
-    ret
+	dec R25
+	brne LOOP
+	ret
