@@ -32,7 +32,15 @@ KEY_FIND:
 	out PORTC, r16
 
 	; Find the column number
-	sbis
+	sbis PINC,0
+	jmp SET_COL_1
+	sbis PINC,1
+	jmp SET_COL_2
+	sbis PINC,2
+	jmp SET_COL_3
+	sbis PINC,3
+	jmp SET_COL_4
+
 
 
 .org $1C00
