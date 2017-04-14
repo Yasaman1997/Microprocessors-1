@@ -19,7 +19,7 @@
 	jmp HANDLE_MATRIX_PRESS
 
 HANDLE_MATRIX_PRESS:
-
+	
 
 
 .org $1C00
@@ -47,6 +47,10 @@ RESET_ISR:
 
 	; Enable Global interrupt flag
 	sei
+
+	; Enable DDRC and set the whole port as input
+	ldi R16,(0 << PC0) | (0 << PC1) | (0 << PC2) | (0 << PC3) | (0 << PC4) | (0 << PC5) | (0 << PC6) | (0 << PC7) |
+	out DDRC,R16
 
 
 start:
