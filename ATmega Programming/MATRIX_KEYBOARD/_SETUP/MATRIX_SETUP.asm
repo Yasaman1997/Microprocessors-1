@@ -13,5 +13,10 @@
 .org 0x00
 	jmp RESET_ISR
 
+
+; Configuration: Put the interrupt 0 vector at address $002
+.org 0x02
+	jmp HANDLE_MATRIX_PRESS
+
 start:
     rjmp start
