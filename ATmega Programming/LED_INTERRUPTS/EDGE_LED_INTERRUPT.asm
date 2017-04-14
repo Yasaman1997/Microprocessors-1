@@ -21,23 +21,16 @@ HANDLE_SW1:
 	out PORTD,R16
 	
 	; Control the data output, Keep the LED on untill another key-press interrupt comes in
-KEEP_ON:
-	sbis PIND,3
-	jmp KEEP_ON
-	
+	; Skip if the previous status of LED is on
+	sbis PORTD,7
+	ret 
+
 	; Create a delay
 	call SHORT_DELAY
 
-	; Otherwise go to the KEEP_OFF
+	; Otherwise turn off the LED
 	ldi R16,(0 << PD7)
 	out PORTD,R16
-
-KEEP_OFF:
-	sbis PIND,3
-	jmp KEEP_OFF
-	
-	; Create a delay
-	call SHORT_DELAY
 
 	; Enable Global interrupt flag
 	sei
