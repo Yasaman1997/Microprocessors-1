@@ -38,6 +38,13 @@ RESET_ISR:
 	ldi R16, (1 << INT0) 
 	out GICR, R16
 
+	; Configuration: IVSEL = 0, BOOTRST = 0
+	; Make sure that the IVSEL is set to 0
+	ldi R16,(0 << IVCE)
+	out GICR,R16
+	ldi R16,(0 << IVSEL)
+	out GICR,R16
+
 
 start:
     rjmp start
