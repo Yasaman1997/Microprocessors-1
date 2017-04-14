@@ -49,9 +49,13 @@ RESET_ISR:
 	ldi R16,low(RAMEND)
 	out SPL,R16
 
+	; Configure the Rising Edge in the interrupt sense control
+	ldi R16,(1 << ISC11) | (1 << ISC10)
+	out MCUCR,R16
+
 	; Enable INT1
-	ldi r16, (1 << INT1) 
-	out GICR, r16
+	ldi R16, (1 << INT1) 
+	out GICR, R16
 
 	; Configuration: IVSEL = 0, BOOTRST = 0
 	; Make sure that the IVSEL is set to 0
@@ -73,7 +77,7 @@ start:
 
 	; A short delay for synchronization between press and reaction
 SHORT_DELAY:
-	ldi r25,5
+	ldi r25,2
 LOOP:
 	dec R25
 	brne LOOP
