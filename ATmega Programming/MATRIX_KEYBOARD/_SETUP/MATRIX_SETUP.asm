@@ -8,6 +8,8 @@
 
 ; I'll setup a keyboard matrix in this file
 ; This code is written to identify the pressed number in the keyboard
+.def col = R20
+.def row = R21
 
 ; Reserved 2 bytes: jump to reset at the beginnning
 .org 0x00
@@ -25,10 +27,12 @@ KEY_FIND:
 	ldi R16,(1 << PC0) | (1 << PC1) | (1 << PC2) | (1 << PC3) | (0 << PC4) | (0 << PC5) | (0 << PC6) | (0 << PC7) |
 	out DDRC,R16
 
-	; Find the column number
 	; Pull-Up for PORT C on bits 4-7
 	ldi r16, (0 << PC0) | (0 << PC1) | (0 << PC2) | (0 << PC3) | (1 << PC4) | (1 << PC5) | (1 << PC6) | (1 << PC7)
 	out PORTC, r16
+
+	; Find the column number
+	sbis
 
 
 .org $1C00
