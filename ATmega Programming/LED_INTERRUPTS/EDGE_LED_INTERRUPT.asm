@@ -36,6 +36,7 @@ HANDLE_SW1:
 	sei
 	ret
 
+.org $1C00
 RESET_ISR:
 	; Set stack pointer to the top of ram 
 	ldi R16,high(RAMEND)
