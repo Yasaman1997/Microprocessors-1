@@ -47,5 +47,13 @@ RESET_ISR:
 
 	; Enable Global interrupt flag
 	sei
+
+
 start:
-    rjmp start
+	; Enable the input direction for PD2
+	ldi R16,(0 << PD2)
+	out DDRD,R16
+	; Listen for interrupt!
+	sbic PIND,2
+	call HANDLE_MATRIX_PRESS
+	rjmp start
