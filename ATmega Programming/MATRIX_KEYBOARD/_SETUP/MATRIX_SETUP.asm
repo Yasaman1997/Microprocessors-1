@@ -31,7 +31,7 @@ RESET_ISR:
 	out SPL,R16
 
 	; Configure as any logical change in the interrupt sense control
-	ldi R16,(0 << ISC11) | (1 << ISC10)
+	ldi R16,(0 << ISC01) | (1 << ISC00)
 	out MCUCR,R16
 
 start:
