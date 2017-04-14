@@ -97,6 +97,7 @@ CALCULATE_AND_RETURN:
 	lsl ret
 	lsl ret
 	add ret,row
+	ret
 
 
 .org $1C00
