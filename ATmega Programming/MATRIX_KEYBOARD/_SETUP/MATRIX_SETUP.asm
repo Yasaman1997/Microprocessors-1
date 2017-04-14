@@ -21,6 +21,10 @@
 HANDLE_MATRIX_PRESS:
 
 KEY_FIND:
+	; Enable DDRC for LSBs of PC
+	ldi R16,(1 << PC0) | (1 << PC1) | (1 << PC2) | (1 << PC3) | (0 << PC4) | (0 << PC5) | (0 << PC6) | (0 << PC7) |
+	out DDRC,R16
+
 	; Find the column number
 	; Pull-Up for PORT C on bits 4-7
 	ldi r16, (0 << PC0) | (0 << PC1) | (0 << PC2) | (0 << PC3) | (1 << PC4) | (1 << PC5) | (1 << PC6) | (1 << PC7)
@@ -52,10 +56,6 @@ RESET_ISR:
 
 	; Enable Global interrupt flag
 	sei
-
-	; Enable DDRC and set the whole port as input
-	ldi R16,(0 << PC0) | (0 << PC1) | (0 << PC2) | (0 << PC3) | (0 << PC4) | (0 << PC5) | (0 << PC6) | (0 << PC7) |
-	out DDRC,R16
 
 start:
 	; Enable the input direction for PD2
