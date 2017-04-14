@@ -57,6 +57,37 @@ SET_COL_4:
 	jmp ROW_FIND
 
 
+ROW_FIND:
+	; Enable DDRC for MSBs of PC
+	ldi R16,(0 << PC0) | (0 << PC1) | (0 << PC2) | (0 << PC3) | (1 << PC4) | (1 << PC5) | (1 << PC6) | (1 << PC7) |
+	out DDRC,R16
+
+	; Pull-Up for PORT C on bits 0-3
+	ldi r16, (1 << PC0) | (1 << PC1) | (1 << PC2) | (1 << PC3) | (0 << PC4) | (0 << PC5) | (0 << PC6) | (0 << PC7)
+	out PORTC, r16
+
+	; Find the row number
+	sbis PINC,0
+	jmp SET_ROW_1
+	sbis PINC,1
+	jmp SET_ROW_2
+	sbis PINC,2
+	jmp SET_ROW_3
+	sbis PINC,3
+	jmp SET_ROW_4
+
+SET_ROW_1:
+	ldi row,1
+	ret
+SET_ROW_2:
+	ldi row,2
+	ret	
+SET_ROW_3:
+	ldi row,3
+	ret	
+SET_ROW_4:
+	ldi row,4
+	ret
 
 
 .org $1C00
