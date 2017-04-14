@@ -30,5 +30,9 @@ RESET_ISR:
 	ldi R16,low(RAMEND)
 	out SPL,R16
 
+	; Configure as any logical change in the interrupt sense control
+	ldi R16,(0 << ISC11) | (1 << ISC10)
+	out MCUCR,R16
+
 start:
     rjmp start
