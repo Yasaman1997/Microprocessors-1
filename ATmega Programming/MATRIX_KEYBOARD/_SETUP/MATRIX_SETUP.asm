@@ -45,6 +45,7 @@ RESET_ISR:
 	ldi R16,(0 << IVSEL)
 	out GICR,R16
 
-
+	; Enable Global interrupt flag
+	sei
 start:
     rjmp start
