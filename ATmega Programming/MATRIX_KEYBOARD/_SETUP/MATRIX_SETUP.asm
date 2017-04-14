@@ -34,5 +34,10 @@ RESET_ISR:
 	ldi R16,(0 << ISC01) | (1 << ISC00)
 	out MCUCR,R16
 
+	; Enable INT0
+	ldi R16, (1 << INT0) 
+	out GICR, R16
+
+
 start:
     rjmp start
