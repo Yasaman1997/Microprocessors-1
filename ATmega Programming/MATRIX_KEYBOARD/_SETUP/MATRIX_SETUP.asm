@@ -52,6 +52,10 @@ RESET_ISR:
 	ldi R16,(0 << PC0) | (0 << PC1) | (0 << PC2) | (0 << PC3) | (0 << PC4) | (0 << PC5) | (0 << PC6) | (0 << PC7) |
 	out DDRC,R16
 
+	; Pull-Up for PORT C on bits 0-3
+	ldi r16, (1 << PC0) | (1 << PC1) | (1 << PC2) | (1 << PC3)
+	out PORTC, r16
+
 
 start:
 	; Enable the input direction for PD2
