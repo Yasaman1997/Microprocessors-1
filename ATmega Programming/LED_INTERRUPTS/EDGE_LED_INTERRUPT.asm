@@ -39,7 +39,8 @@ KEEP_OFF:
 	; Create a delay
 	call SHORT_DELAY
 
-	; Otherwise, go out of interrupt
+	; Enable Global interrupt flag
+	sei
 	ret
 
 RESET_ISR:
@@ -48,9 +49,6 @@ RESET_ISR:
 	out SPH,R16
 	ldi R16,low(RAMEND)
 	out SPL,R16
-
-	; Enable Global interrupt flag
-	sei
 
 	; Enable INT1
 	ldi r16, (1 << INT1) 
@@ -62,6 +60,9 @@ RESET_ISR:
 	out GICR,R16
 	ldi R16,(0 << IVSEL)
 	out GICR,R16
+
+	; Enable Global interrupt flag
+	sei
 
 start:
 	; Enable the input direction for PD3
