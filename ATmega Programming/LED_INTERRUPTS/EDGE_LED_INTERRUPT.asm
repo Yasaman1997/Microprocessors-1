@@ -49,3 +49,23 @@ EXT_INT1:
 	; Turn on the LED here, set PD7 as output for LED
 	ldi R16,(1 << PD7)
 	out DDRD,R16
+		out DDRD,R16
+	
+	; Control the data output, Keep the LED on untill another key-press interrupt comes in
+KEEP_ON:
+	ldi R16,(1 << PD7)
+	out PORTD,R16
+
+	sbis PIND,3
+	jmp KEEP_ON
+	
+	; Otherwise go to the KEEP_OFF
+KEEP_OFF:
+	ldi R16,(0 << PD7)
+	out PORTD,R16
+
+	sbis PIND,3
+	jmp KEEP_OFF
+	
+	; Otherwise, go out of interrupt
+	reti
