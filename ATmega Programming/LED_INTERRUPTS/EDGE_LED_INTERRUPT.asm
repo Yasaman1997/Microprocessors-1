@@ -6,7 +6,8 @@
 ;
 ; A program to turn the LED on/off by pressing the SW1 button
 
-
+; Reserved 2 bytes: jump to reset at the beginnning
+	jmp RESET
 ; Configuration: Put the interrupt 1 vector at address $002
 .org $002
 CONF_INT_VEC:
@@ -41,6 +42,7 @@ start:
 INT_CHECK:
 	sbis PIND,3
 	jmp INT_CHECK
+
 	; In case we detected any interrupts, jump to CONF_INT_VEC, then EXT_INT1 
 	jmp CONF_INT_VEC
     rjmp start
