@@ -12,9 +12,9 @@
 
 ; Configuration: Put the interrupt 1 vector at address $002
 .org 0x02
-	jmp EXT_INT1
+	jmp HANDLE_SW1
 
-EXT_INT1:
+HANDLE_SW1:
 	; Turn on the LED here, set PD7 as output for LED
 	ldi R16,(1 << PD7)
 	out DDRD,R16
