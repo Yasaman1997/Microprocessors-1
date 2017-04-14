@@ -22,7 +22,7 @@ EXT_INT1:
 	
 	; Control the data output, Keep the LED on untill another key-press interrupt comes in
 KEEP_ON:
-	sbic PIND,3
+	sbis PIND,3
 	jmp KEEP_ON
 	
 	; Create a delay
@@ -33,7 +33,7 @@ KEEP_ON:
 	out PORTD,R16
 
 KEEP_OFF:
-	sbic PIND,3
+	sbis PIND,3
 	jmp KEEP_OFF
 	
 	; Create a delay
