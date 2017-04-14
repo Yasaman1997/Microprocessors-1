@@ -18,5 +18,13 @@
 .org 0x02
 	jmp HANDLE_MATRIX_PRESS
 
+HANDLE_MATRIX_PRESS:
+
+
+
+.org $1C00
+RESET_ISR:
+
+
 start:
     rjmp start
