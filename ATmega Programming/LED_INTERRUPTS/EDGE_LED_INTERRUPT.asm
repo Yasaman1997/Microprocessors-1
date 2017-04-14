@@ -43,6 +43,8 @@ INT_CHECK:
 	sbis PIND,3
 	jmp INT_CHECK
 
+	; Create a delay
+	call SHORT_DELAY
 	; In case we detected any interrupts, jump to CONF_INT_VEC, then EXT_INT1 
 	jmp CONF_INT_VEC
     rjmp start
@@ -69,5 +71,16 @@ KEEP_OFF:
 	sbis PIND,3
 	jmp KEEP_OFF
 	
+	; Create a delay
+	call SHORT_DELAY
+
 	; Otherwise, go out of interrupt
 	reti
+
+	; A short delay for synchronization between press and reaction
+SHORT_DELAY:
+    ldi r25,10
+LOOP:
+    dec R25
+    brne LOOP
+    ret
