@@ -79,7 +79,7 @@ KEEP_OFF:
 
 	; A short delay for synchronization between press and reaction
 SHORT_DELAY:
-    ldi r25,10
+    ldi r25,2
 LOOP:
     dec R25
     brne LOOP
