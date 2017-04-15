@@ -5,8 +5,15 @@
 ; Author : Ali Gholami
 ;
 
+
 ; A program to find the number of each button press in the matrix keyboard and display the numbers on the 7 Segment
-; A part of the code is the matrix setup from the previous section
+; Simply store the codes needed for the 7 Segment in the EEPROM memory 
+
+.ESEG
+ENCODE_NUMBERS: .DB 0xC0, 0xFC, 0xA4, 0xB0, 0x99, 0x92, 0x82, 0xF8, 0x80, 0x90 
+
+
+; The first part of the code is the matrix setup from the previous section
 ; This code is written to identify the pressed number in the keyboard
 .def col = R20
 .def row = R21
