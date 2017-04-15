@@ -19,6 +19,8 @@ ENCODE_NUMBERS: .DB 0xC0, 0xFC, 0xA4, 0xB0, 0x99, 0x92, 0x82, 0xF8, 0x80, 0x90
 .def col = R20
 .def row = R21
 .def return_val = R1
+.def SH_RS = R19
+.def E2_OFFSET = R22
 
 ; Reserved 2 bytes: jump to reset at the beginnning
 .org 0x00
@@ -110,6 +112,9 @@ CALCULATE_AND_RETURN:
 
 .org $1C00
 RESET_ISR:
+	; Set E2_OFFSET = 0
+	ldi E2_OFFSET,0
+	
 	; Set stack pointer to the top of ram 
 	ldi R16,high(RAMEND)
 	out SPH,R16
@@ -145,5 +150,11 @@ start:
 
 	; Ok :D When returned, we have the desired number in the R1
 	; Lets start showing it on the 7 Segment 
+	; Convert the number into the normal mode
+	; Put the converted number in the SH_RS variable
+	mov SH_RS, return_value
+	; Compare the returned value with the immediate
+	cpi SH_RS, 17
+
 	rjmp start
 
