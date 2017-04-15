@@ -5,9 +5,8 @@
 ; Author : Ali Gholami
 ;
 
-
 ; A program to find the number of each button press in the matrix keyboard and display the numbers on the 7 Segment
-; The first part of the code is the matrix setup from the previous section
+; A part of the code is the matrix setup from the previous section
 ; This code is written to identify the pressed number in the keyboard
 .def col = R20
 .def row = R21
