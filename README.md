@@ -12,7 +12,7 @@ AVR ATmega16 Microcontroller programming and simulation using AtmelStudio and Pr
 2. [Directives](http://www.atmel.com/webdoc/avrassembler/avrassembler.wb_directives.html)
 3. [Assembler Preprocessor](http://www.atmel.com/webdoc/avrassembler/avrassembler.wb_preprocessor.html)
 4. [Known Issues](http://www.atmel.com/webdoc/avrassembler/avrassembler.wb_Known_Issues.html)
-5. [Addressing Modes](https://www.csee.umbc.edu/~tinoosh/cmpe311/notes/AVRAddressingModes.pdf)
+5. [Addressing Modes - See below for quick lookup](https://www.csee.umbc.edu/~tinoosh/cmpe311/notes/AVRAddressingModes.pdf)
 
 
 
