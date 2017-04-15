@@ -154,7 +154,21 @@ start:
 	; Put the converted number in the SH_RS variable
 	mov SH_RS, return_value
 	; Compare the returned value with the immediate
+	cpi SH_RS, 16
+	nop
+	
 	cpi SH_RS, 17
+	adiw SH_RS, 1
+	
+	cpi SH_RS, 18
+	adiw SH_RS, 2
+	
+	cpi SH_RS, 19
+	adiw SH_RS, 3
+	
+	cpi SH_RS, 20
+	adiw SH_RS, 4
+
 
 	rjmp start
 
