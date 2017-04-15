@@ -9,17 +9,13 @@
 ; A program to find the number of each button press in the matrix keyboard and display the numbers on the 7 Segment
 ; Simply store the codes needed for the 7 Segment in the EEPROM memory 
 
-;====================0=====1=====2=====3=====4=====5=====6=====7=====8=====9====10=====11====12===13====14=====15
-.ESEG
-ENCODE_NUMBERS: .DB 0x7E, 0x30, 0x6D, 0x79, 0x33, 0x5B, 0x5F, 0x70, 0x7F, 0x7B, 0x77, 0x1F, 0x4E, 0x3D, 0x4F, 0x47
-
-
 ; The first part of the code is the matrix setup from the previous section
 ; This code is written to identify the pressed number in the keyboard
 .def col = R20
 .def row = R21
 .def return_val = R1
-.def SH_RS = R19
+.def SH_RS_H = R29
+.def SH_RS_L = R28
 .def E2_OFFSET = R22
 
 ; Reserved 2 bytes: jump to reset at the beginnning
@@ -37,7 +33,7 @@ KEY_FIND:
 
 COL_FIND:
 	; Enable DDRC for LSBs of PC
-	ldi R16,(1 << PC0) | (1 << PC1) | (1 << PC2) | (1 << PC3) | (0 << PC4) | (0 << PC5) | (0 << PC6) | (0 << PC7) |
+	ldi R16,(1 << PC0) | (1 << PC1) | (1 << PC2) | (1 << PC3) | (0 << PC4) | (0 << PC5) | (0 << PC6) | (0 << PC7)
 	out DDRC,R16
 
 	; Pull-Up for PORT C on bits 4-7
@@ -70,7 +66,7 @@ SET_COL_4:
 
 ROW_FIND:
 	; Enable DDRC for MSBs of PC
-	ldi R16,(0 << PC0) | (0 << PC1) | (0 << PC2) | (0 << PC3) | (1 << PC4) | (1 << PC5) | (1 << PC6) | (1 << PC7) |
+	ldi R16,(0 << PC0) | (0 << PC1) | (0 << PC2) | (0 << PC3) | (1 << PC4) | (1 << PC5) | (1 << PC6) | (1 << PC7)
 	out DDRC,R16
 
 	; Pull-Up for PORT C on bits 0-3
@@ -152,53 +148,56 @@ start:
 	; Lets start showing it on the 7 Segment 
 	; Convert the number into the normal mode
 	; Put the converted number in the SH_RS variable
-	mov SH_RS, return_value
+	movw SH_RS_H:SH_RS_L, R2:R1
 	; Compare the returned value with the immediate
-	cpi SH_RS, 17
-	adiw SH_RS, 0
+	cpi SH_RS_L, 17
+	adiw SH_RS_H:SH_RS_L, 0
 	
-	cpi SH_RS, 18
-	adiw SH_RS, 1
+	cpi SH_RS_L, 18
+	adiw SH_RS_H:SH_RS_L, 1
 	
-	cpi SH_RS, 19
-	adiw SH_RS, 2
+	cpi SH_RS_L, 19
+	adiw SH_RS_H:SH_RS_L, 2
 	
-	cpi SH_RS, 20
-	adiw SH_RS, 3
+	cpi SH_RS_L, 20
+	adiw SH_RS_H:SH_RS_L, 3
 
-	cpi SH_RS, 33
-	adiw SH_RS, 4
+	cpi SH_RS_L, 33
+	adiw SH_RS_H:SH_RS_L, 4
 	
-	cpi SH_RS, 34
-	adiw SH_RS, 5
+	cpi SH_RS_L, 34
+	adiw SH_RS_H:SH_RS_L, 5
 	
-	cpi SH_RS, 35
-	adiw SH_RS, 6
+	cpi SH_RS_L, 35
+	adiw SH_RS_H:SH_RS_L, 6
 	
-	cpi SH_RS, 49
-	adiw SH_RS, 7
+	cpi SH_RS_L, 49
+	adiw SH_RS_H:SH_RS_L, 7
 
-	cpi SH_RS, 50
-	adiw SH_RS, 8
+	cpi SH_RS_L, 50
+	adiw SH_RS_H:SH_RS_L, 8
 
-	cpi SH_RS, 51
-	adiw SH_RS, 9
+	cpi SH_RS_L, 51
+	adiw SH_RS_H:SH_RS_L, 9
 
-	cpi SH_RS, 52
-	adiw SH_RS, 10
+	cpi SH_RS_L, 52
+	adiw SH_RS_H:SH_RS_L, 10
 
-	cpi SH_RS, 65
-	adiw SH_RS, 11
+	cpi SH_RS_L, 65
+	adiw SH_RS_H:SH_RS_L, 11
 
-	cpi SH_RS, 66
-	adiw SH_RS, 12
+	cpi SH_RS_L, 66
+	adiw SH_RS_H:SH_RS_L, 12
 
-	cpi SH_RS, 67
-	adiw SH_RS, 13
+	cpi SH_RS_L, 67
+	adiw SH_RS_H:SH_RS_L, 13
 
-	cpi SH_RS, 68
-	adiw SH_RS, 14
+	cpi SH_RS_L, 68
+	adiw SH_RS_H:SH_RS_L, 14
 
 
 	rjmp start
 
+;====================0=====1=====2=====3=====4=====5=====6=====7=====8=====9====10=====11====12===13====14=====15
+.ESEG
+ENCODE_NUMBERS: .DB 0x7E, 0x30, 0x6D, 0x79, 0x33, 0x5B, 0x5F, 0x70, 0x7F, 0x7B, 0x77, 0x1F, 0x4E, 0x3D, 0x4F, 0x47
