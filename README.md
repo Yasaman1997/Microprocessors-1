@@ -6,6 +6,10 @@
 </p>
 
 AVR ATmega16 Microcontroller programming and simulation using AtmelStudio and Proteus.
+**Quick Access**:
+1. [Instructions Page](http://www.atmel.com/webdoc/avrassembler/avrassembler.wb_instruction_list.html)
+
+
 
 # Introduction: Instruction Set and Addressing Modes
 The following is a quick start on basic concepts of ATmega16 microcontroller.
