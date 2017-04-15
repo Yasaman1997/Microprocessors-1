@@ -9,9 +9,9 @@
 ; A program to find the number of each button press in the matrix keyboard and display the numbers on the 7 Segment
 ; Simply store the codes needed for the 7 Segment in the EEPROM memory 
 
-;====================0=====1=====2=====3=====4=====5=====6=====7=====8=====9====
+;====================0=====1=====2=====3=====4=====5=====6=====7=====8=====9====10=====11====12===13====14=====15
 .ESEG
-ENCODE_NUMBERS: .DB 0xC0, 0xFC, 0xA4, 0xB0, 0x99, 0x92, 0x82, 0xF8, 0x80, 0x90 
+ENCODE_NUMBERS: .DB 0x7E, 0x30, 0x6D, 0x79, 0x33, 0x5B, 0x5F, 0x70, 0x7F, 0x7B, 0x77, 0x1F, 0x4E, 0x3D, 0x4F, 0x47
 
 
 ; The first part of the code is the matrix setup from the previous section
@@ -154,20 +154,50 @@ start:
 	; Put the converted number in the SH_RS variable
 	mov SH_RS, return_value
 	; Compare the returned value with the immediate
-	cpi SH_RS, 16
-	nop
-	
 	cpi SH_RS, 17
-	adiw SH_RS, 1
+	adiw SH_RS, 0
 	
 	cpi SH_RS, 18
-	adiw SH_RS, 2
+	adiw SH_RS, 1
 	
 	cpi SH_RS, 19
-	adiw SH_RS, 3
+	adiw SH_RS, 2
 	
 	cpi SH_RS, 20
+	adiw SH_RS, 3
+
+	cpi SH_RS, 33
 	adiw SH_RS, 4
+	
+	cpi SH_RS, 34
+	adiw SH_RS, 5
+	
+	cpi SH_RS, 35
+	adiw SH_RS, 6
+	
+	cpi SH_RS, 49
+	adiw SH_RS, 7
+
+	cpi SH_RS, 50
+	adiw SH_RS, 8
+
+	cpi SH_RS, 51
+	adiw SH_RS, 9
+
+	cpi SH_RS, 52
+	adiw SH_RS, 10
+
+	cpi SH_RS, 65
+	adiw SH_RS, 11
+
+	cpi SH_RS, 66
+	adiw SH_RS, 12
+
+	cpi SH_RS, 67
+	adiw SH_RS, 13
+
+	cpi SH_RS, 68
+	adiw SH_RS, 14
 
 
 	rjmp start
