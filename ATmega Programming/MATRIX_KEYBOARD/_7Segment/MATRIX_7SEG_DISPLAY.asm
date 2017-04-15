@@ -141,5 +141,9 @@ start:
 	; Listen for interrupt!
 	sbic PIND,2
 	call HANDLE_MATRIX_PRESS
+
+
+	; Ok :D When returned, we have the desired number in the R1
+	; Lets start showing it on the 7 Segment 
 	rjmp start
 
