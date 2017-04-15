@@ -9,6 +9,7 @@
 ; A program to find the number of each button press in the matrix keyboard and display the numbers on the 7 Segment
 ; Simply store the codes needed for the 7 Segment in the EEPROM memory 
 
+;====================0=====1=====2=====3=====4=====5=====6=====7=====8=====9====
 .ESEG
 ENCODE_NUMBERS: .DB 0xC0, 0xFC, 0xA4, 0xB0, 0x99, 0x92, 0x82, 0xF8, 0x80, 0x90 
 
