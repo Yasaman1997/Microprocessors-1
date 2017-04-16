@@ -260,4 +260,5 @@ LCD_init:
 	ldi	argument, 0x06		;auto-inc cursor
 	rcall	LCD_command
 ret
-#endif
+
+#endif /********/
