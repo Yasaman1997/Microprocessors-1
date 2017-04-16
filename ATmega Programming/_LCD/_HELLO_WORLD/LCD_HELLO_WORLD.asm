@@ -8,11 +8,38 @@
 ; A program to write the "HELLO WORLD" string on the LCD
 ; The LCD connection will be done using some libraries
 .include "m16_LCD_4bit.inc"
-
-RESET_ISR:
-
-	;
-
-
 start:
+	ldi argument,'H'
+	call lcd_putchar
+
+	ldi argument,'e'
+	call lcd_putchar
+
+	ldi argument,'l'
+	call lcd_putchar
+
+	ldi argument,'l'
+	call lcd_putchar
+
+	ldi argument,'o'
+	call lcd_putchar
+
+	ldi argument,' '
+	call lcd_putchar
+
+	ldi argument,'W'
+	call lcd_putchar
+
+	ldi argument,'o'
+	call lcd_putchar
+
+	ldi argument,'r'
+	call lcd_putchar
+
+	ldi argument,'l'
+	call lcd_putchar
+
+	ldi argument,'d'
+	call lcd_putchar
+
     rjmp start
