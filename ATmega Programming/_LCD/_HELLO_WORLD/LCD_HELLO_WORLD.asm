@@ -10,9 +10,6 @@
 .include "m16_LCD_4bit.inc"
 
 RESET_ISR:
-	; Set the PD direction to output for LCD usage
-	ldi R16,  (1 << PD4) | (1 << PD5) | (1 << PD6) | (1 << PD7)
-	out DDRD, R16
 
 	;
 
