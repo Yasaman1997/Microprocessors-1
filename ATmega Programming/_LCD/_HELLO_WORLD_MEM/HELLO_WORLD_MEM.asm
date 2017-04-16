@@ -8,9 +8,9 @@
 .include "m16_LCD_4bit.inc"
 ; Write an array of data in the flash section(code section)
 .CSEG
-LCDTABLE: .DB 14, 'M', 'Y', 'N', 'A', 'M', 'E', 'I', 'S', 'M', 'E', 'T', 'H', 'O', 'S'
+LCDTABLE: .DB 14, 'M', 'Y', 'N', 'A', 'M', 'E', 'I', 'S', 'M', 'E', 'T', 'H', 'O', 'S', '.'
 
-.def counter = R16
+.def counter = R15
 
 start:
 	; call LCD accroding to the number given in the first place of LCDTABLE
