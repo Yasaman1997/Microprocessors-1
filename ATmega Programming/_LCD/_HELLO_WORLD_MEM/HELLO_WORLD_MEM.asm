@@ -14,3 +14,10 @@ LCDTABLE: .DB 14, 'M', 'Y', 'N', 'A', 'M', 'E', 'I', 'S', 'M', 'E', 'T', 'H', 'O
 start:
    
     rjmp start
+
+; This routine will make the microcontroller to show the stored data in the address LCDTABLE
+LCD:
+	ldi ZH, high(LCDTABLE << 1)
+	ldi ZL, low(LCDTABLE << 1)
+	lpm argument, Z
+	
