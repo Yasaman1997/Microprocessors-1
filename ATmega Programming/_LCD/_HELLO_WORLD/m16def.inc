@@ -1,15 +1,15 @@
 ;***** THIS IS A MACHINE GENERATED FILE - DO NOT EDIT ********************
-;***** Created: 2011-02-09 12:03 ******* Source: ATmega8.xml *************
+;***** Created: 2011-02-09 12:03 ******* Source: ATmega16.xml ************
 ;*************************************************************************
 ;* A P P L I C A T I O N   N O T E   F O R   T H E   A V R   F A M I L Y
 ;* 
 ;* Number            : AVR000
-;* File Name         : "m8def.inc"
-;* Title             : Register/Bit Definitions for the ATmega8
+;* File Name         : "m16def.inc"
+;* Title             : Register/Bit Definitions for the ATmega16
 ;* Date              : 2011-02-09
 ;* Version           : 2.35
 ;* Support E-mail    : avr@atmel.com
-;* Target MCU        : ATmega8
+;* Target MCU        : ATmega16
 ;* 
 ;* DESCRIPTION
 ;* When including this file in the assembly program file, all I/O register 
@@ -37,18 +37,18 @@
 ;* ...                         ;otherwise do something else
 ;*************************************************************************
 
-#ifndef _M8DEF_INC_
-#define _M8DEF_INC_
+#ifndef _M16DEF_INC_
+#define _M16DEF_INC_
 
 
 #pragma partinc 0
 
 ; ***** SPECIFY DEVICE ***************************************************
-.device ATmega8
-#pragma AVRPART ADMIN PART_NAME ATmega8
+.device ATmega16
+#pragma AVRPART ADMIN PART_NAME ATmega16
 .equ	SIGNATURE_000	= 0x1e
-.equ	SIGNATURE_001	= 0x93
-.equ	SIGNATURE_002	= 0x07
+.equ	SIGNATURE_001	= 0x94
+.equ	SIGNATURE_002	= 0x03
 
 #pragma AVRPART CORE CORE_VERSION V2E
 
@@ -60,17 +60,19 @@
 .equ	SREG	= 0x3f
 .equ	SPL	= 0x3d
 .equ	SPH	= 0x3e
+.equ	OCR0	= 0x3c
 .equ	GICR	= 0x3b
 .equ	GIFR	= 0x3a
 .equ	TIMSK	= 0x39
 .equ	TIFR	= 0x38
-.equ	SPMCR	= 0x37
+.equ	SPMCSR	= 0x37
 .equ	TWCR	= 0x36
 .equ	MCUCR	= 0x35
 .equ	MCUCSR	= 0x34
 .equ	TCCR0	= 0x33
 .equ	TCNT0	= 0x32
 .equ	OSCCAL	= 0x31
+.equ	OCDR	= 0x31
 .equ	SFIOR	= 0x30
 .equ	TCCR1A	= 0x2f
 .equ	TCCR1B	= 0x2e
@@ -93,6 +95,9 @@
 .equ	EEARH	= 0x1f
 .equ	EEDR	= 0x1d
 .equ	EECR	= 0x1c
+.equ	PORTA	= 0x1b
+.equ	DDRA	= 0x1a
+.equ	PINA	= 0x19
 .equ	PORTB	= 0x18
 .equ	DDRB	= 0x17
 .equ	PINB	= 0x16
@@ -112,8 +117,8 @@
 .equ	ACSR	= 0x08
 .equ	ADMUX	= 0x07
 .equ	ADCSRA	= 0x06
-.equ	ADCL	= 0x04
 .equ	ADCH	= 0x05
+.equ	ADCL	= 0x04
 .equ	TWDR	= 0x03
 .equ	TWAR	= 0x02
 .equ	TWSR	= 0x01
@@ -122,88 +127,49 @@
 
 ; ***** BIT DEFINITIONS **************************************************
 
-; ***** ANALOG_COMPARATOR ************
-; SFIOR - Special Function IO Register
-.equ	ACME	= 3	; Analog Comparator Multiplexer Enable
-
-; ACSR - Analog Comparator Control And Status Register
-.equ	ACIS0	= 0	; Analog Comparator Interrupt Mode Select bit 0
-.equ	ACIS1	= 1	; Analog Comparator Interrupt Mode Select bit 1
-.equ	ACIC	= 2	; Analog Comparator Input Capture Enable
-.equ	ACIE	= 3	; Analog Comparator Interrupt Enable
-.equ	ACI	= 4	; Analog Comparator Interrupt Flag
-.equ	ACO	= 5	; Analog Compare Output
-.equ	ACBG	= 6	; Analog Comparator Bandgap Select
-.equ	ACD	= 7	; Analog Comparator Disable
-
-
-; ***** SPI **************************
-; SPDR - SPI Data Register
-.equ	SPDR0	= 0	; SPI Data Register bit 0
-.equ	SPDR1	= 1	; SPI Data Register bit 1
-.equ	SPDR2	= 2	; SPI Data Register bit 2
-.equ	SPDR3	= 3	; SPI Data Register bit 3
-.equ	SPDR4	= 4	; SPI Data Register bit 4
-.equ	SPDR5	= 5	; SPI Data Register bit 5
-.equ	SPDR6	= 6	; SPI Data Register bit 6
-.equ	SPDR7	= 7	; SPI Data Register bit 7
-
-; SPSR - SPI Status Register
-.equ	SPI2X	= 0	; Double SPI Speed Bit
-.equ	WCOL	= 6	; Write Collision Flag
-.equ	SPIF	= 7	; SPI Interrupt Flag
-
-; SPCR - SPI Control Register
-.equ	SPR0	= 0	; SPI Clock Rate Select 0
-.equ	SPR1	= 1	; SPI Clock Rate Select 1
-.equ	CPHA	= 2	; Clock Phase
-.equ	CPOL	= 3	; Clock polarity
-.equ	MSTR	= 4	; Master/Slave Select
-.equ	DORD	= 5	; Data Order
-.equ	SPE	= 6	; SPI Enable
-.equ	SPIE	= 7	; SPI Interrupt Enable
-
-
-; ***** EXTERNAL_INTERRUPT ***********
-; GICR - General Interrupt Control Register
-.equ	GIMSK	= GICR	; For compatibility
-.equ	IVCE	= 0	; Interrupt Vector Change Enable
-.equ	IVSEL	= 1	; Interrupt Vector Select
-.equ	INT0	= 6	; External Interrupt Request 0 Enable
-.equ	INT1	= 7	; External Interrupt Request 1 Enable
-
-; GIFR - General Interrupt Flag Register
-.equ	INTF0	= 6	; External Interrupt Flag 0
-.equ	INTF1	= 7	; External Interrupt Flag 1
-
-; MCUCR - MCU Control Register
-.equ	ISC00	= 0	; Interrupt Sense Control 0 Bit 0
-.equ	ISC01	= 1	; Interrupt Sense Control 0 Bit 1
-.equ	ISC10	= 2	; Interrupt Sense Control 1 Bit 0
-.equ	ISC11	= 3	; Interrupt Sense Control 1 Bit 1
-
-
 ; ***** TIMER_COUNTER_0 **************
+; TCCR0 - Timer/Counter Control Register
+.equ	CS00	= 0	; Clock Select 1
+.equ	CS01	= 1	; Clock Select 1
+.equ	CS02	= 2	; Clock Select 2
+.equ	WGM01	= 3	; Waveform Generation Mode 1
+.equ	CTC0	= WGM01	; For compatibility
+.equ	COM00	= 4	; Compare match Output Mode 0
+.equ	COM01	= 5	; Compare Match Output Mode 1
+.equ	WGM00	= 6	; Waveform Generation Mode 0
+.equ	PWM0	= WGM00	; For compatibility
+.equ	FOC0	= 7	; Force Output Compare
+
+; TCNT0 - Timer/Counter Register
+.equ	TCNT0_0	= 0	; 
+.equ	TCNT0_1	= 1	; 
+.equ	TCNT0_2	= 2	; 
+.equ	TCNT0_3	= 3	; 
+.equ	TCNT0_4	= 4	; 
+.equ	TCNT0_5	= 5	; 
+.equ	TCNT0_6	= 6	; 
+.equ	TCNT0_7	= 7	; 
+
+; OCR0 - Output Compare Register
+.equ	OCR0_0	= 0	; 
+.equ	OCR0_1	= 1	; 
+.equ	OCR0_2	= 2	; 
+.equ	OCR0_3	= 3	; 
+.equ	OCR0_4	= 4	; 
+.equ	OCR0_5	= 5	; 
+.equ	OCR0_6	= 6	; 
+.equ	OCR0_7	= 7	; 
+
 ; TIMSK - Timer/Counter Interrupt Mask Register
 .equ	TOIE0	= 0	; Timer/Counter0 Overflow Interrupt Enable
+.equ	OCIE0	= 1	; Timer/Counter0 Output Compare Match Interrupt register
 
 ; TIFR - Timer/Counter Interrupt Flag register
 .equ	TOV0	= 0	; Timer/Counter0 Overflow Flag
+.equ	OCF0	= 1	; Output Compare Flag 0
 
-; TCCR0 - Timer/Counter0 Control Register
-.equ	CS00	= 0	; Clock Select0 bit 0
-.equ	CS01	= 1	; Clock Select0 bit 1
-.equ	CS02	= 2	; Clock Select0 bit 2
-
-; TCNT0 - Timer Counter 0
-.equ	TCNT00	= 0	; Timer Counter 0 bit 0
-.equ	TCNT01	= 1	; Timer Counter 0 bit 1
-.equ	TCNT02	= 2	; Timer Counter 0 bit 2
-.equ	TCNT03	= 3	; Timer Counter 0 bit 3
-.equ	TCNT04	= 4	; Timer Counter 0 bit 4
-.equ	TCNT05	= 5	; Timer Counter 0 bit 5
-.equ	TCNT06	= 6	; Timer Counter 0 bit 6
-.equ	TCNT07	= 7	; Timer Counter 0 bit 7
+; SFIOR - Special Function IO Register
+.equ	PSR10	= 0	; Prescaler Reset Timer/Counter1 and Timer/Counter0
 
 
 ; ***** TIMER_COUNTER_1 **************
@@ -242,6 +208,96 @@
 .equ	CTC11	= WGM13	; For compatibility
 .equ	ICES1	= 6	; Input Capture 1 Edge Select
 .equ	ICNC1	= 7	; Input Capture 1 Noise Canceler
+
+
+; ***** EXTERNAL_INTERRUPT ***********
+; GICR - General Interrupt Control Register
+.equ	GIMSK	= GICR	; For compatibility
+.equ	IVCE	= 0	; Interrupt Vector Change Enable
+.equ	IVSEL	= 1	; Interrupt Vector Select
+.equ	INT2	= 5	; External Interrupt Request 2 Enable
+.equ	INT0	= 6	; External Interrupt Request 0 Enable
+.equ	INT1	= 7	; External Interrupt Request 1 Enable
+
+; GIFR - General Interrupt Flag Register
+.equ	INTF2	= 5	; External Interrupt Flag 2
+.equ	INTF0	= 6	; External Interrupt Flag 0
+.equ	INTF1	= 7	; External Interrupt Flag 1
+
+; MCUCR - General Interrupt Control Register
+.equ	ISC00	= 0	; Interrupt Sense Control 0 Bit 0
+.equ	ISC01	= 1	; Interrupt Sense Control 0 Bit 1
+.equ	ISC10	= 2	; Interrupt Sense Control 1 Bit 0
+.equ	ISC11	= 3	; Interrupt Sense Control 1 Bit 1
+
+; MCUCSR - MCU Control And Status Register
+.equ	ISC2	= 6	; Interrupt Sense Control 2
+
+
+; ***** EEPROM ***********************
+; EEDR - EEPROM Data Register
+.equ	EEDR0	= 0	; EEPROM Data Register bit 0
+.equ	EEDR1	= 1	; EEPROM Data Register bit 1
+.equ	EEDR2	= 2	; EEPROM Data Register bit 2
+.equ	EEDR3	= 3	; EEPROM Data Register bit 3
+.equ	EEDR4	= 4	; EEPROM Data Register bit 4
+.equ	EEDR5	= 5	; EEPROM Data Register bit 5
+.equ	EEDR6	= 6	; EEPROM Data Register bit 6
+.equ	EEDR7	= 7	; EEPROM Data Register bit 7
+
+; EECR - EEPROM Control Register
+.equ	EERE	= 0	; EEPROM Read Enable
+.equ	EEWE	= 1	; EEPROM Write Enable
+.equ	EEMWE	= 2	; EEPROM Master Write Enable
+.equ	EEWEE	= EEMWE	; For compatibility
+.equ	EERIE	= 3	; EEPROM Ready Interrupt Enable
+
+
+; ***** CPU **************************
+; SREG - Status Register
+.equ	SREG_C	= 0	; Carry Flag
+.equ	SREG_Z	= 1	; Zero Flag
+.equ	SREG_N	= 2	; Negative Flag
+.equ	SREG_V	= 3	; Two's Complement Overflow Flag
+.equ	SREG_S	= 4	; Sign Bit
+.equ	SREG_H	= 5	; Half Carry Flag
+.equ	SREG_T	= 6	; Bit Copy Storage
+.equ	SREG_I	= 7	; Global Interrupt Enable
+
+; MCUCR - MCU Control Register
+;.equ	ISC00	= 0	; Interrupt Sense Control 0 Bit 0
+;.equ	ISC01	= 1	; Interrupt Sense Control 0 Bit 1
+;.equ	ISC10	= 2	; Interrupt Sense Control 1 Bit 0
+;.equ	ISC11	= 3	; Interrupt Sense Control 1 Bit 1
+.equ	SM0	= 4	; Sleep Mode Select
+.equ	SM1	= 5	; Sleep Mode Select
+.equ	SE	= 6	; Sleep Enable
+.equ	SM2	= 7	; Sleep Mode Select
+
+; MCUCSR - MCU Control And Status Register
+.equ	MCUSR	= MCUCSR	; For compatibility
+.equ	PORF	= 0	; Power-on reset flag
+.equ	EXTRF	= 1	; External Reset Flag
+.equ	EXTREF	= EXTRF	; For compatibility
+.equ	BORF	= 2	; Brown-out Reset Flag
+.equ	WDRF	= 3	; Watchdog Reset Flag
+.equ	JTRF	= 4	; JTAG Reset Flag
+.equ	JTD	= 7	; JTAG Interface Disable
+
+; OSCCAL - Oscillator Calibration Value
+.equ	CAL0	= 0	; Oscillator Calibration Value Bit0
+.equ	CAL1	= 1	; Oscillator Calibration Value Bit1
+.equ	CAL2	= 2	; Oscillator Calibration Value Bit2
+.equ	CAL3	= 3	; Oscillator Calibration Value Bit3
+.equ	CAL4	= 4	; Oscillator Calibration Value Bit4
+.equ	CAL5	= 5	; Oscillator Calibration Value Bit5
+.equ	CAL6	= 6	; Oscillator Calibration Value Bit6
+.equ	CAL7	= 7	; Oscillator Calibration Value Bit7
+
+; SFIOR - Special function I/O register
+;.equ	PSR10	= 0	; Prescaler reset
+.equ	PSR2	= 1	; Prescaler reset
+.equ	PUD	= 2	; Pull-up Disable
 
 
 ; ***** TIMER_COUNTER_2 **************
@@ -292,7 +348,34 @@
 .equ	AS2	= 3	; Asynchronous Timer/counter2
 
 ; SFIOR - Special Function IO Register
-.equ	PSR2	= 1	; Prescaler Reset Timer/Counter2
+;.equ	PSR2	= 1	; Prescaler Reset Timer/Counter2
+
+
+; ***** SPI **************************
+; SPDR - SPI Data Register
+.equ	SPDR0	= 0	; SPI Data Register bit 0
+.equ	SPDR1	= 1	; SPI Data Register bit 1
+.equ	SPDR2	= 2	; SPI Data Register bit 2
+.equ	SPDR3	= 3	; SPI Data Register bit 3
+.equ	SPDR4	= 4	; SPI Data Register bit 4
+.equ	SPDR5	= 5	; SPI Data Register bit 5
+.equ	SPDR6	= 6	; SPI Data Register bit 6
+.equ	SPDR7	= 7	; SPI Data Register bit 7
+
+; SPSR - SPI Status Register
+.equ	SPI2X	= 0	; Double SPI Speed Bit
+.equ	WCOL	= 6	; Write Collision Flag
+.equ	SPIF	= 7	; SPI Interrupt Flag
+
+; SPCR - SPI Control Register
+.equ	SPR0	= 0	; SPI Clock Rate Select 0
+.equ	SPR1	= 1	; SPI Clock Rate Select 1
+.equ	CPHA	= 2	; Clock Phase
+.equ	CPOL	= 3	; Clock polarity
+.equ	MSTR	= 4	; Master/Slave Select
+.equ	DORD	= 5	; Data Order
+.equ	SPE	= 6	; SPI Enable
+.equ	SPIE	= 7	; SPI Interrupt Enable
 
 
 ; ***** USART ************************
@@ -413,15 +496,139 @@
 .equ	TWA6	= 7	; TWI (Slave) Address register Bit 6
 
 
-; ***** WATCHDOG *********************
-; WDTCR - Watchdog Timer Control Register
-.equ	WDTCSR	= WDTCR	; For compatibility
-.equ	WDP0	= 0	; Watch Dog Timer Prescaler bit 0
-.equ	WDP1	= 1	; Watch Dog Timer Prescaler bit 1
-.equ	WDP2	= 2	; Watch Dog Timer Prescaler bit 2
-.equ	WDE	= 3	; Watch Dog Enable
-.equ	WDCE	= 4	; Watchdog Change Enable
-.equ	WDTOE	= WDCE	; For compatibility
+; ***** ANALOG_COMPARATOR ************
+; SFIOR - Special Function IO Register
+.equ	ACME	= 3	; Analog Comparator Multiplexer Enable
+
+; ACSR - Analog Comparator Control And Status Register
+.equ	ACIS0	= 0	; Analog Comparator Interrupt Mode Select bit 0
+.equ	ACIS1	= 1	; Analog Comparator Interrupt Mode Select bit 1
+.equ	ACIC	= 2	; Analog Comparator Input Capture Enable
+.equ	ACIE	= 3	; Analog Comparator Interrupt Enable
+.equ	ACI	= 4	; Analog Comparator Interrupt Flag
+.equ	ACO	= 5	; Analog Compare Output
+.equ	ACBG	= 6	; Analog Comparator Bandgap Select
+.equ	ACD	= 7	; Analog Comparator Disable
+
+
+; ***** AD_CONVERTER *****************
+; ADMUX - The ADC multiplexer Selection Register
+.equ	MUX0	= 0	; Analog Channel and Gain Selection Bits
+.equ	MUX1	= 1	; Analog Channel and Gain Selection Bits
+.equ	MUX2	= 2	; Analog Channel and Gain Selection Bits
+.equ	MUX3	= 3	; Analog Channel and Gain Selection Bits
+.equ	MUX4	= 4	; Analog Channel and Gain Selection Bits
+.equ	ADLAR	= 5	; Left Adjust Result
+.equ	REFS0	= 6	; Reference Selection Bit 0
+.equ	REFS1	= 7	; Reference Selection Bit 1
+
+; ADCSRA - The ADC Control and Status register
+.equ	ADCSR	= ADCSRA	; For compatibility
+.equ	ADPS0	= 0	; ADC  Prescaler Select Bits
+.equ	ADPS1	= 1	; ADC  Prescaler Select Bits
+.equ	ADPS2	= 2	; ADC  Prescaler Select Bits
+.equ	ADIE	= 3	; ADC Interrupt Enable
+.equ	ADIF	= 4	; ADC Interrupt Flag
+.equ	ADATE	= 5	; When this bit is written to one,the Timer/Counter2 prescaler will be reset.The bit will be cleared by hardware after the operation is performed.Writing a zero to this bit will have no effect.This bit will always be read as zero if Timer/Counter2 is clocked by the internal CPU clock.If this bit is written when Timer/Counter2 is operating in asynchronous mode,the bit will remain one until the prescaler has been reset.
+.equ	ADFR	= ADATE	; For compatibility
+.equ	ADSC	= 6	; ADC Start Conversion
+.equ	ADEN	= 7	; ADC Enable
+
+; ADCH - ADC Data Register High Byte
+.equ	ADCH0	= 0	; ADC Data Register High Byte Bit 0
+.equ	ADCH1	= 1	; ADC Data Register High Byte Bit 1
+.equ	ADCH2	= 2	; ADC Data Register High Byte Bit 2
+.equ	ADCH3	= 3	; ADC Data Register High Byte Bit 3
+.equ	ADCH4	= 4	; ADC Data Register High Byte Bit 4
+.equ	ADCH5	= 5	; ADC Data Register High Byte Bit 5
+.equ	ADCH6	= 6	; ADC Data Register High Byte Bit 6
+.equ	ADCH7	= 7	; ADC Data Register High Byte Bit 7
+
+; ADCL - ADC Data Register Low Byte
+.equ	ADCL0	= 0	; ADC Data Register Low Byte Bit 0
+.equ	ADCL1	= 1	; ADC Data Register Low Byte Bit 1
+.equ	ADCL2	= 2	; ADC Data Register Low Byte Bit 2
+.equ	ADCL3	= 3	; ADC Data Register Low Byte Bit 3
+.equ	ADCL4	= 4	; ADC Data Register Low Byte Bit 4
+.equ	ADCL5	= 5	; ADC Data Register Low Byte Bit 5
+.equ	ADCL6	= 6	; ADC Data Register Low Byte Bit 6
+.equ	ADCL7	= 7	; ADC Data Register Low Byte Bit 7
+
+; SFIOR - Special Function IO Register
+.equ	ADTS0	= 5	; ADC Auto Trigger Source 0
+.equ	ADTS1	= 6	; ADC Auto Trigger Source 1
+.equ	ADTS2	= 7	; ADC Auto Trigger Source 2
+
+
+; ***** JTAG *************************
+; OCDR - On-Chip Debug Related Register in I/O Memory
+.equ	OCDR0	= 0	; On-Chip Debug Register Bit 0
+.equ	OCDR1	= 1	; On-Chip Debug Register Bit 1
+.equ	OCDR2	= 2	; On-Chip Debug Register Bit 2
+.equ	OCDR3	= 3	; On-Chip Debug Register Bit 3
+.equ	OCDR4	= 4	; On-Chip Debug Register Bit 4
+.equ	OCDR5	= 5	; On-Chip Debug Register Bit 5
+.equ	OCDR6	= 6	; On-Chip Debug Register Bit 6
+.equ	OCDR7	= 7	; On-Chip Debug Register Bit 7
+.equ	IDRD	= OCDR7	; For compatibility
+
+; MCUCSR - MCU Control And Status Register
+;.equ	JTRF	= 4	; JTAG Reset Flag
+;.equ	JTD	= 7	; JTAG Interface Disable
+
+
+; ***** BOOT_LOAD ********************
+; SPMCSR - Store Program Memory Control Register
+.equ	SPMCR	= SPMCSR	; For compatibility
+.equ	SPMEN	= 0	; Store Program Memory Enable
+.equ	PGERS	= 1	; Page Erase
+.equ	PGWRT	= 2	; Page Write
+.equ	BLBSET	= 3	; Boot Lock Bit Set
+.equ	RWWSRE	= 4	; Read While Write section read enable
+.equ	ASRE	= RWWSRE	; For compatibility
+.equ	RWWSB	= 6	; Read While Write Section Busy
+.equ	ASB	= RWWSB	; For compatibility
+.equ	SPMIE	= 7	; SPM Interrupt Enable
+
+
+; ***** PORTA ************************
+; PORTA - Port A Data Register
+.equ	PORTA0	= 0	; Port A Data Register bit 0
+.equ	PA0	= 0	; For compatibility
+.equ	PORTA1	= 1	; Port A Data Register bit 1
+.equ	PA1	= 1	; For compatibility
+.equ	PORTA2	= 2	; Port A Data Register bit 2
+.equ	PA2	= 2	; For compatibility
+.equ	PORTA3	= 3	; Port A Data Register bit 3
+.equ	PA3	= 3	; For compatibility
+.equ	PORTA4	= 4	; Port A Data Register bit 4
+.equ	PA4	= 4	; For compatibility
+.equ	PORTA5	= 5	; Port A Data Register bit 5
+.equ	PA5	= 5	; For compatibility
+.equ	PORTA6	= 6	; Port A Data Register bit 6
+.equ	PA6	= 6	; For compatibility
+.equ	PORTA7	= 7	; Port A Data Register bit 7
+.equ	PA7	= 7	; For compatibility
+
+; DDRA - Port A Data Direction Register
+.equ	DDA0	= 0	; Data Direction Register, Port A, bit 0
+.equ	DDA1	= 1	; Data Direction Register, Port A, bit 1
+.equ	DDA2	= 2	; Data Direction Register, Port A, bit 2
+.equ	DDA3	= 3	; Data Direction Register, Port A, bit 3
+.equ	DDA4	= 4	; Data Direction Register, Port A, bit 4
+.equ	DDA5	= 5	; Data Direction Register, Port A, bit 5
+.equ	DDA6	= 6	; Data Direction Register, Port A, bit 6
+.equ	DDA7	= 7	; Data Direction Register, Port A, bit 7
+
+; PINA - Port A Input Pins
+.equ	PINA0	= 0	; Input Pins, Port A bit 0
+.equ	PINA1	= 1	; Input Pins, Port A bit 1
+.equ	PINA2	= 2	; Input Pins, Port A bit 2
+.equ	PINA3	= 3	; Input Pins, Port A bit 3
+.equ	PINA4	= 4	; Input Pins, Port A bit 4
+.equ	PINA5	= 5	; Input Pins, Port A bit 5
+.equ	PINA6	= 6	; Input Pins, Port A bit 6
+.equ	PINA7	= 7	; Input Pins, Port A bit 7
 
 
 ; ***** PORTB ************************
@@ -480,6 +687,8 @@
 .equ	PC5	= 5	; For compatibility
 .equ	PORTC6	= 6	; Port C Data Register bit 6
 .equ	PC6	= 6	; For compatibility
+.equ	PORTC7	= 7	; Port C Data Register bit 7
+.equ	PC7	= 7	; For compatibility
 
 ; DDRC - Port C Data Direction Register
 .equ	DDC0	= 0	; Port C Data Direction Register bit 0
@@ -489,6 +698,7 @@
 .equ	DDC4	= 4	; Port C Data Direction Register bit 4
 .equ	DDC5	= 5	; Port C Data Direction Register bit 5
 .equ	DDC6	= 6	; Port C Data Direction Register bit 6
+.equ	DDC7	= 7	; Port C Data Direction Register bit 7
 
 ; PINC - Port C Input Pins
 .equ	PINC0	= 0	; Port C Input Pins bit 0
@@ -498,6 +708,7 @@
 .equ	PINC4	= 4	; Port C Input Pins bit 4
 .equ	PINC5	= 5	; Port C Input Pins bit 5
 .equ	PINC6	= 6	; Port C Input Pins bit 6
+.equ	PINC7	= 7	; Port C Input Pins bit 7
 
 
 ; ***** PORTD ************************
@@ -540,98 +751,14 @@
 .equ	PIND7	= 7	; Port D Input Pins bit 7
 
 
-; ***** EEPROM ***********************
-; EEDR - EEPROM Data Register
-.equ	EEDR0	= 0	; EEPROM Data Register bit 0
-.equ	EEDR1	= 1	; EEPROM Data Register bit 1
-.equ	EEDR2	= 2	; EEPROM Data Register bit 2
-.equ	EEDR3	= 3	; EEPROM Data Register bit 3
-.equ	EEDR4	= 4	; EEPROM Data Register bit 4
-.equ	EEDR5	= 5	; EEPROM Data Register bit 5
-.equ	EEDR6	= 6	; EEPROM Data Register bit 6
-.equ	EEDR7	= 7	; EEPROM Data Register bit 7
-
-; EECR - EEPROM Control Register
-.equ	EERE	= 0	; EEPROM Read Enable
-.equ	EEWE	= 1	; EEPROM Write Enable
-.equ	EEMWE	= 2	; EEPROM Master Write Enable
-.equ	EEWEE	= EEMWE	; For compatibility
-.equ	EERIE	= 3	; EEPROM Ready Interrupt Enable
-
-
-; ***** CPU **************************
-; SREG - Status Register
-.equ	SREG_C	= 0	; Carry Flag
-.equ	SREG_Z	= 1	; Zero Flag
-.equ	SREG_N	= 2	; Negative Flag
-.equ	SREG_V	= 3	; Two's Complement Overflow Flag
-.equ	SREG_S	= 4	; Sign Bit
-.equ	SREG_H	= 5	; Half Carry Flag
-.equ	SREG_T	= 6	; Bit Copy Storage
-.equ	SREG_I	= 7	; Global Interrupt Enable
-
-; MCUCR - MCU Control Register
-;.equ	ISC00	= 0	; Interrupt Sense Control 0 Bit 0
-;.equ	ISC01	= 1	; Interrupt Sense Control 0 Bit 1
-;.equ	ISC10	= 2	; Interrupt Sense Control 1 Bit 0
-;.equ	ISC11	= 3	; Interrupt Sense Control 1 Bit 1
-.equ	SM0	= 4	; Sleep Mode Select
-.equ	SM1	= 5	; Sleep Mode Select
-.equ	SM2	= 6	; Sleep Mode Select
-.equ	SE	= 7	; Sleep Enable
-
-; MCUCSR - MCU Control And Status Register
-.equ	MCUSR	= MCUCSR	; For compatibility
-.equ	PORF	= 0	; Power-on reset flag
-.equ	EXTRF	= 1	; External Reset Flag
-.equ	BORF	= 2	; Brown-out Reset Flag
-.equ	WDRF	= 3	; Watchdog Reset Flag
-
-; OSCCAL - Oscillator Calibration Value
-.equ	CAL0	= 0	; Oscillator Calibration Value Bit0
-.equ	CAL1	= 1	; Oscillator Calibration Value Bit1
-.equ	CAL2	= 2	; Oscillator Calibration Value Bit2
-.equ	CAL3	= 3	; Oscillator Calibration Value Bit3
-.equ	CAL4	= 4	; Oscillator Calibration Value Bit4
-.equ	CAL5	= 5	; Oscillator Calibration Value Bit5
-.equ	CAL6	= 6	; Oscillator Calibration Value Bit6
-.equ	CAL7	= 7	; Oscillator Calibration Value Bit7
-
-; SPMCR - Store Program Memory Control Register
-.equ	SPMEN	= 0	; Store Program Memory Enable
-.equ	PGERS	= 1	; Page Erase
-.equ	PGWRT	= 2	; Page Write
-.equ	BLBSET	= 3	; Boot Lock Bit Set
-.equ	RWWSRE	= 4	; Read-While-Write Section Read Enable
-.equ	RWWSB	= 6	; Read-While-Write Section Busy
-.equ	SPMIE	= 7	; SPM Interrupt Enable
-
-; SFIOR - Special Function IO Register
-.equ	PSR10	= 0	; Prescaler Reset Timer/Counter1 and Timer/Counter0
-.equ	PUD	= 2	; Pull-up Disable
-.equ	ADHSM	= 4	; ADC High Speed Mode
-
-
-; ***** AD_CONVERTER *****************
-; ADMUX - The ADC multiplexer Selection Register
-.equ	MUX0	= 0	; Analog Channel and Gain Selection Bits
-.equ	MUX1	= 1	; Analog Channel and Gain Selection Bits
-.equ	MUX2	= 2	; Analog Channel and Gain Selection Bits
-.equ	MUX3	= 3	; Analog Channel and Gain Selection Bits
-.equ	ADLAR	= 5	; Left Adjust Result
-.equ	REFS0	= 6	; Reference Selection Bit 0
-.equ	REFS1	= 7	; Reference Selection Bit 1
-
-; ADCSRA - The ADC Control and Status register
-.equ	ADCSR	= ADCSRA	; For compatibility
-.equ	ADPS0	= 0	; ADC  Prescaler Select Bits
-.equ	ADPS1	= 1	; ADC  Prescaler Select Bits
-.equ	ADPS2	= 2	; ADC  Prescaler Select Bits
-.equ	ADIE	= 3	; ADC Interrupt Enable
-.equ	ADIF	= 4	; ADC Interrupt Flag
-.equ	ADFR	= 5	; ADC  Free Running Select
-.equ	ADSC	= 6	; ADC Start Conversion
-.equ	ADEN	= 7	; ADC Enable
+; ***** WATCHDOG *********************
+; WDTCR - Watchdog Timer Control Register
+.equ	WDP0	= 0	; Watch Dog Timer Prescaler bit 0
+.equ	WDP1	= 1	; Watch Dog Timer Prescaler bit 1
+.equ	WDP2	= 2	; Watch Dog Timer Prescaler bit 2
+.equ	WDE	= 3	; Watch Dog Enable
+.equ	WDTOE	= 4	; RW
+.equ	WDDE	= WDTOE	; For compatibility
 
 
 
@@ -662,8 +789,8 @@
 .equ	EESAVE	= 3	; EEPROM memory is preserved through chip erase
 .equ	CKOPT	= 4	; Oscillator Options
 .equ	SPIEN	= 5	; Enable Serial programming and Data Downloading
-.equ	WTDON	= 6	; Enable watchdog
-.equ	RSTDISBL	= 7	; Disable reset
+.equ	JTAGEN	= 6	; Enable JTAG
+.equ	OCDEN	= 7	; Enable OCD
 
 
 
@@ -678,7 +805,7 @@
 
 
 ; ***** DATA MEMORY DECLARATIONS *****************************************
-.equ	FLASHEND	= 0x0fff	; Note: Word address
+.equ	FLASHEND	= 0x1fff	; Note: Word address
 .equ	IOEND	= 0x003f
 .equ	SRAM_START	= 0x0060
 .equ	SRAM_SIZE	= 1024
@@ -687,7 +814,7 @@
 .equ	E2END	= 0x01ff
 .equ	EEPROMEND	= 0x01ff
 .equ	EEADRBITS	= 9
-#pragma AVRPART MEMORY PROG_FLASH 8192
+#pragma AVRPART MEMORY PROG_FLASH 16384
 #pragma AVRPART MEMORY EEPROM 512
 #pragma AVRPART MEMORY INT_SRAM SIZE 1024
 #pragma AVRPART MEMORY INT_SRAM START_ADDR 0x60
@@ -695,44 +822,44 @@
 
 
 ; ***** BOOTLOADER DECLARATIONS ******************************************
-.equ	NRWW_START_ADDR	= 0xc00
-.equ	NRWW_STOP_ADDR	= 0xfff
+.equ	NRWW_START_ADDR	= 0x1c00
+.equ	NRWW_STOP_ADDR	= 0x1fff
 .equ	RWW_START_ADDR	= 0x0
-.equ	RWW_STOP_ADDR	= 0xbff
-.equ	PAGESIZE	= 32
-.equ	FIRSTBOOTSTART	= 0xf80
-.equ	SECONDBOOTSTART	= 0xf00
-.equ	THIRDBOOTSTART	= 0xe00
-.equ	FOURTHBOOTSTART	= 0xc00
+.equ	RWW_STOP_ADDR	= 0x1bff
+.equ	PAGESIZE	= 64
+.equ	FIRSTBOOTSTART	= 0x1f80
+.equ	SECONDBOOTSTART	= 0x1f00
+.equ	THIRDBOOTSTART	= 0x1e00
+.equ	FOURTHBOOTSTART	= 0x1c00
 .equ	SMALLBOOTSTART	= FIRSTBOOTSTART
 .equ	LARGEBOOTSTART	= FOURTHBOOTSTART
 
 
 
 ; ***** INTERRUPT VECTORS ************************************************
-.equ	INT0addr	= 0x0001	; External Interrupt Request 0
-.equ	INT1addr	= 0x0002	; External Interrupt Request 1
-.equ	OC2addr	= 0x0003	; Timer/Counter2 Compare Match
-.equ	OVF2addr	= 0x0004	; Timer/Counter2 Overflow
-.equ	ICP1addr	= 0x0005	; Timer/Counter1 Capture Event
-.equ	OC1Aaddr	= 0x0006	; Timer/Counter1 Compare Match A
-.equ	OC1Baddr	= 0x0007	; Timer/Counter1 Compare Match B
-.equ	OVF1addr	= 0x0008	; Timer/Counter1 Overflow
-.equ	OVF0addr	= 0x0009	; Timer/Counter0 Overflow
-.equ	SPIaddr	= 0x000a	; Serial Transfer Complete
-.equ	URXCaddr	= 0x000b	; USART, Rx Complete
-.equ	UDREaddr	= 0x000c	; USART Data Register Empty
-.equ	UTXCaddr	= 0x000d	; USART, Tx Complete
-.equ	ADCCaddr	= 0x000e	; ADC Conversion Complete
-.equ	ERDYaddr	= 0x000f	; EEPROM Ready
-.equ	ACIaddr	= 0x0010	; Analog Comparator
-.equ	TWIaddr	= 0x0011	; 2-wire Serial Interface
-.equ	SPMRaddr	= 0x0012	; Store Program Memory Ready
+.equ	INT0addr	= 0x0002	; External Interrupt Request 0
+.equ	INT1addr	= 0x0004	; External Interrupt Request 1
+.equ	OC2addr	= 0x0006	; Timer/Counter2 Compare Match
+.equ	OVF2addr	= 0x0008	; Timer/Counter2 Overflow
+.equ	ICP1addr	= 0x000a	; Timer/Counter1 Capture Event
+.equ	OC1Aaddr	= 0x000c	; Timer/Counter1 Compare Match A
+.equ	OC1Baddr	= 0x000e	; Timer/Counter1 Compare Match B
+.equ	OVF1addr	= 0x0010	; Timer/Counter1 Overflow
+.equ	OVF0addr	= 0x0012	; Timer/Counter0 Overflow
+.equ	SPIaddr	= 0x0014	; Serial Transfer Complete
+.equ	URXCaddr	= 0x0016	; USART, Rx Complete
+.equ	UDREaddr	= 0x0018	; USART Data Register Empty
+.equ	UTXCaddr	= 0x001a	; USART, Tx Complete
+.equ	ADCCaddr	= 0x001c	; ADC Conversion Complete
+.equ	ERDYaddr	= 0x001e	; EEPROM Ready
+.equ	ACIaddr	= 0x0020	; Analog Comparator
+.equ	TWIaddr	= 0x0022	; 2-wire Serial Interface
+.equ	INT2addr	= 0x0024	; External Interrupt Request 2
+.equ	OC0addr	= 0x0026	; Timer/Counter0 Compare Match
+.equ	SPMRaddr	= 0x0028	; Store Program Memory Ready
 
-.equ	INT_VECTORS_SIZE	= 19	; size in words
+.equ	INT_VECTORS_SIZE	= 42	; size in words
 
-#pragma AVRPART CORE INSTRUCTIONS_NOT_SUPPORTED break
-
-#endif  /* _M8DEF_INC_ */
+#endif  /* _M16DEF_INC_ */
 
 ; ***** END OF FILE ******************************************************
