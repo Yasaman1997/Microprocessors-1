@@ -16,8 +16,8 @@
 ; PortD.4 ... PortD.7 -> LCD data.4 ... data.7
 ; the other LCd data lines can be left open or tied to ground.
 
-#ifndef _M16_LCD_4BIT_INC
-#define _M16_LCD_4BIT_INC
+#ifndef _M16_LCD_4BIT_INC_
+#define _M16_LCD_4BIT_INC_
 .include "m16def.inc"
 
 .equ	LCD_RS	= 1
