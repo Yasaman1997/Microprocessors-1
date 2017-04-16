@@ -10,8 +10,15 @@
 .CSEG
 LCDTABLE: .DB 14, 'M', 'Y', 'N', 'A', 'M', 'E', 'I', 'S', 'M', 'E', 'T', 'H', 'O', 'S'
 
+.def R16 = counter
 
 start:
+	; call LCD accroding to the number given in the first place of LCDTABLE
+	ldi ZH, high(LCDTABLE << 1)
+	ldi ZL, low(LCDTABLE << 1)
+	lpm counter,Z+
+
+
     rjmp start
 
 ; This routine will make the microcontroller to show the stored data in the address LCDTABLE
