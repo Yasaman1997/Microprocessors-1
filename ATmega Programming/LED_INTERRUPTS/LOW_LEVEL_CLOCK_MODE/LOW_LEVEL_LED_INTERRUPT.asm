@@ -53,7 +53,8 @@ RESET_ISR:
 	out SPL,R16
 
 	; Configure the Rising Edge in the interrupt sense control
-	ldi R16,(0 << ISC11) | (0 << ISC10)
+	mov R16,MCUCR
+	ori R16,(0 << ISC11) | (0 << ISC10)
 	out MCUCR,R16
 
 	; Enable INT1
