@@ -18,8 +18,15 @@ start:
 	ldi ZL, low(LCDTABLE << 1)
 	lpm counter,Z+
 
+LCD_CALL:
+	; Check the end of the loop
 
-    rjmp start
+	dec
+	brne here
+	jmp LCD_CALL
+
+here:
+	jmp here
 
 ; This routine will make the microcontroller to show the stored data in the address LCDTABLE
 LCD:
