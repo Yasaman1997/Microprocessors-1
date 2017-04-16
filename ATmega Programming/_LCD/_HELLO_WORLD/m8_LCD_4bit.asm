@@ -15,6 +15,10 @@
 ; PortD.3 -> LCd E (Enable)
 ; PortD.4 ... PortD.7 -> LCD data.4 ... data.7
 ; the other LCd data lines can be left open or tied to ground.
+; Convert the following code into a header file for better usage
+#ifndef _M8_LCD_4BIT_INC_
+#define _M8_LCD_4BIT_INC_
+
 
 .include "m8def.inc"
 
@@ -258,3 +262,6 @@ LCD_init:
 	ldi	argument, 0x06		;auto-inc cursor
 	rcall	LCD_command
 ret
+
+
+#endif  /* _M8_LCD_4BIT_INC_ */
