@@ -102,6 +102,10 @@ CALCULATE_AND_RETURN:
 
 .org $1C00
 RESET_ISR:
+	; Enable the input direction for PD2
+	ldi R16,(0 << PD2)
+	out DDRD,R16
+
 	; Set stack pointer to the top of ram 
 	ldi R16,high(RAMEND)
 	out SPH,R16
@@ -127,9 +131,6 @@ RESET_ISR:
 	sei
 
 start:
-	; Enable the input direction for PD2
-	ldi R16,(0 << PD2)
-	out DDRD,R16
 	; Listen for interrupt!
 	sbic PIND,2
 	call HANDLE_MATRIX_PRESS
