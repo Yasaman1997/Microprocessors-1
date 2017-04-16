@@ -27,7 +27,7 @@ KEY_FIND:
 
 COL_FIND:
 	; Enable DDRC for LSBs of PC
-	ldi R16,(1 << PC0) | (1 << PC1) | (1 << PC2) | (1 << PC3) | (0 << PC4) | (0 << PC5) | (0 << PC6) | (0 << PC7) |
+	ldi R16,(1 << PC0) | (1 << PC1) | (1 << PC2) | (1 << PC3) | (0 << PC4) | (0 << PC5) | (0 << PC6) | (0 << PC7)
 	out DDRC,R16
 
 	; Pull-Up for PORT C on bits 4-7
@@ -60,7 +60,7 @@ SET_COL_4:
 
 ROW_FIND:
 	; Enable DDRC for MSBs of PC
-	ldi R16,(0 << PC0) | (0 << PC1) | (0 << PC2) | (0 << PC3) | (1 << PC4) | (1 << PC5) | (1 << PC6) | (1 << PC7) |
+	ldi R16,(0 << PC0) | (0 << PC1) | (0 << PC2) | (0 << PC3) | (1 << PC4) | (1 << PC5) | (1 << PC6) | (1 << PC7) 
 	out DDRC,R16
 
 	; Pull-Up for PORT C on bits 0-3
@@ -120,18 +120,15 @@ RESET_ISR:
 	ldi R16, (1 << INT0) 
 	out GICR, R16
 
-	; Configuration: IVSEL = 0, BOOTRST = 0
+	/*; Configuration: IVSEL = 0, BOOTRST = 0
 	; Make sure that the IVSEL is set to 0
 	ldi R16,(0 << IVCE)
 	out GICR,R16
 	ldi R16,(0 << IVSEL)
-	out GICR,R16
+	out GICR,R16*/
 
 	; Enable Global interrupt flag
 	sei
 
 start:
-	; Listen for interrupt!
-	sbic PIND,2
-	call HANDLE_MATRIX_PRESS
 	rjmp start
