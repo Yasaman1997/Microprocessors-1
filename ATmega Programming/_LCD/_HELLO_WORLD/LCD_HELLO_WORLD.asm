@@ -10,11 +10,11 @@
 .include "m16_LCD_4bit.inc"
 
 RESET_ISR:
-	; Set the PA direction to output for LCD usage
-	ldi R16,  (1 << PA4) | (1 << PA5) | (1 << PA6) | (1 << PA7)
-	out DDRA, R16
+	; Set the PD direction to output for LCD usage
+	ldi R16,  (1 << PD4) | (1 << PD5) | (1 << PD6) | (1 << PD7)
+	out DDRD, R16
 
-
+	;
 
 
 start:
