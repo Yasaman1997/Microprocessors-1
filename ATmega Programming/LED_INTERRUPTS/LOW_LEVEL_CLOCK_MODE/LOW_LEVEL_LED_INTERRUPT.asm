@@ -1,9 +1,9 @@
 ;
-; LOW_LEVEL_LED_INTERRUPT.asm
+; EDGE_LED_INTERRUPT.asm
 ;
-; Created: 4/14/2017 3:48:49 PM
+; Created: 4/13/2017 6:07:36 AM
 ; Author : Ali Gholami
-
+;
 ; A program to turn the LED on/off by pressing the SW1 button
 
 ; Reserved 2 bytes: jump to reset at the beginnning
@@ -11,7 +11,7 @@
 	jmp RESET_ISR
 
 ; Configuration: Put the interrupt 1 vector at address $002
-.org 0x02
+.org 0x04
 	jmp HANDLE_SW1
 
 HANDLE_SW1:
@@ -34,7 +34,6 @@ ON_MODE:
 	call SHORT_DELAY
 	; Otherwise, Turn on the LED here, set PD7 as output for LED
 	ldi R16,(1 << PD7)
-	out DDRD,R16
 	out PORTD,R16
 
 	; Enable Global interrupt flag
@@ -43,13 +42,17 @@ ON_MODE:
 
 .org $1C00
 RESET_ISR:
+	; Set the PD7 as output
+	ldi R16,(1 << PD7)|(0 << PD3)
+	out DDRD,R16
+
 	; Set stack pointer to the top of ram 
 	ldi R16,high(RAMEND)
 	out SPH,R16
 	ldi R16,low(RAMEND)
 	out SPL,R16
 
-	; Configure the LOW LEVEL in the interrupt sense control
+	; Configure the Rising Edge in the interrupt sense control
 	ldi R16,(0 << ISC11) | (0 << ISC10)
 	out MCUCR,R16
 
@@ -57,22 +60,18 @@ RESET_ISR:
 	ldi R16, (1 << INT1) 
 	out GICR, R16
 
-	; Configuration: IVSEL = 0, BOOTRST = 0
+	/*; Configuration: IVSEL = 0, BOOTRST = 0
 	; Make sure that the IVSEL is set to 0
 	ldi R16,(0 << IVCE)
 	out GICR,R16
 	ldi R16,(0 << IVSEL)
-	out GICR,R16
+	out GICR,R16*/
 
 	; Enable Global interrupt flag
 	sei
+
+	; make 
 start:
-	; Enable the input direction for PD3
-	ldi R16,(0 << PD3)
-	out DDRD,R16
-	; Listen for interrupt!
-	sbic PIND,3
-	call HANDLE_SW1
 	rjmp start
 
 	; A short delay for synchronization between press and reaction
