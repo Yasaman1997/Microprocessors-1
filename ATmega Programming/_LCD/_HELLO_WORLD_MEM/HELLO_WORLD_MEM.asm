@@ -8,7 +8,7 @@
 .include "m16_LCD_4bit.inc"
 ; Write an array of data in the flash section(code section)
 .CSEG
-LCDTABLE: .DB 14, 'M', 'Y', 'N', 'A', 'M', 'E', 'I', 'S', 'M', 'E', 'T', 'H', 'O', 'S', '.'
+LCDTABLE: .DB 14, 'M', 'Y', ' ', 'N', 'A', 'M', 'E', ' ', 'I', 'S', ' ', 'M', 'E', 'T', 'H', 'O', 'S', '.'
 
 .def counter = R15
 
@@ -23,8 +23,7 @@ LCD_CALL:
 	rcall LCD
 
 	dec counter
-	brne here
-	jmp LCD_CALL
+	brne LCD_CALL
 
 here:
 	jmp here
