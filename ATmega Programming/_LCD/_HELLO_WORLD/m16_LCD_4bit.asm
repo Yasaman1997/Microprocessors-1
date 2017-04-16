@@ -1,10 +1,10 @@
 ;*******************************************************************************
-;	File:	m8_LCD_4bit.asm
-;      Title:	ATmega8 driver for LCD in 4-bit mode (HD44780)
+;	File:	m16_LCD_4bit.asm
+;      Title:	ATmega16 driver for LCD in 4-bit mode (HD44780)
 ;  Assembler:	AVR assembler/AVR Studio
 ;    Version:	1.0
 ;    Created:	April 5th, 2004
-;     Target:	ATmega8
+;     Target:	ATmega16
 ; Christoph Redecker, http://www.avrbeginners.net
 ;*******************************************************************************
 
@@ -16,7 +16,9 @@
 ; PortD.4 ... PortD.7 -> LCD data.4 ... data.7
 ; the other LCd data lines can be left open or tied to ground.
 
-.include "m8def.inc"
+#ifndef _M16_LCD_4BIT_INC
+#define _M16_LCD_4BIT_INC
+.include "m16def.inc"
 
 .equ	LCD_RS	= 1
 .equ	LCD_RW	= 2
@@ -258,3 +260,4 @@ LCD_init:
 	ldi	argument, 0x06		;auto-inc cursor
 	rcall	LCD_command
 ret
+#endif

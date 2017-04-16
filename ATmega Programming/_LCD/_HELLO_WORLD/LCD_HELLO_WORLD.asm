@@ -7,6 +7,7 @@
 
 ; A program to write the "HELLO WORLD" string on the LCD
 ; The LCD connection will be done using some libraries
+.include "m16_LCD_4bit"
 
 .org 0x00
 	jmp RESET_ISR
