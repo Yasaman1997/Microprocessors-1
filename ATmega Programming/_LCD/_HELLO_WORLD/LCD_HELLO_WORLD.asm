@@ -4,7 +4,6 @@
 ; Created: 4/16/2017 4:55:08 AM
 ; Author : Ali Gholami
 ;
-.include "m8_LCD_4bit.inc"
 
 ; A program to write the "HELLO WORLD" string on the LCD
 ; The LCD connection will be done using some libraries
