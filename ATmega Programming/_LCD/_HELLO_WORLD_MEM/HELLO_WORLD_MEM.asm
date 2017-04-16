@@ -10,7 +10,7 @@
 .CSEG
 LCDTABLE: .DB 14, 'M', 'Y', 'N', 'A', 'M', 'E', 'I', 'S', 'M', 'E', 'T', 'H', 'O', 'S'
 
-.def R16 = counter
+.def counter = R16
 
 start:
 	; call LCD accroding to the number given in the first place of LCDTABLE
@@ -22,7 +22,7 @@ LCD_CALL:
 	; Check the end of the loop
 	rcall LCD
 
-	dec
+	dec counter
 	brne here
 	jmp LCD_CALL
 
