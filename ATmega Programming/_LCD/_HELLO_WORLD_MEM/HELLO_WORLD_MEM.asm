@@ -20,6 +20,7 @@ start:
 
 LCD_CALL:
 	; Check the end of the loop
+	rcall LCD
 
 	dec
 	brne here
@@ -30,8 +31,7 @@ here:
 
 ; This routine will make the microcontroller to show the stored data in the address LCDTABLE
 LCD:
-	ldi ZH, high(LCDTABLE << 1)
-	ldi ZL, low(LCDTABLE << 1)
 	lpm argument, Z+
 	rcall lcd_putchar
+	ret
 	
