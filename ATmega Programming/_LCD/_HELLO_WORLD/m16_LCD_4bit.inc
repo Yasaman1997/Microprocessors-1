@@ -48,7 +48,7 @@ reset:
 ;|		  |
 	
 	rcall	LCD_wait
-	ldi	argument, 'A'	;write 'A' to the LCD char data RAM
+	/*ldi	argument, 'A'	;write 'A' to the LCD char data RAM
 	rcall	LCD_putchar
 	
 ;|A&		  |
@@ -71,12 +71,12 @@ reset:
 	
 	rcall	LCD_delay
 	pop	argument	;restore the character
-	rcall	LCD_putchar	;and print it again
+	rcall	LCD_putchar	;and print it again*/
 
 ;|AA&		  | (A has been read from position 0 and has then been written to the next pos.)
 ;|		  |
 		
-loop:	rjmp loop	
+loop:	rjmp start	
 
 lcd_command8:	;used for init (we need some 8-bit commands to switch to 4-bit mode!)
 	in	temp, DDRD		;we need to set the high nibble of DDRD while leaving
