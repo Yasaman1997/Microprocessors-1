@@ -1,5 +1,5 @@
 ;*******************************************************************************
-;	File:	m16_LCD_4bit.asm
+;	File:	m16_LCD_4bit.inc
 ;      Title:	ATmega16 driver for LCD in 4-bit mode (HD44780)
 ;  Assembler:	AVR assembler/AVR Studio
 ;    Version:	1.0
