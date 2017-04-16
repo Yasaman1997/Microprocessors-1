@@ -16,7 +16,7 @@
 ; PortD.4 ... PortD.7 -> LCD data.4 ... data.7
 ; the other LCd data lines can be left open or tied to ground.
 
-.include "c:\program files\atmel\avr studio\appnotes\m8def.inc"
+.include "m8def.inc"
 
 .equ	LCD_RS	= 1
 .equ	LCD_RW	= 2
