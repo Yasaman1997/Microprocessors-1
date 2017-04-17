@@ -103,6 +103,10 @@ RESET_ISR:
 	; Set E2_OFFSET = 0
 	ldi E2_OFFSET,0
 
+	; Enable DDRC
+	ldi R16,(0 << PC0) | (0 << PC1) | (0 << PC2) | (0 << PC3) | (1 << PC4) | (1 << PC5) | (1 << PC6) | (1 << PC7)
+	out DDRC,R16
+	
 	; Set stack pointer to the top of ram
 	ldi R16,high(RAMEND)
 	out SPH,R16
