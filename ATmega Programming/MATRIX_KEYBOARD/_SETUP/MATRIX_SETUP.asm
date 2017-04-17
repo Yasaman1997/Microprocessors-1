@@ -89,11 +89,6 @@ CALCULATE_AND_RETURN:
 	lsl return_val
 	lsl return_val
 	add return_val,row
-	/*show the result on the 7 segment*/
-	ldi R16,0b11111111
-	out DDRB,R16
-	ldi R16,0xB0
-	out PORTB,R16
 	ret
 
 
