@@ -87,6 +87,71 @@ CALCULATE_AND_RETURN:
 	lsl return_val
 	lsl return_val
 	add return_val,row
+	;==========TEST SECTION============
+		; Simply convert and display
+	cpi return_val, 17
+	ldi dis_reg, 0x7E
+	breq DISPLAY
+
+	cpi return_val, 18
+	ldi dis_reg, 0x30
+	breq DISPLAY
+
+	cpi return_val, 19
+	ldi dis_reg, 0x6D
+	breq DISPLAY
+
+	cpi return_val, 20
+	ldi dis_reg, 0x79
+	breq DISPLAY
+
+	cpi return_val, 33
+	ldi dis_reg, 0x33
+	breq DISPLAY
+
+	cpi return_val, 34
+	ldi dis_reg, 0x5B
+	breq DISPLAY
+
+	cpi return_val, 35
+	ldi dis_reg, 0x5F
+	breq DISPLAY
+
+	cpi return_val, 49
+	ldi dis_reg, 0x70
+	breq DISPLAY
+
+	cpi return_val, 50
+	ldi dis_reg, 0x7F
+	breq DISPLAY
+
+	cpi return_val, 51
+	ldi dis_reg, 0x7B
+	breq DISPLAY
+
+	cpi return_val, 52
+	ldi dis_reg, 0x77
+	breq DISPLAY
+
+	cpi return_val, 65
+	ldi dis_reg, 0x1F
+	breq DISPLAY
+
+	cpi return_val, 66
+	ldi dis_reg, 0x4E
+	breq DISPLAY
+
+	cpi return_val, 67
+	ldi dis_reg, 0x3D
+	breq DISPLAY
+
+	cpi return_val, 68
+	ldi dis_reg, 0x4F
+	breq DISPLAY
+
+DISPLAY:
+	out PORTB,dis_reg
+	;====================================
 	ret
 
 
@@ -100,6 +165,12 @@ RESET_ISR:
 	; Enable the input direction for PD2
 	ldi R16,(0 << PD2)
 	out DDRD,R16
+
+	ldi R16,0b11111111
+	out DDRB,R16
+
+	ldi R16,0x7E
+	out PORTB,R16
 
 	; Set stack pointer to the top of ram 
 	ldi R16,high(RAMEND)
@@ -127,70 +198,8 @@ RESET_ISR:
 
 start:
 	; When we get back from the interrupt routine
-	; Simply convert and display
-	cpi return_val, 17
-	ldi dis_reg, 0x7E
-	jmp DISPLAY
 
-	cpi return_val, 18
-	ldi dis_reg, 0x30
-	jmp DISPLAY
-
-	cpi return_val, 19
-	ldi dis_reg, 0x6D
-	jmp DISPLAY
-
-	cpi return_val, 20
-	ldi dis_reg, 0x79
-	jmp DISPLAY
-
-	cpi return_val, 33
-	ldi dis_reg, 0x33
-	jmp DISPLAY
-
-	cpi return_val, 34
-	ldi dis_reg, 0x5B
-	jmp DISPLAY
-
-	cpi return_val, 35
-	ldi dis_reg, 0x5F
-	jmp DISPLAY
-
-	cpi return_val, 49
-	ldi dis_reg, 0x70
-	jmp DISPLAY
-
-	cpi return_val, 50
-	ldi dis_reg, 0x7F
-	jmp DISPLAY
-
-	cpi return_val, 51
-	ldi dis_reg, 0x7B
-	jmp DISPLAY
-
-	cpi return_val, 52
-	ldi dis_reg, 0x77
-	jmp DISPLAY
-
-	cpi return_val, 65
-	ldi dis_reg, 0x1F
-	jmp DISPLAY
-
-	cpi return_val, 66
-	ldi dis_reg, 0x4E
-	jmp DISPLAY
-
-	cpi return_val, 67
-	ldi dis_reg, 0x3D
-	jmp DISPLAY
-
-	cpi return_val, 68
-	ldi dis_reg, 0x4F
-	jmp DISPLAY
-
-DISPLAY:
-	out PORTB,dis_reg
-STAY_HERE:
-	jmp STAY_HERE
+/*STAY_HERE:
+	jmp STAY_HERE*/
 	rjmp start
 
