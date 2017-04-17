@@ -4,19 +4,11 @@
 ; Created: 4/15/2017 12:45:18 PM
 ; Author : Ali Gholami
 ;
-
-
-; A program to find the number of each button press in the matrix keyboard and display the numbers on the 7 Segment
-; Simply store the codes needed for the 7 Segment in the EEPROM memory
-
-; The first part of the code is the matrix setup from the previous section
-; This code is written to identify the pressed number in the keyboard
+; This code is written to identify and show the pressed number in the keyboard
 .def col = R20
 .def row = R21
-.def return_val = R1
-.def SH_RS_H = R29
-.def SH_RS_L = R28
-.def E2_OFFSET = R22
+.def return_val = R24
+.def dis_reg = R18
 
 ; Reserved 2 bytes: jump to reset at the beginnning
 .org 0x00
@@ -51,10 +43,10 @@ SET_COL_1:
 	jmp ROW_FIND
 SET_COL_2:
 	ldi col,2
-	jmp ROW_FIND
+	jmp ROW_FIND	
 SET_COL_3:
 	ldi col,3
-	jmp ROW_FIND
+	jmp ROW_FIND	
 SET_COL_4:
 	ldi col,4
 	jmp ROW_FIND
@@ -80,10 +72,10 @@ SET_ROW_1:
 	jmp CALCULATE_AND_RETURN
 SET_ROW_2:
 	ldi row,2
-	jmp CALCULATE_AND_RETURN
+	jmp CALCULATE_AND_RETURN	
 SET_ROW_3:
 	ldi row,3
-	jmp CALCULATE_AND_RETURN
+	jmp CALCULATE_AND_RETURN	
 SET_ROW_4:
 	ldi row,4
 	jmp CALCULATE_AND_RETURN
@@ -100,92 +92,105 @@ CALCULATE_AND_RETURN:
 
 .org $1C00
 RESET_ISR:
-	; Set E2_OFFSET = 0
-	ldi E2_OFFSET,0
 
-	; Enable DDRC
-	ldi R16,(0 << PC0) | (0 << PC1) | (0 << PC2) | (0 << PC3) | (1 << PC4) | (1 << PC5) | (1 << PC6) | (1 << PC7)
+	; Enable DDRC 
+	ldi R16,(0 << PC0) | (0 << PC1) | (0 << PC2) | (0 << PC3) | (1 << PC4) | (1 << PC5) | (1 << PC6) | (1 << PC7) 
 	out DDRC,R16
-	
-	; Set stack pointer to the top of ram
+
+	; Enable the input direction for PD2
+	ldi R16,(0 << PD2)
+	out DDRD,R16
+
+	; Set stack pointer to the top of ram 
 	ldi R16,high(RAMEND)
 	out SPH,R16
 	ldi R16,low(RAMEND)
 	out SPL,R16
 
 	; Configure as any logical change in the interrupt sense control
-	ldi R16,(0 << ISC01) | (1 << ISC00)
+	ldi R16,(0 << ISC01) | (0 << ISC00)
 	out MCUCR,R16
 
 	; Enable INT0
-	ldi R16, (1 << INT0)
+	ldi R16, (1 << INT0) 
 	out GICR, R16
 
-	; Configuration: IVSEL = 0, BOOTRST = 0
+	/*; Configuration: IVSEL = 0, BOOTRST = 0
 	; Make sure that the IVSEL is set to 0
 	ldi R16,(0 << IVCE)
 	out GICR,R16
 	ldi R16,(0 << IVSEL)
-	out GICR,R16
+	out GICR,R16*/
 
 	; Enable Global interrupt flag
 	sei
 
 start:
-	; Ok :D When returned, we have the desired number in the R1
-	; Lets start showing it on the 7 Segment
-	; Convert the number into the normal mode
-	; Put the converted number in the SH_RS variable
-	movw SH_RS_H:SH_RS_L, R2:R1
-	; Compare the returned value with the immediate
-	cpi SH_RS_L, 17
-	adiw SH_RS_H:SH_RS_L, 0
+	; When we get back from the interrupt routine
+	; Simply convert and display
+	cpi return_val, 17
+	ldi dis_reg, 0x7E
+	jmp DISPLAY
 
-	cpi SH_RS_L, 18
-	adiw SH_RS_H:SH_RS_L, 1
+	cpi return_val, 18
+	ldi dis_reg, 0x30
+	jmp DISPLAY
 
-	cpi SH_RS_L, 19
-	adiw SH_RS_H:SH_RS_L, 2
+	cpi return_val, 19
+	ldi dis_reg, 0x6D
+	jmp DISPLAY
 
-	cpi SH_RS_L, 20
-	adiw SH_RS_H:SH_RS_L, 3
+	cpi return_val, 20
+	ldi dis_reg, 0x79
+	jmp DISPLAY
 
-	cpi SH_RS_L, 33
-	adiw SH_RS_H:SH_RS_L, 4
+	cpi return_val, 33
+	ldi dis_reg, 0x33
+	jmp DISPLAY
 
-	cpi SH_RS_L, 34
-	adiw SH_RS_H:SH_RS_L, 5
+	cpi return_val, 34
+	ldi dis_reg, 0x5B
+	jmp DISPLAY
 
-	cpi SH_RS_L, 35
-	adiw SH_RS_H:SH_RS_L, 6
+	cpi return_val, 35
+	ldi dis_reg, 0x5F
+	jmp DISPLAY
 
-	cpi SH_RS_L, 49
-	adiw SH_RS_H:SH_RS_L, 7
+	cpi return_val, 49
+	ldi dis_reg, 0x70
+	jmp DISPLAY
 
-	cpi SH_RS_L, 50
-	adiw SH_RS_H:SH_RS_L, 8
+	cpi return_val, 50
+	ldi dis_reg, 0x7F
+	jmp DISPLAY
 
-	cpi SH_RS_L, 51
-	adiw SH_RS_H:SH_RS_L, 9
+	cpi return_val, 51
+	ldi dis_reg, 0x7B
+	jmp DISPLAY
 
-	cpi SH_RS_L, 52
-	adiw SH_RS_H:SH_RS_L, 10
+	cpi return_val, 52
+	ldi dis_reg, 0x77
+	jmp DISPLAY
 
-	cpi SH_RS_L, 65
-	adiw SH_RS_H:SH_RS_L, 11
+	cpi return_val, 65
+	ldi dis_reg, 0x1F
+	jmp DISPLAY
 
-	cpi SH_RS_L, 66
-	adiw SH_RS_H:SH_RS_L, 12
+	cpi return_val, 66
+	ldi dis_reg, 0x4E
+	jmp DISPLAY
 
-	cpi SH_RS_L, 67
-	adiw SH_RS_H:SH_RS_L, 13
+	cpi return_val, 67
+	ldi dis_reg, 0x3D
+	jmp DISPLAY
 
-	cpi SH_RS_L, 68
-	adiw SH_RS_H:SH_RS_L, 14
+	cpi return_val, 68
+	ldi dis_reg, 0x4F
+	jmp DISPLAY
 
-
+DISPLAY:
+	out PORTB,dis_reg
+STAY_HERE:
+	jmp STAY_HERE
 	rjmp start
 
-;====================0=====1=====2=====3=====4=====5=====6=====7=====8=====9====10=====11====12===13====14=====15
-.ESEG
-ENCODE_NUMBERS: .DB 0x7E, 0x30, 0x6D, 0x79, 0x33, 0x5B, 0x5F, 0x70, 0x7F, 0x7B, 0x77, 0x1F, 0x4E, 0x3D, 0x4F, 0x47
