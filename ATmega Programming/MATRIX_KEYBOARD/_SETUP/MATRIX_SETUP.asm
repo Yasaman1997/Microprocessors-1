@@ -26,12 +26,8 @@ HANDLE_MATRIX_PRESS:
 KEY_FIND:
 
 COL_FIND:
-	; Enable DDRC for LSBs of PC
-	ldi R16,(1 << PC0) | (1 << PC1) | (1 << PC2) | (1 << PC3) | (0 << PC4) | (0 << PC5) | (0 << PC6) | (0 << PC7)
-	out DDRC,R16
-
-	; Pull-Up for PORT C on bits 4-7
-	ldi r16, (0 << PC0) | (0 << PC1) | (0 << PC2) | (0 << PC3) | (1 << PC4) | (1 << PC5) | (1 << PC6) | (1 << PC7)
+	; Pull-Up for PORT C on bits 0-3
+	ldi r16, (1 << PC0) | (1 << PC1) | (1 << PC2) | (1 << PC3) | (0 << PC4) | (0 << PC5) | (0 << PC6) | (0 << PC7)
 	out PORTC, r16
 
 	; Find the column number
@@ -59,12 +55,8 @@ SET_COL_4:
 
 
 ROW_FIND:
-	; Enable DDRC for MSBs of PC
-	ldi R16,(0 << PC0) | (0 << PC1) | (0 << PC2) | (0 << PC3) | (1 << PC4) | (1 << PC5) | (1 << PC6) | (1 << PC7) 
-	out DDRC,R16
-
-	; Pull-Up for PORT C on bits 0-3
-	ldi r16, (1 << PC0) | (1 << PC1) | (1 << PC2) | (1 << PC3) | (0 << PC4) | (0 << PC5) | (0 << PC6) | (0 << PC7)
+	; Pull-Up for PORT C on bits 4-7
+	ldi r16, (0 << PC0) | (0 << PC1) | (0 << PC2) | (0 << PC3) | (1 << PC4) | (1 << PC5) | (1 << PC6) | (1 << PC7)
 	out PORTC, r16
 
 	; Find the row number
@@ -97,11 +89,21 @@ CALCULATE_AND_RETURN:
 	lsl return_val
 	lsl return_val
 	add return_val,row
+	/*show the result on the 7 segment*/
+	ldi R16,0b11111111
+	out DDRB,R16
+	ldi R16,0xB0
+	out PORTB,R16
 	ret
 
 
 .org $1C00
 RESET_ISR:
+
+	; Enable DDRC 
+	ldi R16,(0 << PC0) | (0 << PC1) | (0 << PC2) | (0 << PC3) | (1 << PC4) | (1 << PC5) | (1 << PC6) | (1 << PC7) 
+	out DDRC,R16
+
 	; Enable the input direction for PD2
 	ldi R16,(0 << PD2)
 	out DDRD,R16
@@ -113,7 +115,7 @@ RESET_ISR:
 	out SPL,R16
 
 	; Configure as any logical change in the interrupt sense control
-	ldi R16,(0 << ISC01) | (1 << ISC00)
+	ldi R16,(0 << ISC01) | (0 << ISC00)
 	out MCUCR,R16
 
 	; Enable INT0
@@ -132,3 +134,4 @@ RESET_ISR:
 
 start:
 	rjmp start
+
