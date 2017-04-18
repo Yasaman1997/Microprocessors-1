@@ -24,34 +24,42 @@ HANDLE_MATRIX_PRESS:
 KEY_FIND:
 
 COL_FIND:
-	; Pull-Up for PORT C on bits 0-3
-	ldi r16, (1 << PC0) | (1 << PC1) | (1 << PC2) | (1 << PC3) | (0 << PC4) | (0 << PC5) | (0 << PC6) | (0 << PC7)
+	; Pull-Up for PORT C on bits 4-7
+	ldi r16, (0 << PC0) | (0 << PC1) | (0 << PC2) | (0 << PC3) | (1 << PC4) | (1 << PC5) | (1 << PC6) | (1 << PC7)
 	out PORTC, r16
-
 	; Find the column number
-	sbis PINC,0
+	sbic PINC,0
 	jmp SET_COL_1
-	sbis PINC,1
+	sbic PINC,1
 	jmp SET_COL_2
-	sbis PINC,2
+	sbic PINC,2
 	jmp SET_COL_3
-	sbis PINC,3
+	sbic PINC,3
 	jmp SET_COL_4
+	ret
 
 SET_COL_1:
 	ldi col,1
-	jmp ROW_FIND
+	ldi dis_reg, 0x30
+	jmp DISPLAY
+	//jmp ROW_FIND
 SET_COL_2:
 	ldi col,2
-	jmp ROW_FIND	
+		ldi dis_reg, 0x6D
+	jmp DISPLAY
+	//jmp ROW_FIND	
 SET_COL_3:
 	ldi col,3
-	jmp ROW_FIND	
+		ldi dis_reg, 0x79
+	jmp DISPLAY
+//	jmp ROW_FIND	
 SET_COL_4:
 	ldi col,4
-	jmp ROW_FIND
+		ldi dis_reg, 0x33
+	jmp DISPLAY
+//	jmp ROW_FIND
 
-
+/*
 ROW_FIND:
 	; Pull-Up for PORT C on bits 4-7
 	ldi r16, (0 << PC0) | (0 << PC1) | (0 << PC2) | (0 << PC3) | (1 << PC4) | (1 << PC5) | (1 << PC6) | (1 << PC7)
@@ -86,78 +94,155 @@ CALCULATE_AND_RETURN:
 	lsl return_val
 	lsl return_val
 	lsl return_val
-	add return_val,row
+	add return_val,row */
 	;==========TEST SECTION============
-		; Simply convert and display
-	cpi return_val, 17
-	ldi dis_reg, 0x7E
-	breq DISPLAY
-
+	; Simply convert and display
+/*CND1:
 	cpi return_val, 18
+	breq DO_IT3 
+	ret
+	//jmp CND2
+
+DO_IT3: 
+	ldi dis_reg, 0x7E
+	jmp DISPLAY
+
+
+CND2:
+	cpi return_val, 18
+	breq DO_IT4 
+	jmp CND3
+
+DO_IT4: 
 	ldi dis_reg, 0x30
-	breq DISPLAY
+	jmp DISPLAY
 
+CND3:
 	cpi return_val, 19
+	breq DO_IT5 
+	jmp CND5
+
+DO_IT5: 
 	ldi dis_reg, 0x6D
-	breq DISPLAY
+	jmp DISPLAY
 
+CND5:
 	cpi return_val, 20
+	breq DO_IT6 
+	jmp CND6
+
+DO_IT6: 
 	ldi dis_reg, 0x79
-	breq DISPLAY
+	jmp DISPLAY
 
+CND6:
 	cpi return_val, 33
+	breq DO_IT7 
+	jmp CND7
+
+DO_IT7: 
 	ldi dis_reg, 0x33
-	breq DISPLAY
+	jmp DISPLAY
 
+CND7:
 	cpi return_val, 34
+	breq DO_IT8 
+	jmp CND8
+
+DO_IT8: 
 	ldi dis_reg, 0x5B
-	breq DISPLAY
+	jmp DISPLAY
 
+CND8:
 	cpi return_val, 35
+	breq DO_IT9 
+	jmp CND9
+
+DO_IT9: 
 	ldi dis_reg, 0x5F
-	breq DISPLAY
+	jmp DISPLAY
 
+CND9:
 	cpi return_val, 49
+	breq DO_IT10 
+	jmp CND10
+
+DO_IT10: 
 	ldi dis_reg, 0x70
-	breq DISPLAY
+	jmp DISPLAY
 
+CND10:
 	cpi return_val, 50
+	breq DO_IT11 
+	jmp CND11
+
+DO_IT11: 
 	ldi dis_reg, 0x7F
-	breq DISPLAY
+	jmp DISPLAY
 
+CND11:
 	cpi return_val, 51
+	breq DO_IT12 
+	jmp CND13
+
+DO_IT12: 
 	ldi dis_reg, 0x7B
-	breq DISPLAY
+	jmp DISPLAY
 
+CND13:
 	cpi return_val, 52
+	breq DO_IT13 
+	jmp CND14
+
+DO_IT13: 
 	ldi dis_reg, 0x77
-	breq DISPLAY
+	jmp DISPLAY
 
+CND14:
 	cpi return_val, 65
+	breq DO_IT14
+	jmp CND15
+
+DO_IT14: 
 	ldi dis_reg, 0x1F
-	breq DISPLAY
+	jmp DISPLAY
 
+CND15:
 	cpi return_val, 66
+	breq DO_IT15 
+	jmp CND16
+
+DO_IT15: 
 	ldi dis_reg, 0x4E
-	breq DISPLAY
+	jmp DISPLAY
 
+CND16:
 	cpi return_val, 67
+	breq DO_IT16 
+	jmp CND17
+
+DO_IT16: 
 	ldi dis_reg, 0x3D
-	breq DISPLAY
+	jmp DISPLAY
 
+CND17:
 	cpi return_val, 68
-	ldi dis_reg, 0x4F
-	breq DISPLAY
+	breq DO_IT17 
 
+DO_IT17: 
+	ldi dis_reg, 0x4F
+	jmp DISPLAY
+	*/
 DISPLAY:
 	out PORTB,dis_reg
 	;====================================
-	ret
+	sei
+	reti
 
 
 .org $1C00
 RESET_ISR:
-
+	cli
 	; Enable DDRC 
 	ldi R16,(0 << PC0) | (0 << PC1) | (0 << PC2) | (0 << PC3) | (1 << PC4) | (1 << PC5) | (1 << PC6) | (1 << PC7) 
 	out DDRC,R16
@@ -166,11 +251,13 @@ RESET_ISR:
 	ldi R16,(0 << PD2)
 	out DDRD,R16
 
+	; 
+
 	ldi R16,0b11111111
 	out DDRB,R16
 
-	ldi R16,0x7E
-	out PORTB,R16
+	/*ldi R16,0x00
+	out PORTB,R16*/
 
 	; Set stack pointer to the top of ram 
 	ldi R16,high(RAMEND)
@@ -197,9 +284,5 @@ RESET_ISR:
 	sei
 
 start:
-	; When we get back from the interrupt routine
-
-/*STAY_HERE:
-	jmp STAY_HERE*/
 	rjmp start
 
