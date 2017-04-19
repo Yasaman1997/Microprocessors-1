@@ -4,285 +4,209 @@
 ; Created: 4/15/2017 12:45:18 PM
 ; Author : Ali Gholami
 ;
-; This code is written to identify and show the pressed number in the keyboard
-.def col = R20
-.def row = R21
-.def return_val = R24
-.def dis_reg = R18
+; This code is written to identify and DISPLAY_ the pressed number in the keyboard
+rjmp RESET
+ldi r22,0x00
+.org int0addr
+	;inc r22
+	;out PORTB,r22
+	ldi r16,(1<<PD2)
+	out ddrd,r16
+	ldi r16,0x00
+	out portd,r16
+	rjmp start
+RESET:
+	ldi r16,low(ramend)
+	out spl,r16
+	ldi r16,high(ramend)
+	out sph,r16
+	ldi r16,0xff
+	out ddrb,r16
+	ldi r16,0xff
+	out PINB,r16
 
-; Reserved 2 bytes: jump to reset at the beginnning
-.org 0x00
-	jmp RESET_ISR
+	ldi r16,0b00000000
+	out ddrc,r16
+	ldi r16,0b11111111
+	out ddra,r16
+	ldi r16,0b11111111
+	out PORTC,r16
+	ldi r16,0b00000000
+	out PORTA,r16
 
+	ldi r16,(0<<PD2)
+	out ddrd,r16
 
-; Configuration: Put the interrupt 0 vector at address $002
-.org 0x02
-	jmp HANDLE_MATRIX_PRESS
+	in r16,MCUCR
+	ori r16,(0 << ISC11) | (1 << ISC10)
+	out MCUCR,r16
 
-HANDLE_MATRIX_PRESS:
-
-KEY_FIND:
-
-COL_FIND:
-	; Pull-Up for PORT C on bits 4-7
-	ldi r16, (0 << PC0) | (0 << PC1) | (0 << PC2) | (0 << PC3) | (1 << PC4) | (1 << PC5) | (1 << PC6) | (1 << PC7)
-	out PORTC, r16
-	; Find the column number
-	sbic PINC,0
-	jmp SET_COL_1
-	sbic PINC,1
-	jmp SET_COL_2
-	sbic PINC,2
-	jmp SET_COL_3
-	sbic PINC,3
-	jmp SET_COL_4
-	ret
-
-SET_COL_1:
-	ldi col,1
-	ldi dis_reg, 0x30
-	jmp DISPLAY
-	//jmp ROW_FIND
-SET_COL_2:
-	ldi col,2
-		ldi dis_reg, 0x6D
-	jmp DISPLAY
-	//jmp ROW_FIND	
-SET_COL_3:
-	ldi col,3
-		ldi dis_reg, 0x79
-	jmp DISPLAY
-//	jmp ROW_FIND	
-SET_COL_4:
-	ldi col,4
-		ldi dis_reg, 0x33
-	jmp DISPLAY
-//	jmp ROW_FIND
-
-/*
-ROW_FIND:
-	; Pull-Up for PORT C on bits 4-7
-	ldi r16, (0 << PC0) | (0 << PC1) | (0 << PC2) | (0 << PC3) | (1 << PC4) | (1 << PC5) | (1 << PC6) | (1 << PC7)
-	out PORTC, r16
-
-	; Find the row number
-	sbis PINC,0
-	jmp SET_ROW_1
-	sbis PINC,1
-	jmp SET_ROW_2
-	sbis PINC,2
-	jmp SET_ROW_3
-	sbis PINC,3
-	jmp SET_ROW_4
-
-SET_ROW_1:
-	ldi row,1
-	jmp CALCULATE_AND_RETURN
-SET_ROW_2:
-	ldi row,2
-	jmp CALCULATE_AND_RETURN	
-SET_ROW_3:
-	ldi row,3
-	jmp CALCULATE_AND_RETURN	
-SET_ROW_4:
-	ldi row,4
-	jmp CALCULATE_AND_RETURN
-
-CALCULATE_AND_RETURN:
-	mov return_val,col
-	lsl return_val
-	lsl return_val
-	lsl return_val
-	lsl return_val
-	add return_val,row */
-	;==========TEST SECTION============
-	; Simply convert and display
-/*CND1:
-	cpi return_val, 18
-	breq DO_IT3 
-	ret
-	//jmp CND2
-
-DO_IT3: 
-	ldi dis_reg, 0x7E
-	jmp DISPLAY
-
-
-CND2:
-	cpi return_val, 18
-	breq DO_IT4 
-	jmp CND3
-
-DO_IT4: 
-	ldi dis_reg, 0x30
-	jmp DISPLAY
-
-CND3:
-	cpi return_val, 19
-	breq DO_IT5 
-	jmp CND5
-
-DO_IT5: 
-	ldi dis_reg, 0x6D
-	jmp DISPLAY
-
-CND5:
-	cpi return_val, 20
-	breq DO_IT6 
-	jmp CND6
-
-DO_IT6: 
-	ldi dis_reg, 0x79
-	jmp DISPLAY
-
-CND6:
-	cpi return_val, 33
-	breq DO_IT7 
-	jmp CND7
-
-DO_IT7: 
-	ldi dis_reg, 0x33
-	jmp DISPLAY
-
-CND7:
-	cpi return_val, 34
-	breq DO_IT8 
-	jmp CND8
-
-DO_IT8: 
-	ldi dis_reg, 0x5B
-	jmp DISPLAY
-
-CND8:
-	cpi return_val, 35
-	breq DO_IT9 
-	jmp CND9
-
-DO_IT9: 
-	ldi dis_reg, 0x5F
-	jmp DISPLAY
-
-CND9:
-	cpi return_val, 49
-	breq DO_IT10 
-	jmp CND10
-
-DO_IT10: 
-	ldi dis_reg, 0x70
-	jmp DISPLAY
-
-CND10:
-	cpi return_val, 50
-	breq DO_IT11 
-	jmp CND11
-
-DO_IT11: 
-	ldi dis_reg, 0x7F
-	jmp DISPLAY
-
-CND11:
-	cpi return_val, 51
-	breq DO_IT12 
-	jmp CND13
-
-DO_IT12: 
-	ldi dis_reg, 0x7B
-	jmp DISPLAY
-
-CND13:
-	cpi return_val, 52
-	breq DO_IT13 
-	jmp CND14
-
-DO_IT13: 
-	ldi dis_reg, 0x77
-	jmp DISPLAY
-
-CND14:
-	cpi return_val, 65
-	breq DO_IT14
-	jmp CND15
-
-DO_IT14: 
-	ldi dis_reg, 0x1F
-	jmp DISPLAY
-
-CND15:
-	cpi return_val, 66
-	breq DO_IT15 
-	jmp CND16
-
-DO_IT15: 
-	ldi dis_reg, 0x4E
-	jmp DISPLAY
-
-CND16:
-	cpi return_val, 67
-	breq DO_IT16 
-	jmp CND17
-
-DO_IT16: 
-	ldi dis_reg, 0x3D
-	jmp DISPLAY
-
-CND17:
-	cpi return_val, 68
-	breq DO_IT17 
-
-DO_IT17: 
-	ldi dis_reg, 0x4F
-	jmp DISPLAY
-	*/
-DISPLAY:
-	out PORTB,dis_reg
-	;====================================
-	sei
-	reti
-
-
-.org $1C00
-RESET_ISR:
-	cli
-	; Enable DDRC 
-	ldi R16,(0 << PC0) | (0 << PC1) | (0 << PC2) | (0 << PC3) | (1 << PC4) | (1 << PC5) | (1 << PC6) | (1 << PC7) 
-	out DDRC,R16
-
-	; Enable the input direction for PD2
-	ldi R16,(0 << PD2)
-	out DDRD,R16
-
-	; 
-
-	ldi R16,0b11111111
-	out DDRB,R16
-
-	/*ldi R16,0x00
-	out PORTB,R16*/
-
-	; Set stack pointer to the top of ram 
-	ldi R16,high(RAMEND)
-	out SPH,R16
-	ldi R16,low(RAMEND)
-	out SPL,R16
-
-	; Configure as any logical change in the interrupt sense control
-	ldi R16,(0 << ISC01) | (0 << ISC00)
-	out MCUCR,R16
-
-	; Enable INT0
-	ldi R16, (1 << INT0) 
+	ldi R16, (1 << INT0)
 	out GICR, R16
 
-	/*; Configuration: IVSEL = 0, BOOTRST = 0
-	; Make sure that the IVSEL is set to 0
-	ldi R16,(0 << IVCE)
-	out GICR,R16
-	ldi R16,(0 << IVSEL)
-	out GICR,R16*/
-
-	; Enable Global interrupt flag
 	sei
 
-start:
+	rjmp TYPE_1
+
+loop:
+	rjmp loop
+
+TYPE_1:
+	ldi r16,0b00000000
+	out ddrc,r16
+	ldi r16,0b11111111
+	out ddra,r16
+	ldi r16,0b11111111
+	out PORTC,r16
+	ldi r16,0b00000000
+	out PORTA,r16
+	ldi r16,(1<<PD2)
+	out ddrd,r16
+	ldi r16,0x00
+	out portd,r16
+
+	out ddrd,r16
+	ldi r16,0x00
+	out portd,r16
 	rjmp start
 
+	sei
+	rjmp loop
+TYPE_2:
+	ldi r16,0b11111111
+	out ddrc,r16
+	ldi r16,0b00000000
+	out ddra,r16
+	ldi r16,0b00000000
+	out PORTC,r16
+	ldi r16,0b11111111
+	out PORTA,r16
+	rjmp inner
+start:
+	in r17,PINA
+	rjmp TYPE_2
+endO:
+	rjmp TYPE_1
+inner:
+	in r18,PINC
+	call ON_MODE
+	rjmp endO
+OFF_MODE:
+	ldi r16,0x00
+	out PORTB,r16
+	ret
+ON_MODE:
+	cpi r17,0b00000001
+	breq COL_0
+	cpi r17,0b00000010
+	breq COL_1
+	cpi r17,0b00000100
+	breq COL_2
+	cpi r17,0b00001000
+	breq COL_3
+	ret
+
+COL_0:
+	cpi r18,0b00000001
+	breq DISPLAY_0
+	cpi r18,0b00000010
+	breq DISPLAY_1
+	cpi r18,0b00000100
+	breq DISPLAY_2
+	cpi r18,0b00001000
+	breq DISPLAY_3
+	ret
+COL_1:
+	cpi r18,0b00000001
+	breq DISPLAY_4
+	cpi r18,0b00000010
+	breq DISPLAY_5
+	cpi r18,0b00000100
+	breq DISPLAY_6
+	cpi r18,0b00001000
+	breq DISPLAY_7
+	ret
+COL_2:
+	cpi r18,0b00000001
+	breq DISPLAY_8
+	cpi r18,0b00000010
+	breq DISPLAY_9
+	cpi r18,0b00000100
+	breq DISPLAY_10
+	cpi r18,0b00001000
+	breq DISPLAY_11
+	ret
+COL_3:
+	cpi r18,0b00000001
+	breq DISPLAY_12
+	cpi r18,0b00000010
+	breq DISPLAY_13
+	cpi r18,0b00000100
+	breq DISPLAY_14
+	cpi r18,0b00001000
+	breq DISPLAY_15
+	ret
+DISPLAY_0:
+	ldi r16,0x3f
+	out PORTB,r16
+	ret
+DISPLAY_1:
+	ldi r16,0x06
+	out PORTB,r16
+	ret
+DISPLAY_2:
+	ldi r16,0x5b
+	out PORTB,r16
+	ret
+DISPLAY_3:
+	ldi r16,0x4f
+	out PORTB,r16
+	ret
+DISPLAY_4:
+	ldi r16,0x66
+	out PORTB,r16
+	ret
+DISPLAY_5:
+	ldi r16,0x6d
+	out PORTB,r16
+	ret
+DISPLAY_6:
+	ldi r16,0x7d
+	out PORTB,r16
+	ret
+DISPLAY_7:
+	ldi r16,0x07
+	out PORTB,r16
+	ret
+DISPLAY_8:
+	ldi r16,0x7f
+	out PORTB,r16
+	ret
+DISPLAY_9:
+	ldi r16,0x6f
+	out PORTB,r16
+	ret
+DISPLAY_10:
+	ldi r16,0b01011111
+	out PORTB,r16
+	ret
+DISPLAY_11:
+	ldi r16,0b01111100
+	out PORTB,r16
+	ret
+DISPLAY_12:
+	ldi r16,0b01011000
+	out PORTB,r16
+	ret
+DISPLAY_13:
+	ldi r16,0b01011110
+	out PORTB,r16
+	ret
+DISPLAY_14:
+	ldi r16,0b11111001
+	out PORTB,r16
+	ret
+DISPLAY_15:
+	ldi r16,0b01110001
+	out PORTB,r16
+	ret
