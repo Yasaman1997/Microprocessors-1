@@ -14,9 +14,10 @@ start:
 	; to use 2.1(s) timeout we need to put WDP2..WDP0 to "111" according to the data sheet
 	
 	/* Prepare the number that must be written in WDTCR */
-	ldi R20,0x0F	; Write 0b00001111 in R20
+	ldi R20,0x0F	; Write 0b00011111 in R20
 
-	/* last 1 is for the WDE(Watchdog Enable) */
+	/* 5TH 1 is for the WDTOE - has to be enabled in order to use wdt */
+	/* 4TH 1 is for the WDE(Watchdog Enable) */
 	/* First three 1s are for the 2.1s config */
 	/* Put the result in the WDTCR */
 	out WDTCR,R20
