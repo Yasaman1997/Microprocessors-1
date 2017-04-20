@@ -8,24 +8,19 @@
 
 ; This program will connect the keypad to the LCD
 rjmp RESET
+
 ldi r22,0x00
-.org int0addr
-	;inc r22
-	;out PORTB,r22
-	ldi r16,(1<<PD2)
-	out ddrd,r16
-	ldi r16,0x00
-	out portd,r16
+
+.org int2addr
+
 	rjmp start
+
 RESET:
 	ldi r16,low(ramend)
 	out spl,r16
 	ldi r16,high(ramend)
 	out sph,r16
-	ldi r16,0xff
-	out ddrb,r16
-	ldi r16,0xff
-	out PINB,r16
+
 
 	ldi r16,0b00000000
 	out ddrc,r16
