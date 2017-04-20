@@ -12,42 +12,13 @@ rjmp RESET
 
 ldi r22,0x00
 
-.org int2addr
-
-	rjmp start
-
-RESET:
-	ldi r16,low(ramend)
-	out spl,r16
-	ldi r16,high(ramend)
-	out sph,r16
-
-
-	ldi r16,0b00000000
-	out ddrc,r16
-	ldi r16,0b11111111
-	out ddra,r16
-	ldi r16,0b11111111
-	out PORTC,r16
-	ldi r16,0b00000000
-	out PORTA,r16
-
-	ldi r16,(0<<PD2)
-	out ddrd,r16
-
-	in r16,MCUCR
-	ori r16,(0 << ISC11) | (1 << ISC10)
-	out MCUCR,r16
-
-	ldi R16, (1 << INT2)
-	out GICR, R16
-
-	sei
+;.org int2addr
+	rjmp start2
 
 	rjmp TYPE_1
 
-loop:
-	rjmp loop
+LOOP_2:
+	rjmp LOOP_2
 
 TYPE_1:
 	ldi r16,0b00000000
@@ -66,10 +37,10 @@ TYPE_1:
 	out ddrd,r16
 	ldi r16,0x00
 	out portd,r16
-	rjmp start
+	rjmp start2
 
 	sei
-	rjmp loop
+	rjmp LOOP_2
 TYPE_2:
 	ldi r16,0b11111111
 	out ddrc,r16
@@ -80,7 +51,7 @@ TYPE_2:
 	ldi r16,0b11111111
 	out PORTA,r16
 	rjmp inner
-start:
+start2:
 	in r17,PINA
 	rjmp TYPE_2
 endO:
