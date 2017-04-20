@@ -5,6 +5,7 @@
 ; Author : Ali Gholami
 ;
 
+.include "m16_LCD_4bit.inc"
 
 ; This program will connect the keypad to the LCD
 rjmp RESET
