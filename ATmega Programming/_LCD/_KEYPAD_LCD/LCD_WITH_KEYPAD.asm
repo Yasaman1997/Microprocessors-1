@@ -39,7 +39,7 @@ RESET:
 	ori r16,(0 << ISC11) | (1 << ISC10)
 	out MCUCR,r16
 
-	ldi R16, (1 << INT0)
+	ldi R16, (1 << INT2)
 	out GICR, R16
 
 	sei
