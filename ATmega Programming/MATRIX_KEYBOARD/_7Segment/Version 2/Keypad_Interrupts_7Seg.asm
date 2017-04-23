@@ -19,4 +19,9 @@ RESET:
 	ldi R16,high(RAMEND)
 	out SPH,R16
 
+	; DDRB output mode for 7 Segment 
+	ldi R16,0xFF
+	out DDRB,R16
+
+
 
