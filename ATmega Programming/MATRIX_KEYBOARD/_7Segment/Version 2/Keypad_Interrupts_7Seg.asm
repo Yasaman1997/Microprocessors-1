@@ -137,3 +137,68 @@ COLUMN_4:
 	cpi r18,0b00001000
 	breq DISPLAY_15
 	ret
+
+DISPLAY_0:
+	ldi r16,0x3f
+	out PORTB,r16
+	ret
+DISPLAY_1:
+	ldi r16,0x06
+	out PORTB,r16
+	ret
+DISPLAY_2:
+	ldi r16,0x5b
+	out PORTB,r16
+	ret
+DISPLAY_3:
+	ldi r16,0x4f
+	out PORTB,r16
+	ret
+DISPLAY_4:
+	ldi r16,0x66
+	out PORTB,r16
+	ret
+DISPLAY_5:
+	ldi r16,0x6d
+	out PORTB,r16
+	ret
+DISPLAY_6:
+	ldi r16,0x7d
+	out PORTB,r16
+	ret
+DISPLAY_7:
+	ldi r16,0x07
+	out PORTB,r16
+	ret
+DISPLAY_8:
+	ldi r16,0x7f
+	out PORTB,r16
+	ret
+DISPLAY_9:
+	ldi r16,0x6f
+	out PORTB,r16
+	ret
+DISPLAY_10:
+	ldi r16,0x5F
+	out PORTB,r16
+	ret
+DISPLAY_11:
+	ldi r16,0x7C
+	out PORTB,r16
+	ret
+DISPLAY_12:
+	ldi r16,0x58
+	out PORTB,r16
+	ret
+DISPLAY_13:
+	ldi r16,0x5E
+	out PORTB,r16
+	ret
+DISPLAY_14:
+	ldi r16,0xF9
+	out PORTB,r16
+	ret
+DISPLAY_15:
+	ldi r16,0x71
+	out PORTB,r16
+	ret
