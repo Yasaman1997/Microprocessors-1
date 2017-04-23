@@ -38,3 +38,6 @@ RESET:
 	; Enable INT0 in GICR
 	ldi R16, (1 << INT0)
 	out GICR, R16
+
+	; Enable Global Interrupt Flag
+	sei
