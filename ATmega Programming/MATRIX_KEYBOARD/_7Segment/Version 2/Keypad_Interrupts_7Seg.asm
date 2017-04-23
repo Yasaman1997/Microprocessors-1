@@ -71,6 +71,8 @@ MODE_2:
 PASS_2:
 	; Read PINC
 	in R18,PINC
+	call FIND_COLUMN
+	rjmp PASS_1
 
 FIND_COLUMN:
 	cpi R17,0b00000001
@@ -89,7 +91,6 @@ FIND_COLUMN:
 	; find the row number as simple as possible
 FIND_ROW:
 	; labels for each column
-	
 	; First column check
 COLUMN_1:
 	cpi r18,0b00000001
