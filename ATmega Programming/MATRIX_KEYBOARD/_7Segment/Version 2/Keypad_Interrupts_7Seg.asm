@@ -6,3 +6,7 @@
 ;
 ; This code will identify the pressed key in keypad using interrupts
 
+.org 0x00
+	jmp RESET	; Reset vector
+
+
