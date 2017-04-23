@@ -11,3 +11,12 @@
 
 .org 0x02
 	jmp INT0_ISR	; INT0_ISR vector
+
+RESET:
+	; Stack init
+	ldi R16,low(RAMEND)
+	out SPL,R16
+	ldi R16,high(RAMEND)
+	out SPH,R16
+
+
