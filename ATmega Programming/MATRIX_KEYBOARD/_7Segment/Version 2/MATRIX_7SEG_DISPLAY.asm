@@ -23,8 +23,14 @@ RESET:
 	out PORTD,R16
 
 	; Set the interrupt0 bit
-	ldi R16,(1 << PD2)
-	out DDRD,R16
+	ldi R16, (1 << INT0)
+	out GICR, R16
+
+	; Configure the interrupt sense control	
+	ldi R16,(0 << ISC11) | (1 << ISC10)
+	out MCUCR,r16
+
+
 
 
 
