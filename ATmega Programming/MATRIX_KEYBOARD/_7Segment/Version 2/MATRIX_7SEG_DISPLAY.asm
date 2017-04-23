@@ -30,8 +30,8 @@ RESET:
 	ldi R16,(0 << ISC11) | (1 << ISC10)
 	out MCUCR,r16
 
-
-
+	; Set the global interrupt flag
+	sei
 
 
 
