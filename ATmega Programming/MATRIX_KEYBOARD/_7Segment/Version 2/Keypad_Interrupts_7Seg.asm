@@ -34,3 +34,7 @@ RESET:
 	; MCUCR Config - toggle mode for interrupt_0 sense control
 	ldi R16,(1 << ISC01) | (0 << ISC00)
 	out MCUCR,R16
+
+	; Enable INT0 in GICR
+	ldi R16, (1 << INT0)
+	out GICR, R16
