@@ -63,4 +63,7 @@ MODE_2:
 	ldi R16,0b00001111
 	out DDRC,R16
 
+	; PORTC - output half pull-up
+	ldi R16,0b00001111
+	out PORTC,R16
 	
