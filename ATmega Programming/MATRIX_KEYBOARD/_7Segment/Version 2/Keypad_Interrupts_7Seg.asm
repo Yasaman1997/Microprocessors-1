@@ -1,44 +1,61 @@
 ;
-; Keypad_Interrupts_7Seg.asm
+; MATRIX_7SEG_DISPLAY.asm
 ;
-; Created: 4/23/2017 9:08:32 PM
+; Created: 4/15/2017 12:45:18 PM
 ; Author : Ali Gholami
 ;
-; This code will identify the pressed key in keypad using interrupts
+; This code is written to identify and DISPLAY_ the pressed number in the keyboard
 
 .org 0x00
-	jmp RESET	; Reset vector
+	rjmp RESET	; Reset vector
 
-.org 0x02
-	jmp INT0_ISR	; INT0_ISR vector
+/**********************/
+/*******INT0 ISR*******/
+.org int0addr
+	ldi r16,(1<<PD2)
+	out ddrd,r16
+	ldi r16,0x00
+	out portd,r16
+	rjmp start
 
+
+
+/***********************/
+/*******RESET ISR*******/
 RESET:
 	; Stack init
-	ldi R16,low(RAMEND)
-	out SPL,R16
-	ldi R16,high(RAMEND)
-	out SPH,R16
+	ldi r16,low(ramend)
+	out spl,r16
+	ldi r16,high(ramend)
+	out sph,r16
 
-	; DDRB output mode for 7 Segment 
-	ldi R16,0xFF
-	out DDRB,R16
+	; DDRB output mode for 7 Segment
+	ldi r16,0xff
+	out ddrb,r16
+	ldi r16,0xff
+	out PINB,r16
 
 	; DDRC - Half output - Half input
-	ldi R16,0b11110000
-	out DDRC,R16
+	ldi r16,0x00
+	out ddrc,r16
+	ldi r16,0xFF
+	out ddra,r16
 
 	; PORTC - Input half pull-up
-	ldi R16,0b00001111
-	out PORTC,R16
+	ldi r16,0xFF
+	out PORTC,r16
+	; PORTA - Input half pull-up
+	ldi r16,0x00
+	out PORTA,r16
 
-	/**********************/
-	ldi R16,(0<<PD2)
-	out DDRD,R16
+	; PORTD - INPUT MODE for PD2
+	ldi r16,(0<<PD2)
+	out ddrd,r16
 
 	; MCUCR Config - toggle mode for interrupt_0 sense control
-	in R16,MCUCR
-	ori R16,(0 << ISC11) | (1 << ISC10)
-	out MCUCR,R16
+	in r16,MCUCR
+	ori r16,(0 << ISC11) | (1 << ISC10)
+	out MCUCR,r16
 
 	; Enable INT0 in GICR
 	ldi R16, (1 << INT0)
@@ -46,190 +63,187 @@ RESET:
 
 	; Enable Global Interrupt Flag
 	sei
-wait:
-	rjmp wait
+	rjmp TYPE_1
+
+	/**********************/
+	/*****Functions to Display******/
+	/****Results on the 7 Segment****/
+	DISPLAY_0:
+		ldi r16,0x3f
+		out PORTB,r16
+		ret
+	DISPLAY_1:
+		ldi r16,0x06
+		out PORTB,r16
+		ret
+	DISPLAY_2:
+		ldi r16,0x5b
+		out PORTB,r16
+		ret
+	DISPLAY_3:
+		ldi r16,0x4f
+		out PORTB,r16
+		ret
+	DISPLAY_4:
+		ldi r16,0x66
+		out PORTB,r16
+		ret
+	DISPLAY_5:
+		ldi r16,0x6d
+		out PORTB,r16
+		ret
+	DISPLAY_6:
+		ldi r16,0x7d
+		out PORTB,r16
+		ret
+	DISPLAY_7:
+		ldi r16,0x07
+		out PORTB,r16
+		ret
+	DISPLAY_8:
+		ldi r16,0x7f
+		out PORTB,r16
+		ret
+	DISPLAY_9:
+		ldi r16,0x6f
+		out PORTB,r16
+		ret
+	DISPLAY_10:
+		ldi r16,0b01011111
+		out PORTB,r16
+		ret
+	DISPLAY_11:
+		ldi r16,0b01111100
+		out PORTB,r16
+		ret
+	DISPLAY_12:
+		ldi r16,0b01011000
+		out PORTB,r16
+		ret
+	DISPLAY_13:
+		ldi r16,0b01011110
+		out PORTB,r16
+		ret
+	DISPLAY_14:
+		ldi r16,0b11111001
+		out PORTB,r16
+		ret
+	DISPLAY_15:
+		ldi r16,0b01110001
+		out PORTB,r16
+		ret
+
+WAIT_HERE:
+	rjmp WAIT_HERE
+
 	; Mode 1 is similar to what we have done in RESET
-MODE_1:
-	; DDRC - Half output - Half input
-	ldi R16,0b11110000
-	out DDRC,R16
+TYPE_1:
+	; DDRC - input
+	ldi r16,0x00
+	out ddrc,r16
+	ldi r16,0xFF
 
-	; PORTC - Input half pull-up
-	ldi R16,0b00001111
-	out PORTC,R16
-	
-	/* PORTD SECURITY */
-	ldi R16,(1<<PD2)
-	out DDRD,R16
-	ldi R16,0x00
-	out PORTD,R16
-	out DDRD,R16
-	ldi R16,0x00
-	out PORTD,R16
-	rjmp PASS_1
+	; DDRA - output
+	out ddra,r16
 
-	sei
-	rjmp wait
+	; PORTC - Input pull-up
+	ldi r16,0xFF
+	out PORTC,r16
 
-	; Read PINC in the first pass
-PASS_1:
-	; Read PINC
-	in R17,PINC
-
-	; Mode 2 is actually the inverse of Mode 1
-MODE_2:
-	; DDRC - Half input - Half output
-	ldi R16,0b00001111
-	out DDRC,R16
-
-	; PORTC - output half pull-up
-	ldi R16,0b00001111
-	out PORTC,R16
-
-	; Read PINC in the second pass
-PASS_2:
-	; Read PINC
-	in R18,PINC
-	call FIND_COLUMN
-	rjmp PASS_1
-
-FIND_COLUMN:
-	cpi R17,0b00000001
-	breq COLUMN_1
-
-	cpi R17,0b00000010
-	breq COLUMN_2
-
-	cpi R17,0b00000100
-	breq COLUMN_3
-
-	cpi R17,0b00001000
-	breq COLUMN_4
-	ret
-
-	; find the row number as simple as possible
-FIND_ROW:
-	; labels for each column
-	; First column check
-COLUMN_1:
-	cpi r18,0b00000001
-	breq DISPLAY_0
-	cpi r18,0b00000010
-	breq DISPLAY_1
-	cpi r18,0b00000100
-	breq DISPLAY_2
-	cpi r18,0b00001000
-	breq DISPLAY_3
-	ret
-
-	; Second column check
-COLUMN_2:
-	cpi r18,0b00000001
-	breq DISPLAY_4
-	cpi r18,0b00000010
-	breq DISPLAY_5
-	cpi r18,0b00000100
-	breq DISPLAY_6
-	cpi r18,0b00001000
-	breq DISPLAY_7
-	ret
-
-	; Third column check
-COLUMN_3:
-	cpi r18,0b00000001
-	breq DISPLAY_8
-	cpi r18,0b00000010
-	breq DISPLAY_9
-	cpi r18,0b00000100
-	breq DISPLAY_10
-	cpi r18,0b00001000
-	breq DISPLAY_11
-	ret
-
-	; Fourth Column check
-COLUMN_4:
-	cpi r18,0b00000001
-	breq DISPLAY_12
-	cpi r18,0b00000010
-	breq DISPLAY_13
-	cpi r18,0b00000100
-	breq DISPLAY_14
-	cpi r18,0b00001000
-	breq DISPLAY_15
-	ret
-
-DISPLAY_0:
-	ldi r16,0x3f
-	out PORTB,r16
-	ret
-DISPLAY_1:
-	ldi r16,0x06
-	out PORTB,r16
-	ret
-DISPLAY_2:
-	ldi r16,0x5b
-	out PORTB,r16
-	ret
-DISPLAY_3:
-	ldi r16,0x4f
-	out PORTB,r16
-	ret
-DISPLAY_4:
-	ldi r16,0x66
-	out PORTB,r16
-	ret
-DISPLAY_5:
-	ldi r16,0x6d
-	out PORTB,r16
-	ret
-DISPLAY_6:
-	ldi r16,0x7d
-	out PORTB,r16
-	ret
-DISPLAY_7:
-	ldi r16,0x07
-	out PORTB,r16
-	ret
-DISPLAY_8:
-	ldi r16,0x7f
-	out PORTB,r16
-	ret
-DISPLAY_9:
-	ldi r16,0x6f
-	out PORTB,r16
-	ret
-DISPLAY_10:
-	ldi r16,0x5F
-	out PORTB,r16
-	ret
-DISPLAY_11:
-	ldi r16,0x7C
-	out PORTB,r16
-	ret
-DISPLAY_12:
-	ldi r16,0x58
-	out PORTB,r16
-	ret
-DISPLAY_13:
-	ldi r16,0x5E
-	out PORTB,r16
-	ret
-DISPLAY_14:
-	ldi r16,0xF9
-	out PORTB,r16
-	ret
-DISPLAY_15:
-	ldi r16,0x71
-	out PORTB,r16
-	ret
-
-INT0_ISR:
+	; PORTD - INPUT MODE for PD2
+	ldi r16,0x00
+	out PORTA,r16
 	ldi r16,(1<<PD2)
 	out ddrd,r16
 	ldi r16,0x00
 	out portd,r16
-	rjmp MODE_1
+
+	out ddrd,r16
+	ldi r16,0x00
+	out portd,r16
+	rjmp start
+
 	sei
+	rjmp WAIT_HERE
+TYPE_2:
+	ldi r16,0xFF
+	out ddrc,r16
+	ldi r16,0x00
+	out ddra,r16
+	ldi r16,0x00
+	out PORTC,r16
+	ldi r16,0xFF
+	out PORTA,r16
+	rjmp RECURSIVE_LOOP
+start:
+	; Read PINA
+	in r17,PINA
+	rjmp TYPE_2
+
+	; In case of end, jump to type 1
+endO:
+	rjmp TYPE_1
+
+RECURSIVE_LOOP:
+	; Read PINC
+	in r18,PINC
+	call FIND_COLUMN
+	rjmp endO
+
+	; find the column number as simple as possible
+	; labels for each column
+	; First column check
+FIND_COLUMN:
+	cpi r17,0x01
+	breq COL_0
+	cpi r17,0x02
+	breq COL_1
+	cpi r17,0x03
+	breq COL_2
+	cpi r17,0x04
+	breq COL_3
 	ret
 
-	
+COL_0:
+	cpi r18,0x01
+	breq DISPLAY_0
+	cpi r18,0x02
+	breq DISPLAY_1
+	cpi r18,0x03
+	breq DISPLAY_2
+	cpi r18,0x04
+	breq DISPLAY_3
+	ret
+
+COL_1:
+	cpi r18,0x01
+	breq DISPLAY_4
+	cpi r18,0x02
+	breq DISPLAY_5
+	cpi r18,0x03
+	breq DISPLAY_6
+	cpi r18,0x04
+	breq DISPLAY_7
+	ret
+
+COL_2:
+	cpi r18,0x01
+	breq DISPLAY_8
+	cpi r18,0x02
+	breq DISPLAY_9
+	cpi r18,0x03
+	breq DISPLAY_10
+	cpi r18,0x04
+	breq DISPLAY_11
+	ret
+
+COL_3:
+	cpi r18,0x01
+	breq DISPLAY_12
+	cpi r18,0x02
+	breq DISPLAY_13
+	cpi r18,0x03
+	breq DISPLAY_14
+	cpi r18,0x04
+	breq DISPLAY_15
+	ret
