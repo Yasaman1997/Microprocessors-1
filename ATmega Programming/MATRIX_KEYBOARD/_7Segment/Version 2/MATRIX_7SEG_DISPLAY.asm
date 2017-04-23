@@ -34,6 +34,7 @@ RESET:
 	sei
 
 	; This section will find the ROW number quickly ;)
+	; Stay in this section until a key is pressed
 COL_RECOGNIZER:
 	; Make COL 1 zero
 	ldi 
