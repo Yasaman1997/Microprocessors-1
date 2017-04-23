@@ -7,7 +7,7 @@
 ; This code is written to identify and DISPLAY_ the pressed number in the keyboard
 
 .org 0x00
-	rjmp RESET	; Reset vector
+	jmp RESET	; Reset vector
 
 /**********************/
 /*******INT0 ISR*******/
@@ -16,7 +16,7 @@
 	out ddrd,r16
 	ldi r16,0x00
 	out portd,r16
-	rjmp start
+	jmp start
 
 
 
@@ -63,78 +63,10 @@ RESET:
 
 	; Enable Global Interrupt Flag
 	sei
-	rjmp TYPE_1
-
-	/**********************/
-	/*****Functions to Display******/
-	/****Results on the 7 Segment****/
-	DISPLAY_0:
-		ldi r16,0x3f
-		out PORTB,r16
-		ret
-	DISPLAY_1:
-		ldi r16,0x06
-		out PORTB,r16
-		ret
-	DISPLAY_2:
-		ldi r16,0x5b
-		out PORTB,r16
-		ret
-	DISPLAY_3:
-		ldi r16,0x4f
-		out PORTB,r16
-		ret
-	DISPLAY_4:
-		ldi r16,0x66
-		out PORTB,r16
-		ret
-	DISPLAY_5:
-		ldi r16,0x6d
-		out PORTB,r16
-		ret
-	DISPLAY_6:
-		ldi r16,0x7d
-		out PORTB,r16
-		ret
-	DISPLAY_7:
-		ldi r16,0x07
-		out PORTB,r16
-		ret
-	DISPLAY_8:
-		ldi r16,0x7f
-		out PORTB,r16
-		ret
-	DISPLAY_9:
-		ldi r16,0x6f
-		out PORTB,r16
-		ret
-	DISPLAY_10:
-		ldi r16,0b01011111
-		out PORTB,r16
-		ret
-	DISPLAY_11:
-		ldi r16,0b01111100
-		out PORTB,r16
-		ret
-	DISPLAY_12:
-		ldi r16,0b01011000
-		out PORTB,r16
-		ret
-	DISPLAY_13:
-		ldi r16,0b01011110
-		out PORTB,r16
-		ret
-	DISPLAY_14:
-		ldi r16,0b11111001
-		out PORTB,r16
-		ret
-	DISPLAY_15:
-		ldi r16,0b01110001
-		out PORTB,r16
-		ret
+	jmp TYPE_1
 
 WAIT_HERE:
-	rjmp WAIT_HERE
+	jmp WAIT_HERE
 
 	; Mode 1 is similar to what we have done in RESET
 TYPE_1:
@@ -161,10 +93,10 @@ TYPE_1:
 	out ddrd,r16
 	ldi r16,0x00
 	out portd,r16
-	rjmp start
+	jmp start
 
 	sei
-	rjmp WAIT_HERE
+	jmp WAIT_HERE
 TYPE_2:
 	ldi r16,0xFF
 	out ddrc,r16
@@ -174,21 +106,21 @@ TYPE_2:
 	out PORTC,r16
 	ldi r16,0xFF
 	out PORTA,r16
-	rjmp RECURSIVE_LOOP
+	jmp RECURSIVE_LOOP
 start:
 	; Read PINA
 	in r17,PINA
-	rjmp TYPE_2
+	jmp TYPE_2
 
 	; In case of end, jump to type 1
 endO:
-	rjmp TYPE_1
+	jmp TYPE_1
 
 RECURSIVE_LOOP:
 	; Read PINC
 	in r18,PINC
 	call FIND_COLUMN
-	rjmp endO
+	jmp endO
 
 	; find the column number as simple as possible
 	; labels for each column
@@ -246,4 +178,72 @@ COL_3:
 	breq DISPLAY_14
 	cpi r18,0x04
 	breq DISPLAY_15
+	ret
+
+/**********************/
+/*****Functions to Display******/
+/****Results on the 7 Segment****/
+DISPLAY_0:
+	ldi r16,0x3f
+	out PORTB,r16
+	ret
+DISPLAY_1:
+	ldi r16,0x06
+	out PORTB,r16
+	ret
+DISPLAY_2:
+	ldi r16,0x5b
+	out PORTB,r16
+	ret
+DISPLAY_3:
+	ldi r16,0x4f
+	out PORTB,r16
+	ret
+DISPLAY_4:
+	ldi r16,0x66
+	out PORTB,r16
+	ret
+DISPLAY_5:
+	ldi r16,0x6d
+	out PORTB,r16
+	ret
+DISPLAY_6:
+	ldi r16,0x7d
+	out PORTB,r16
+	ret
+DISPLAY_7:
+	ldi r16,0x07
+	out PORTB,r16
+	ret
+DISPLAY_8:
+	ldi r16,0x7f
+	out PORTB,r16
+	ret
+DISPLAY_9:
+	ldi r16,0x6f
+	out PORTB,r16
+	ret
+DISPLAY_10:
+	ldi r16,0b01011111
+	out PORTB,r16
+	ret
+DISPLAY_11:
+	ldi r16,0b01111100
+	out PORTB,r16
+	ret
+DISPLAY_12:
+	ldi r16,0b01011000
+	out PORTB,r16
+	ret
+DISPLAY_13:
+	ldi r16,0b01011110
+	out PORTB,r16
+	ret
+DISPLAY_14:
+	ldi r16,0b11111001
+	out PORTB,r16
+	ret
+DISPLAY_15:
+	ldi r16,0b01110001
+	out PORTB,r16
 	ret
