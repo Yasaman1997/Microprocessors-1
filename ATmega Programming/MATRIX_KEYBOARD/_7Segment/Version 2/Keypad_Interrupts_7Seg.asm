@@ -32,8 +32,8 @@ RESET:
 	out PORTC,R16
 
 	/**********************/
-	ldi r16,(0<<PD2)
-	out ddrd,r16
+	ldi R16,(0<<PD2)
+	out DDRD,R16
 
 	; MCUCR Config - toggle mode for interrupt_0 sense control
 	ldi R16,(1 << ISC01) | (0 << ISC00)
@@ -45,7 +45,8 @@ RESET:
 
 	; Enable Global Interrupt Flag
 	sei
-
+wait:
+	rjmp wait
 	; Mode 1 is similar to what we have done in RESET
 MODE_1:
 	; DDRC - Half output - Half input
@@ -61,6 +62,13 @@ MODE_1:
 	out DDRD,R16
 	ldi R16,0x00
 	out PORTD,R16
+	out DDRD,R16
+	ldi R16,0x00
+	out PORTD,R16
+	rjmp PASS_1
+
+	sei
+	rjmp wait
 
 	; Read PINC in the first pass
 PASS_1:
@@ -76,12 +84,6 @@ MODE_2:
 	; PORTC - output half pull-up
 	ldi R16,0b00001111
 	out PORTC,R16
-	
-	/* PORTD SECURITY */
-	ldi R16,(0<<PD2)
-	out DDRD,R16
-	ldi R16,0x00
-	out PORTD,R16
 
 	; Read PINC in the second pass
 PASS_2:
