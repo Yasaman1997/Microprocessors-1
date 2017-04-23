@@ -71,3 +71,23 @@ MODE_2:
 PASS_2:
 	; Read PINC
 	in R18,PINC
+
+FIND_COLUMN:
+	cpi R17,0b00000001
+	breq COLUMN_1
+
+	cpi R17,0b00000010
+	breq COLUMN_2
+
+	cpi R17,0b00000100
+	breq COLUMN_3
+
+	cpi R17,0b00001000
+	breq COLUMN_4
+	ret
+
+FIND_ROW:
+	
+COLUMN_1:
+
+COLUMN2
