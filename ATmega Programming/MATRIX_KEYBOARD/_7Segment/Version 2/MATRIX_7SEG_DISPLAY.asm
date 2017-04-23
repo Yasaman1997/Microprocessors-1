@@ -4,8 +4,12 @@
 ; Created: 4/23/2017 9:56:49 AM
 ; Author : Ali Gholami
 ; This application will enable the interrupts of atmega by pressing each keypad button
+.org 0x00
 jmp RESET
 
+; Interrupt Service Routine Vector Declaration
+.org 0x02
+jmp INT0_ISR
 
 RESET:
 	; Init the stack pointer
@@ -52,3 +56,4 @@ COL_RECOGNIZER:
 	; No interrupt :D 
 	; Go back to COL_RECOGNIZER
 	jmp COL_RECOGNIZER
+
