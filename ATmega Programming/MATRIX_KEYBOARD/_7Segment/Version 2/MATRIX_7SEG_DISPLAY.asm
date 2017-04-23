@@ -14,8 +14,8 @@ RESET:
 	ldi R16,high(RAMEND)
 	out SPH,R16
 
-	; Set DDRD 0-3 as input and 4-7 output
-	ldi R16,(0 << PD0) | (0 << PD1) | (0 << PD2) | (0 << PD3) | (1 << PD4) | (1 << PD5) | (1 << PD6) | (1 << PD7)
+	; Set DDRD 0-7 as input
+	ldi R16,(1 << PD0) | (1 << PD1) | (1 << PD2) | (1 << PD3) | (1 << PD4) | (1 << PD5) | (1 << PD6) | (1 << PD7)
 	out DDRD,R16
 	
 	; Put the higher PORTs as pull-up
@@ -33,7 +33,7 @@ RESET:
 	; Set the global interrupt flag
 	sei
 
-
-
-start:
-    rjmp start
+	; This section will find the ROW number quickly ;)
+COL_RECOGNIZER:
+	; Make COL 1 zero
+	ldi 

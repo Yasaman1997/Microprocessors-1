@@ -82,6 +82,7 @@ TYPE_2:
 	ldi r16,0b11111111
 	out PORTA,r16
 	rjmp inner
+
 start:
 	in r17,PINA
 	rjmp TYPE_2
