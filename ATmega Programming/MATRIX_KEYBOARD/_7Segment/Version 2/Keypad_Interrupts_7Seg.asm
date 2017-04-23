@@ -67,3 +67,7 @@ MODE_2:
 	ldi R16,0b00001111
 	out PORTC,R16
 	
+	; Read PINC in the second pass
+PASS_2:
+	; Read PINC
+	in R18,PINC
