@@ -51,3 +51,16 @@ MODE_1:
 	; PORTC - Input half pull-up
 	ldi R16,0b00001111
 	out PORTC,R16
+
+	; Read PINC in the first pass
+PASS_1:
+	; Read PINC
+	in R17,PINC
+
+	; Mode 2 is actually the inverse of Mode 1
+MODE_2:
+	; DDRC - Half input - Half output
+	ldi R16,0b00001111
+	out DDRC,R16
+
+	

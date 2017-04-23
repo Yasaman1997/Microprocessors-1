@@ -60,14 +60,15 @@ TYPE_1:
 	out PORTC,r16
 	ldi r16,0b00000000
 	out PORTA,r16
+	/*
 	ldi r16,(1<<PD2)
 	out ddrd,r16
 	ldi r16,0x00
 	out portd,r16
+	*/ino nazashtam felan
 
 	out ddrd,r16
-	ldi r16,0x00
-	out portd,r16
+
 	rjmp start
 
 	sei
