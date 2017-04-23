@@ -22,13 +22,9 @@ RESET:
 	ldi R16,(1 << PB4) | (1 << PD5) | (1 << PD6) | (1 << PD7)
 	out PORTD,R16
 
-
-
-
-
-
-
-
+	; Set the interrupt0 bit
+	ldi R16,(1 << PD2)
+	out DDRD,R16
 
 
 
