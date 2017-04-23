@@ -206,12 +206,12 @@ DISPLAY_15:
 
 INT0_ISR:
 	ldi R25,0x3F
-	dec	
+	dec	R25
 	call LOOP_MATRIX
 	ret
 LOOP_MATRIX:
 	ldi R26,0x34
-	dec
+	dec R26
 	brne LOOP_MATRIX
 	ret
 
