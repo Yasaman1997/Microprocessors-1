@@ -14,8 +14,8 @@ RESET:
 	ldi R16,high(RAMEND)
 	out SPH,R16
 
-	; Set DDRD 0-3 as input
-	ldi R16,(0 << PD0) | (0 << PD1) | (0 << PD2) | (0 << PD3) | (0 << PD4) | (0 << PD5) | (0 << PD6) | (0 << PD7)
+	; Set DDRD 0-3 as input and 4-7 output
+	ldi R16,(0 << PD0) | (0 << PD1) | (0 << PD2) | (0 << PD3) | (1 << PD4) | (1 << PD5) | (1 << PD6) | (1 << PD7)
 	out DDRD,R16
 	
 	; Put the higher PORTs as pull-up
