@@ -69,4 +69,7 @@ COL_RECOGNIZER:
 	jmp COL_RECOGNIZER
 
 INT0_ISR:
+	; 
 	
+	
+	ret
