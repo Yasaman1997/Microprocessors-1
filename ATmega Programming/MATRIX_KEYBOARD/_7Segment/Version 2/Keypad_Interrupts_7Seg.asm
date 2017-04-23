@@ -41,3 +41,13 @@ RESET:
 
 	; Enable Global Interrupt Flag
 	sei
+
+	; Mode 1 is similar to what we have done in RESET
+MODE_1:
+	; DDRC - Half output - Half input
+	ldi R16,0b11110000
+	out DDRC,R16
+
+	; PORTC - Input half pull-up
+	ldi R16,0b00001111
+	out PORTC,R16
