@@ -86,8 +86,54 @@ FIND_COLUMN:
 	breq COLUMN_4
 	ret
 
+	; find the row number as simple as possible
 FIND_ROW:
+	; labels for each column
 	
+	; First column check
 COLUMN_1:
+	cpi r18,0b00000001
+	breq DISPLAY_0
+	cpi r18,0b00000010
+	breq DISPLAY_1
+	cpi r18,0b00000100
+	breq DISPLAY_2
+	cpi r18,0b00001000
+	breq DISPLAY_3
+	ret
 
-COLUMN2
+	; Second column check
+COLUMN_2:
+	cpi r18,0b00000001
+	breq DISPLAY_0
+	cpi r18,0b00000010
+	breq DISPLAY_1
+	cpi r18,0b00000100
+	breq DISPLAY_2
+	cpi r18,0b00001000
+	breq DISPLAY_3
+	ret
+
+	; Third column check
+COLUMN_3:
+	cpi r18,0b00000001
+	breq DISPLAY_0
+	cpi r18,0b00000010
+	breq DISPLAY_1
+	cpi r18,0b00000100
+	breq DISPLAY_2
+	cpi r18,0b00001000
+	breq DISPLAY_3
+	ret
+
+	; Fourth Column check
+COLUMN_4:
+	cpi r18,0b00000001
+	breq DISPLAY_0
+	cpi r18,0b00000010
+	breq DISPLAY_1
+	cpi r18,0b00000100
+	breq DISPLAY_2
+	cpi r18,0b00001000
+	breq DISPLAY_3
+	ret
