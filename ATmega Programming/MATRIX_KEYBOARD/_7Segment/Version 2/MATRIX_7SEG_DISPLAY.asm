@@ -15,10 +15,9 @@ RESET:
 	out SPH,R16
 
 	; set DDRD 0-3 as input
-	ldi R16,(0 << PD0) | (0 << PD1) | (0 << PD2) | (0 << PD3)
+	ldi R16,(0 << PD0) | (0 << PD1) | (0 << PD2) | (0 << PD3) | (0 << PD4) | (0 << PD5) | (0 << PD6) | (0 << PD7)
 	out DDRD,R16
 	
-
 
 
 
