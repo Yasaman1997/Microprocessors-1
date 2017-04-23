@@ -35,6 +35,20 @@ RESET:
 
 	; This section will find the ROW number quickly ;)
 	; Stay in this section until a key is pressed
+	; When an  interrupts comes in from the INT0 pin, The COL_RECOGNIZER will be routed through the INT0_ISR
 COL_RECOGNIZER:
 	; Make COL 1 zero
-	ldi R16,(0 << PD
+	ldi R16,(0 << PC4)
+	call delay
+	; Make COL 2 Zero
+	ldi R16,(0 << PC5)
+	call delay 
+	; Make COL 3 Zero
+	ldi R16,(0 << PC6)
+	call delay
+	; Make COL 4 Zero
+	ldi R16,(0 << PC7)
+	call delay
+	; No interrupt :D 
+	; Go back to COL_RECOGNIZER
+	jmp COL_RECOGNIZER
