@@ -203,3 +203,16 @@ DISPLAY_15:
 	ldi r16,0x71
 	out PORTB,r16
 	ret
+
+INT0_ISR:
+	ldi R25,0x3F
+	dec	
+	call LOOP_MATRIX
+	ret
+LOOP_MATRIX:
+	ldi R26,0x34
+	dec
+	brne LOOP_MATRIX
+	ret
+
+	
