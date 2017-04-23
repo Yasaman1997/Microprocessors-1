@@ -224,26 +224,26 @@ DISPLAY_9:
 	out PORTB,r16
 	ret
 DISPLAY_10:
-	ldi r16,0b01011111
+	ldi r16,0x5F
 	out PORTB,r16
 	ret
 DISPLAY_11:
-	ldi r16,0b01111100
+	ldi r16,0x7C
 	out PORTB,r16
 	ret
 DISPLAY_12:
-	ldi r16,0b01011000
+	ldi r16,0x58
 	out PORTB,r16
 	ret
 DISPLAY_13:
-	ldi r16,0b01011110
+	ldi r16,0x5E
 	out PORTB,r16
 	ret
 DISPLAY_14:
-	ldi r16,0b11111001
+	ldi r16,0xF9
 	out PORTB,r16
 	ret
 DISPLAY_15:
-	ldi r16,0b01110001
+	ldi r16,0E71
 	out PORTB,r16
 	ret
