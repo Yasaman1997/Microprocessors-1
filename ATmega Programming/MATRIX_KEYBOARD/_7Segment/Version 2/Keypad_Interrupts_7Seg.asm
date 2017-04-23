@@ -77,6 +77,12 @@ MODE_2:
 	ldi R16,0b00001111
 	out PORTC,R16
 	
+	/* PORTD SECURITY */
+	ldi R16,(0<<PD2)
+	out DDRD,R16
+	ldi R16,0x00
+	out PORTD,R16
+
 	; Read PINC in the second pass
 PASS_2:
 	; Read PINC
