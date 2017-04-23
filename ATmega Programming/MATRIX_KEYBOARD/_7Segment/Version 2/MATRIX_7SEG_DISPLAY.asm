@@ -14,6 +14,11 @@ RESET:
 	ldi R16,high(RAMEND)
 	out SPH,R16
 
+	; set DDRD 0-3 as input
+	ldi R16,(0 << PD0) | (0 << PD1) | (0 << PD2) | (0 << PD3)
+	out DDRD,R16
+	
+
 
 
 
