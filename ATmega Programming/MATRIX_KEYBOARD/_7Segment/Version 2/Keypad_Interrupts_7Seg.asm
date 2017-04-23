@@ -105,35 +105,35 @@ COLUMN_1:
 	; Second column check
 COLUMN_2:
 	cpi r18,0b00000001
-	breq DISPLAY_0
+	breq DISPLAY_4
 	cpi r18,0b00000010
-	breq DISPLAY_1
+	breq DISPLAY_5
 	cpi r18,0b00000100
-	breq DISPLAY_2
+	breq DISPLAY_6
 	cpi r18,0b00001000
-	breq DISPLAY_3
+	breq DISPLAY_7
 	ret
 
 	; Third column check
 COLUMN_3:
 	cpi r18,0b00000001
-	breq DISPLAY_0
+	breq DISPLAY_8
 	cpi r18,0b00000010
-	breq DISPLAY_1
+	breq DISPLAY_9
 	cpi r18,0b00000100
-	breq DISPLAY_2
+	breq DISPLAY_10
 	cpi r18,0b00001000
-	breq DISPLAY_3
+	breq DISPLAY_11
 	ret
 
 	; Fourth Column check
 COLUMN_4:
 	cpi r18,0b00000001
-	breq DISPLAY_0
+	breq DISPLAY_12
 	cpi r18,0b00000010
-	breq DISPLAY_1
+	breq DISPLAY_13
 	cpi r18,0b00000100
-	breq DISPLAY_2
+	breq DISPLAY_14
 	cpi r18,0b00001000
-	breq DISPLAY_3
+	breq DISPLAY_15
 	ret
