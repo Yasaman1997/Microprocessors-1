@@ -55,6 +55,12 @@ MODE_1:
 	; PORTC - Input half pull-up
 	ldi R16,0b00001111
 	out PORTC,R16
+	
+	/* PORTD SECURITY */
+	ldi R16,(1<<PD2)
+	out DDRD,R16
+	ldi R16,0x00
+	out PORTD,R16
 
 	; Read PINC in the first pass
 PASS_1:
