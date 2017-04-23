@@ -15,12 +15,12 @@ RESET:
 	out SPH,R16
 
 	; Set DDRD 0-7 as input
-	ldi R16,(1 << PD0) | (1 << PD1) | (1 << PD2) | (1 << PD3) | (1 << PD4) | (1 << PD5) | (1 << PD6) | (1 << PD7)
-	out DDRD,R16
+	ldi R16,(1 << PC0) | (1 << PC1) | (1 << PC2) | (1 << PC3) | (1 << PC4) | (1 << PC5) | (1 << PC6) | (1 << PC7)
+	out DDRC,R16
 	
 	; Put the higher PORTs as pull-up
-	ldi R16,(1 << PB4) | (1 << PD5) | (1 << PD6) | (1 << PD7)
-	out PORTD,R16
+	ldi R16,(1 << PC4) | (1 << PC5) | (1 << PC6) | (1 << PC7)
+	out PORTC,R16
 
 	; Set the interrupt0 bit
 	ldi R16, (1 << INT0)
@@ -37,4 +37,4 @@ RESET:
 	; Stay in this section until a key is pressed
 COL_RECOGNIZER:
 	; Make COL 1 zero
-	ldi 
+	ldi R16,(0 << PD
