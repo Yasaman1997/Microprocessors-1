@@ -228,5 +228,7 @@ INT0_ISR:
 	ldi r16,0x00
 	out portd,r16
 	rjmp MODE_1
+	sei
+	ret
 
 	
