@@ -4,6 +4,9 @@
 ; Created: 4/23/2017 9:56:49 AM
 ; Author : Ali Gholami
 ; This application will enable the interrupts of atmega by pressing each keypad button
+.def COL_NUMBER = R20
+.def ROW_NUMBER = R21
+
 .org 0x00
 jmp RESET
 
@@ -43,17 +46,27 @@ RESET:
 COL_RECOGNIZER:
 	; Make COL 1 zero
 	ldi R16,(0 << PC4)
+	ldi COL_NUMBER,1
 	call delay
+	
 	; Make COL 2 Zero
 	ldi R16,(0 << PC5)
+	ldi COL_NUMBER,2
 	call delay 
+	
 	; Make COL 3 Zero
 	ldi R16,(0 << PC6)
+	ldi COL_NUMBER,3
 	call delay
+
 	; Make COL 4 Zero
 	ldi R16,(0 << PC7)
+	ldi COL_NUMBER,4
 	call delay
-	; No interrupt :D 
+	
+	; No interrupts :D 
 	; Go back to COL_RECOGNIZER
 	jmp COL_RECOGNIZER
 
+INT0_ISR:
+	
