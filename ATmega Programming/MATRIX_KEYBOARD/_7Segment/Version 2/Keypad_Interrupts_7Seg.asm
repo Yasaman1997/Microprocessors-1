@@ -31,6 +31,10 @@ RESET:
 	ldi R16,0b00001111
 	out PORTC,R16
 
+	/**********************/
+	ldi r16,(0<<PD2)
+	out ddrd,r16
+
 	; MCUCR Config - toggle mode for interrupt_0 sense control
 	ldi R16,(1 << ISC01) | (0 << ISC00)
 	out MCUCR,R16
@@ -205,14 +209,10 @@ DISPLAY_15:
 	ret
 
 INT0_ISR:
-	ldi R25,0x3F
-	dec	R25
-	call LOOP_MATRIX
-	ret
-LOOP_MATRIX:
-	ldi R26,0x34
-	dec R26
-	brne LOOP_MATRIX
-	ret
+	ldi r16,(1<<PD2)
+	out ddrd,r16
+	ldi r16,0x00
+	out portd,r16
+	rjmp MODE_1
 
 	
