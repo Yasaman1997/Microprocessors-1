@@ -23,5 +23,8 @@ RESET:
 	ldi R16,0xFF
 	out DDRB,R16
 
+	; DDRC - Half output - Half input
+	ldi R16,0b11110000
+	out DDRC,R16
 
 
