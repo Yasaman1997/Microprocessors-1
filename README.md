@@ -98,8 +98,8 @@ Instructions are used to access I/O space **(64 I/O registers)** but **not exten
 
 Two word instructions are used in this mode. One of the words is the address of the data memory space.
 * Usage Examples:
-1. **STS K,Rs** (Store dircet SRAM - Put the Rs contents in place K - K is a 16 bit address)
-2. **LDS Rd,K** (Load direct from SRAM - Grab the contents of place K in the SRAM and put it in the Rd register)
+1. **STS k,Rs** (Store dircet SRAM - Put the Rs contents in place K - K is a 16 bit address)
+2. **LDS Rd,k** (Load direct from SRAM - Grab the contents of place K in the SRAM and put it in the Rd register)
 
 
 ## Data indirect mode
