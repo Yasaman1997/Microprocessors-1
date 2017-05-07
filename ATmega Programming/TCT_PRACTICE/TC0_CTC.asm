@@ -9,8 +9,11 @@
 .def GLOBAL_OVERFLOW_COUNTER = R17
 
 ; RESET Vector
-.org 0x00
+.org $000
 	jmp RESET_ISR
+
+; TC0 Overflow Vector
+.org $012
 
 ; RESET Routine
 RESET_ISR:
@@ -56,5 +59,6 @@ RESET_ISR:
 
 	; Global Interrupt Enable
 	sei
+
 start:
     rjmp start
