@@ -42,10 +42,17 @@ RESET_ISR:
 	out TCCR0,TEMP
 
 	; Set PD5 as output
-	ldi TEMP << PD5)
+	ldi TEMP (1 << PD5)
 	out DDRD,TEMP
 	; Set PD4 as output 
 	ldi TEMP,(1 << PD4)
 	out DDRD,TEMP
+
+	; Enable TC0 Overflow Interrupt (TOIE0)
+	; When the TOIE0 bit is written to one, and the I-bit in the Status Register is set (one), the
+	; Timer/Counter0 Overflow interrupt is enabled. 
+	ldi TEMP,(1 << TOIE0)
+	out TIMSK,TEMP
+
 start:
     rjmp start
