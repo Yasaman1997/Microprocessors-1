@@ -5,6 +5,8 @@
 ; Author : aligholamee
 ;
 ; This program will use the TCT0 to blink the LEDs using CTC mode
+
+;======================VECTORS==========================================
 .def TEMP = R16
 .def GLOBAL_OVERFLOW_COUNTER = R17
 
@@ -15,9 +17,10 @@
 ; TC0 Overflow Vector
 .org $012
 	jmp TC0_ISR
+;======================VECTORS==========================================
 
 
-; RESET Routine
+;======================RESET_ISR========================================
 RESET_ISR:
 	
 	; Stack Init
@@ -61,6 +64,18 @@ RESET_ISR:
 
 	; Global Interrupt Enable
 	sei
+;======================RESET_ISR========================================
 
+
+;======================MAIN=============================================
 start:
     rjmp start
+;======================MAIN=============================================
+
+
+;======================TC0_OVERFLOW_ISR=================================
+TC0_ISR:
+	; Simply increment the global counter for overflow
+	inc GLOBAL_OVERFLOW_COUNTER
+	ret
+;======================TC0_OVERFLOW_ISR=================================
