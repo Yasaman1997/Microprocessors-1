@@ -26,14 +26,18 @@ RESET_ISR:
 	ldi temp,(1 << CS02) | (0 << CS01) | (1 << CS00)
 	out TCNT0,temp
 
+	; Configure the TC0 Mode
+	; Waveform Generation Mode Bits (WGM00 - WGM01)
+	; These bits control the counting sequence of the counter, the source for the maximum (TOP)
+	; counter value, and what type of Waveform Generation to be used
+	ldi temp,(0 << WGM00) | (0 << WGM01)
+	out TCCR0,temp
+
 	; Set PD5 as output
 	ldi temp << PD5)
 	out DDRD,temp
 	; Set PD4 as output 
 	ldi temp,(1 << PD4)
 	out DDRD,temp
-
-	
-	
 start:
     rjmp start
