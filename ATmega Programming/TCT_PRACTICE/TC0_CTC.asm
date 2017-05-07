@@ -14,6 +14,8 @@
 
 ; TC0 Overflow Vector
 .org $012
+	jmp TC0_ISR
+
 
 ; RESET Routine
 RESET_ISR:
