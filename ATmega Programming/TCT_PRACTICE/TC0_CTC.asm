@@ -20,6 +20,12 @@ RESET_ISR:
 	ldi temp,LOW(RAMEND)
 	out SPL,temp
 
+	; Configure the clock source for TC0
+	; The clock source is selected by the clock select logic which is controlled 
+    ; by the clock select (CS02:0) bits located in the Timer/Counter Control Register (TCCR0)
+	ldi temp,(1 << CS02) | (1 << CS01) | (1 << CS00)
+	out TCNT0,temp
+
 	; Set PD5 as output
 	ldi temp << PD5)
 	out DDRD,temp
@@ -27,6 +33,7 @@ RESET_ISR:
 	ldi temp,(1 << PD4)
 	out DDRD,temp
 
+	
 	
 start:
     rjmp start
