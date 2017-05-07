@@ -82,8 +82,11 @@ start:
 	; Check the value of GLOBAL_OVERFLOW_COUNTER
 	cpi GLOBAL_OVERFLOW_COUNTER,4
 	brne start
-
-    jmp finish
+    call TOGGLE_LED
 ;======================MAIN=============================================
-finish:
+
+;======================TOGGLE_LED=======================================
+TOGGLE_LED:
+	
 	rjmp finish
+;======================TOGGLE_LED=======================================
