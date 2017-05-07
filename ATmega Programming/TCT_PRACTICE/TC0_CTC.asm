@@ -87,6 +87,17 @@ start:
 
 ;======================TOGGLE_LED=======================================
 TOGGLE_LED:
-	
+	; The condition is needed on one of them only ;)
+	sbis PORTD,4
+	jmp TURN_ON
+
+	; Turn 'em off both ;)
+TURN_OFF:
+	ldi temp,(0 << PD4)
+	out PORTD,temp
+	ldi temp,(0 << PD5)
+	out PORTD,temp
+
+
 	rjmp finish
 ;======================TOGGLE_LED=======================================
