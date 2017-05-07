@@ -5,6 +5,7 @@
 ; Author : aligholamee
 ;
 ; This program will use the TCT0 to blink the LEDs using CTC mode
+.def temp = R16
 
 ; RESET Vector
 .org 0x00
@@ -14,11 +15,17 @@
 RESET_ISR:
 	
 	; Stack Init
-	ldi R16,HIGH(RAMEND)	
-	out SPH,R16
-	ldi R16,LOW(RAMEND)
-	out SPL,R16
+	ldi temp,HIGH(RAMEND)	
+	out SPH,temp
+	ldi temp,LOW(RAMEND)
+	out SPL,temp
 
+	; Set PD5 as output
+	ldi temp << PD5)
+	out DDRD,temp
+	; Set PD4 as output 
+	ldi temp,(1 << PD4)
+	out DDRD,temp
 
 	
 start:
