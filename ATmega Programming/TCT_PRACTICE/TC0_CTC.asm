@@ -85,6 +85,7 @@ start:
     call TOGGLE_LED
 ;======================MAIN=============================================
 
+
 ;======================TOGGLE_LED=======================================
 TOGGLE_LED:
 	; The condition is needed on one of them only ;)
@@ -105,5 +106,6 @@ TURN_ON:
 	ldi temp,(1 << PD5)
 	out PORTD,temp
 
-	rjmp finish
+	; Get back to where you left ;)
+	ret
 ;======================TOGGLE_LED=======================================
