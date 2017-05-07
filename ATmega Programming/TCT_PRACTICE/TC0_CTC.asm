@@ -54,5 +54,7 @@ RESET_ISR:
 	ldi TEMP,(1 << TOIE0)
 	out TIMSK,TEMP
 
+	; Global Interrupt Enable
+	sei
 start:
     rjmp start
