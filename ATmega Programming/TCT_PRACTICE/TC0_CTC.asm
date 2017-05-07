@@ -20,6 +20,16 @@
 ;======================VECTORS==========================================
 
 
+;======================TC0_OVERFLOW_ISR=================================
+TC0_ISR:
+	cli
+	; Simply increment the global counter for overflow
+	inc GLOBAL_OVERFLOW_COUNTER
+	sei
+	ret
+;======================TC0_OVERFLOW_ISR=================================
+
+
 ;======================RESET_ISR========================================
 RESET_ISR:
 	
@@ -69,13 +79,9 @@ RESET_ISR:
 
 ;======================MAIN=============================================
 start:
-    rjmp start
+	; Check the value of GLOBAL_OVERFLOW_COUNTER
+	cpi GLOBAL_OVERFLOW_COUNTER,4
+	brne start
+
+    jmp finish
 ;======================MAIN=============================================
-
-
-;======================TC0_OVERFLOW_ISR=================================
-TC0_ISR:
-	; Simply increment the global counter for overflow
-	inc GLOBAL_OVERFLOW_COUNTER
-	ret
-;======================TC0_OVERFLOW_ISR=================================
