@@ -33,6 +33,13 @@ RESET_ISR:
 	ldi temp,(0 << WGM00) | (0 << WGM01)
 	out TCCR0,temp
 
+	; Configure the COM Bits
+	; Since there are no compare matches going to happen in this program, 
+	; we will make sure they are 0 :)
+	/* MAKE SURE YOU DON'T OVERRIDE THE PREVIOUS TEMP VALUE */
+	ori temp,(0 << COM00) | (0 << COM01)
+	out TCCR0,temp
+
 	; Set PD5 as output
 	ldi temp << PD5)
 	out DDRD,temp
