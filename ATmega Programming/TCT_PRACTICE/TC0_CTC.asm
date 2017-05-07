@@ -10,5 +10,16 @@
 .org 0x00
 	jmp RESET_ISR
 
+; RESET Routine
+RESET_ISR:
+	
+	; Stack Init
+	ldi R16,HIGH(RAMEND)	
+	out SPH,R16
+	ldi R16,LOW(RAMEND)
+	out SPL,R16
+
+
+	
 start:
     rjmp start
