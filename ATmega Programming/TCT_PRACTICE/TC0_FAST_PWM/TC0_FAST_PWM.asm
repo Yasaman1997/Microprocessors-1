@@ -10,6 +10,7 @@
 ; RESET Vector
 .org $000
 	jmp RESET_ISR
+
 ;======================VECTORS==========================================
 
 ;======================RESET_ISR========================================
@@ -51,15 +52,17 @@ RESET_ISR:
 
 ;======================MAIN=============================================
 start:
+	; Wait for the PD7 to be pressed
+CHECK_SW1:
+	sbis PORTD,PD7	
+	jmp CHECK_SW2
+	call MOTOR_LOW
+CHECK_SW2:
+	; Wait for the PD6 to be pressed
 	jmp start
 ;======================MAIN=============================================
 
-
 ;======================TOGGLE_MOTOR=======================================
-TOGGLE_MOTOR:
-	sbis PORTB,3
-	jmp TURN_ON
-
 MOTOR_LOW:
 	ldi temp,(0 << PB3)
 	out PORTB,temp
