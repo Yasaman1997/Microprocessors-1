@@ -58,8 +58,9 @@ CHECK_SW1:
 	jmp CHECK_SW2
 	call MOTOR_LOW
 CHECK_SW2:
-	; Wait for the PD6 to be pressed
+	sbis PORTD,PD6
 	jmp start
+	call MOTOR_HIGH
 ;======================MAIN=============================================
 
 ;======================TOGGLE_MOTOR=======================================
