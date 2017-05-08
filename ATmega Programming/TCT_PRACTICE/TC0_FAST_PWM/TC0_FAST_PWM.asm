@@ -39,7 +39,7 @@ RESET_ISR:
 	; These bits control the counting sequence of the counter, the source for the maximum (TOP)
 	; counter value, and what type of Waveform Generation to be used
 	; Configure the COM Bits
-	ldi TEMP,(1 << CS02) | (0 << CS01) | (1 << CS00)| (1 << WGM00) | (0 << WGM01) | (0 << COM00) | (0 << COM01) 
+	ldi TEMP,(1 << CS02) | (0 << CS01) | (1 << CS00)| (1 << WGM00) | (0 << WGM01) | (1 << COM00) | (1 << COM01) 
 	out TCCR0,TEMP
 
 	; Set PB3 as output
@@ -65,17 +65,17 @@ start:
 ;======================MAIN=============================================
 
 
-;======================TOGGLE_LED=======================================
-TOGGLE_LED:
+;======================TOGGLE_MOTOR=======================================
+TOGGLE_MOTOR:
 	sbis PORTB,3
 	jmp TURN_ON
 
-TURN_OFF:
+MOTOR_LOW:
 	ldi temp,(0 << PB3)
 	out PORTB,temp
 	ldi GLOBAL_COMPARE_MATCH_COUNTER,0
 	ret
-TURN_ON:
+MOTOR_LOW:
 	ldi temp,(1 << PB3)
 	out PORTB,temp
 	ldi GLOBAL_COMPARE_MATCH_COUNTER,0
