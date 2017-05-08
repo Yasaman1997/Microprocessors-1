@@ -15,7 +15,7 @@
 	jmp RESET_ISR
 
 ; TC0 Overflow Vector
-.org $012
+.org $026
 	jmp TC0_ISR
 ;======================VECTORS==========================================
 
@@ -69,15 +69,20 @@ RESET_ISR:
 	; Enable TC0 Overflow Interrupt (TOIE0)
 	; When the TOIE0 bit is written to one, and the I-bit in the Status Register is set (one), the
 	; Timer/Counter0 Overflow interrupt is enabled. 
-	ldi TEMP,(1 << TOIE0)
+	ldi TEMP,(1 << TOIE0)|(1 << OCIE0)
 	out TIMSK,TEMP
 
 	; Reset the prescaler in the SFIOR
 	ldi TEMP,(1 << PSR10)
 	out SFIOR,TEMP
 
+	; Set the value of OCR0 = 0xFF 
+	ldi TEMP,0xFF
+	out OCR0,TEMP
+
 	; Global Interrupt Enable
 	sei
+	ret
 ;======================RESET_ISR========================================
 
 
