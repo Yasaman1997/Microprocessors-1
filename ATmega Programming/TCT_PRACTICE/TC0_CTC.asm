@@ -42,21 +42,14 @@ RESET_ISR:
 	; Configure the clock source for TC0
 	; The clock source is selected by the clock select logic which is controlled 
     ; by the clock select (CS02:0) bits located in the Timer/Counter Control Register (TCCR0)
-	ldi TEMP,(1 << CS02) | (0 << CS01) | (1 << CS00)
-	out TCCR0,TEMP
-
 	; Configure the TC0 Mode
 	; Waveform Generation Mode Bits (WGM00 - WGM01)
 	; These bits control the counting sequence of the counter, the source for the maximum (TOP)
 	; counter value, and what type of Waveform Generation to be used
-	ldi TEMP,(0 << WGM00) | (0 << WGM01)
-	out TCCR0,TEMP
-
 	; Configure the COM Bits
 	; Since there are no compare matches going to happen in this program, 
 	; we will make sure they are 0 :)
-	/* MAKE SURE YOU DON'T OVERRIDE THE PREVIOUS TEMP VALUE */
-	ori TEMP,(0 << COM00) | (0 << COM01)
+	ldi TEMP,(1 << CS02) | (0 << CS01) | (1 << CS00)| (0 << WGM00) | (0 << WGM01) | (0 << COM00) | (0 << COM01) 
 	out TCCR0,TEMP
 
 	; Set PD5 as output
@@ -69,7 +62,7 @@ RESET_ISR:
 	; Enable TC0 Overflow Interrupt (TOIE0)
 	; When the TOIE0 bit is written to one, and the I-bit in the Status Register is set (one), the
 	; Timer/Counter0 Overflow interrupt is enabled. 
-	ldi TEMP,(1 << TOIE0)|(1 << OCIE0)
+	ldi TEMP,(1 << OCIE0)
 	out TIMSK,TEMP
 
 	; Reset the prescaler in the SFIOR
@@ -82,7 +75,6 @@ RESET_ISR:
 
 	; Global Interrupt Enable
 	sei
-	ret
 ;======================RESET_ISR========================================
 
 
