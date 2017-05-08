@@ -75,7 +75,7 @@ RESET_ISR:
 ;======================MAIN=============================================
 start:
 	; Check the value of GLOBAL_OVERFLOW_COUNTER
-	cpi GLOBAL_COMPARE_MATCH_COUNTER,4
+	cpi GLOBAL_COMPARE_MATCH_COUNTER,1
 	brne start
     call TOGGLE_LED
 	jmp start
