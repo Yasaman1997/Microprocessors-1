@@ -30,7 +30,7 @@ RESET_ISR:
 	; These bits control the counting sequence of the counter, the source for the maximum (TOP)
 	; counter value, and what type of Waveform Generation to be used
 	; Configure the COM Bits
-	ldi TEMP,(1 << CS02) | (0 << CS01) | (1 << CS00)| (1 << WGM00) | (0 << WGM01) | (1 << COM00) | (1 << COM01) 
+	ldi TEMP,(1 << CS02) | (0 << CS01) | (1 << CS00)| (1 << WGM00) | (1 << WGM01) | (1 << COM00) | (1 << COM01) 
 	out TCCR0,TEMP
 
 	; Set PB3 as output
@@ -69,7 +69,7 @@ CHECK_SW2:
 	jmp start
 ;======================MAIN=============================================
 
-;======================TOGGLE_MOTOR=====================================
+;======================TOGGLE_MOTOR=======================================
 MOTOR_HIGH:
 	; Put the value of OCR0 to 0b00100000
 	ldi TEMP,0b00000100
