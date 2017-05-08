@@ -6,15 +6,10 @@
 ;
 ;======================VECTORS==========================================
 .def TEMP = R16
-.def GLOBAL_COMPARE_MATCH_COUNTER = R17
 
 ; RESET Vector
 .org $000
 	jmp RESET_ISR
-
-; TC0 Compare Match Vector
-.org $026
-	jmp TC0_ISR
 ;======================VECTORS==========================================
 
 
@@ -22,7 +17,6 @@
 TC0_ISR:
 	cli
 	; Simply increment the global counter for compare match
-	inc GLOBAL_COMPARE_MATCH_COUNTER
 	sei
 	ret
 ;======================TC0_COMPARE_MATCH_ISR=================================
@@ -52,10 +46,6 @@ RESET_ISR:
 	ldi TEMP,(1 << PB3)
 	out DDRB,TEMP
 
-	; Compare Match 0 interrupt enable 
-	ldi TEMP,(1 << OCIE0)
-	out TIMSK,TEMP
-
 	; Reset the prescaler in the SFIOR
 	ldi TEMP,(1 << PSR10)
 	out SFIOR,TEMP
@@ -71,10 +61,6 @@ RESET_ISR:
 
 ;======================MAIN=============================================
 start:
-	; Check the value of GLOBAL_OVERFLOW_COUNTER
-	cpi GLOBAL_COMPARE_MATCH_COUNTER,1
-	brne start
-    call TOGGLE_LED
 	jmp start
 ;======================MAIN=============================================
 
