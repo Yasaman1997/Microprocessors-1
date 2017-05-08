@@ -81,7 +81,7 @@ RESET_ISR:
 ;======================MAIN=============================================
 start:
 	; Check the value of GLOBAL_OVERFLOW_COUNTER
-	cpi GLOBAL_OVERFLOW_COUNTER,4
+	cpi GLOBAL_OVERFLOW_COUNTER,30
 	brne start
     call TOGGLE_LED
 	jmp start
@@ -96,19 +96,15 @@ TOGGLE_LED:
 
 	; Turn 'em off both ;)
 TURN_OFF:
-	ldi temp,(0 << PD4)
+	ldi temp,(0 << PD4)|(0 << PD5)
 	out PORTD,temp
-	ldi temp,(0 << PD5)
-	out PORTD,temp
-	ldi GLOBAL_OVERFLOW_COUNTER,0x00
+	;ldi GLOBAL_OVERFLOW_COUNTER,0x00
 	ret
 	; Turn 'em on both
 TURN_ON:
-	ldi temp,(1 << PD4)
+	ldi temp,(1 << PD4) | (1 << PD5)
 	out PORTD,temp
-	ldi temp,(1 << PD5)
-	out PORTD,temp
-	ldi GLOBAL_OVERFLOW_COUNTER,0x00
+	;ldi GLOBAL_OVERFLOW_COUNTER,0x00
 	; Get back to where you left ;)
 	ret
 ;======================TOGGLE_LED=======================================
