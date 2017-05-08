@@ -14,7 +14,7 @@
 .org $000
 	jmp RESET_ISR
 
-; TC0 Overflow Vector
+; TC0 Overflow Vector - Basically Compare match :|
 .org $026
 	jmp TC0_ISR
 ;======================VECTORS==========================================
@@ -84,6 +84,7 @@ start:
 	cpi GLOBAL_OVERFLOW_COUNTER,4
 	brne start
     call TOGGLE_LED
+	jmp start
 ;======================MAIN=============================================
 
 
@@ -99,6 +100,7 @@ TURN_OFF:
 	out PORTD,temp
 	ldi temp,(0 << PD5)
 	out PORTD,temp
+	ldi GLOBAL_OVERFLOW_COUNTER,0x00
 	ret
 	; Turn 'em on both
 TURN_ON:
@@ -106,6 +108,7 @@ TURN_ON:
 	out PORTD,temp
 	ldi temp,(1 << PD5)
 	out PORTD,temp
+	ldi GLOBAL_OVERFLOW_COUNTER,0x00
 	; Get back to where you left ;)
 	ret
 ;======================TOGGLE_LED=======================================
