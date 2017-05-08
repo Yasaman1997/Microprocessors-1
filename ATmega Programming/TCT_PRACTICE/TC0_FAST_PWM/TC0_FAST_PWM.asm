@@ -12,16 +12,6 @@
 	jmp RESET_ISR
 ;======================VECTORS==========================================
 
-
-;======================TC0_COMPARE_MATCH_ISR=================================
-TC0_ISR:
-	cli
-	; Simply increment the global counter for compare match
-	sei
-	ret
-;======================TC0_COMPARE_MATCH_ISR=================================
-
-
 ;======================RESET_ISR========================================
 RESET_ISR:
 	
