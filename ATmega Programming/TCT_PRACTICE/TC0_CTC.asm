@@ -52,11 +52,8 @@ RESET_ISR:
 	ldi TEMP,(1 << CS02) | (0 << CS01) | (1 << CS00)| (0 << WGM00) | (0 << WGM01) | (0 << COM00) | (0 << COM01) 
 	out TCCR0,TEMP
 
-	; Set PD5 as output
-	ldi TEMP,(1 << PD5)
-	out DDRD,TEMP
-	; Set PD4 as output 
-	ldi TEMP,(1 << PD4)
+	; Set PD5 and PD4 as output
+	ldi TEMP,(1 << PD5)|(1 << PD4)
 	out DDRD,TEMP
 
 	; Enable TC0 Overflow Interrupt (TOIE0)
@@ -81,7 +78,7 @@ RESET_ISR:
 ;======================MAIN=============================================
 start:
 	; Check the value of GLOBAL_OVERFLOW_COUNTER
-	cpi GLOBAL_OVERFLOW_COUNTER,30
+	cpi GLOBAL_OVERFLOW_COUNTER,4
 	brne start
     call TOGGLE_LED
 	jmp start
@@ -98,13 +95,13 @@ TOGGLE_LED:
 TURN_OFF:
 	ldi temp,(0 << PD4)|(0 << PD5)
 	out PORTD,temp
-	;ldi GLOBAL_OVERFLOW_COUNTER,0x00
+	ldi GLOBAL_OVERFLOW_COUNTER,0x00
 	ret
 	; Turn 'em on both
 TURN_ON:
 	ldi temp,(1 << PD4) | (1 << PD5)
 	out PORTD,temp
-	;ldi GLOBAL_OVERFLOW_COUNTER,0x00
+	ldi GLOBAL_OVERFLOW_COUNTER,0x00
 	; Get back to where you left ;)
 	ret
 ;======================TOGGLE_LED=======================================
