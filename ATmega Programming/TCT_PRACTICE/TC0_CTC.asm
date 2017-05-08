@@ -72,6 +72,10 @@ RESET_ISR:
 	ldi TEMP,(1 << TOIE0)
 	out TIMSK,TEMP
 
+	; Reset the prescaler in the SFIOR
+	ldi TEMP,(1 << PSR10)
+	out SFIOR,TEMP
+
 	; Global Interrupt Enable
 	sei
 ;======================RESET_ISR========================================
