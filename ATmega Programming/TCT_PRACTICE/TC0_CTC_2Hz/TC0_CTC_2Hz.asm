@@ -7,13 +7,13 @@
 
 ;======================VECTORS==========================================
 .def TEMP = R16
-.def GLOBAL_OVERFLOW_COUNTER = R17
+.def GLOBAL_COMPARE_MATCH_COUNTER = R17
 
 ; RESET Vector
 .org $000
 	jmp RESET_ISR
 
-; TC0 Overflow Vector - Basically Compare match :|
+; TC0 Compare Match Vector
 .org $026
 	jmp TC0_ISR
 ;======================VECTORS==========================================
@@ -22,11 +22,11 @@
 ;======================TC0_COMPARE_MATCH_ISR=================================
 TC0_ISR:
 	cli
-	; Simply increment the global counter for overflow
-	inc GLOBAL_OVERFLOW_COUNTER
+	; Simply increment the global counter for compare match
+	inc GLOBAL_COMPARE_MATCH_COUNTER
 	sei
 	ret
-;======================TC0_OVERFLOW_ISR=================================
+;======================TC0_COMPARE_MATCH_ISR=================================
 
 
 ;======================RESET_ISR========================================
@@ -75,7 +75,7 @@ RESET_ISR:
 ;======================MAIN=============================================
 start:
 	; Check the value of GLOBAL_OVERFLOW_COUNTER
-	cpi GLOBAL_OVERFLOW_COUNTER,4
+	cpi GLOBAL_COMPARE_MATCH_COUNTER,2
 	brne start
     call TOGGLE_LED
 	jmp start
@@ -84,21 +84,18 @@ start:
 
 ;======================TOGGLE_LED=======================================
 TOGGLE_LED:
-	; The condition is needed on one of them only ;)
 	sbis PORTD,4
 	jmp TURN_ON
 
-	; Turn 'em off both ;)
 TURN_OFF:
-	ldi temp,(0 << PD4)|(0 << PD5)
-	out PORTD,temp
-	ldi GLOBAL_OVERFLOW_COUNTER,0x00
+	ldi temp,(0 << PB3)
+	out PORTB,temp
+	ldi GLOBAL_COMPARE_MATCH_COUNTER,0x00
 	ret
-	; Turn 'em on both
 TURN_ON:
-	ldi temp,(1 << PD4) | (1 << PD5)
-	out PORTD,temp
-	ldi GLOBAL_OVERFLOW_COUNTER,0x00
+	ldi temp,(1 << PB3)
+	out PORTB,temp
+	ldi GLOBAL_COMPARE_MATCH_COUNTER,0x00
 	; Get back to where you left ;)
 	ret
 ;======================TOGGLE_LED=======================================
