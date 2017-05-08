@@ -19,7 +19,7 @@
 ;======================VECTORS==========================================
 
 
-;======================TC0_OVERFLOW_ISR=================================
+;======================TC0_COMPARE_MATCH_ISR=================================
 TC0_ISR:
 	cli
 	; Simply increment the global counter for overflow
@@ -51,13 +51,11 @@ RESET_ISR:
 	ldi TEMP,(1 << CS02) | (0 << CS01) | (1 << CS00)| (0 << WGM00) | (0 << WGM01) | (0 << COM00) | (0 << COM01) 
 	out TCCR0,TEMP
 
-	; Set PD5 and PD4 as output
-	ldi TEMP,(1 << PD5)|(1 << PD4)
-	out DDRD,TEMP
+	; Set PB3 as output
+	ldi TEMP,(1 << PB3)
+	out DDRB,TEMP
 
-	; Enable TC0 Overflow Interrupt (TOIE0)
-	; When the TOIE0 bit is written to one, and the I-bit in the Status Register is set (one), the
-	; Timer/Counter0 Overflow interrupt is enabled. 
+	; Compare Match 0 interrupt enable 
 	ldi TEMP,(1 << OCIE0)
 	out TIMSK,TEMP
 
