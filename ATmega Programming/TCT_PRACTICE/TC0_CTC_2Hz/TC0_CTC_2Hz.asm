@@ -75,7 +75,7 @@ RESET_ISR:
 ;======================MAIN=============================================
 start:
 	; Check the value of GLOBAL_OVERFLOW_COUNTER
-	cpi GLOBAL_COMPARE_MATCH_COUNTER,2
+	cpi GLOBAL_COMPARE_MATCH_COUNTER,4
 	brne start
     call TOGGLE_LED
 	jmp start
@@ -84,18 +84,18 @@ start:
 
 ;======================TOGGLE_LED=======================================
 TOGGLE_LED:
-	sbis PORTD,4
+	sbis PORTB,3
 	jmp TURN_ON
 
 TURN_OFF:
 	ldi temp,(0 << PB3)
 	out PORTB,temp
-	ldi GLOBAL_COMPARE_MATCH_COUNTER,0x00
+	ldi GLOBAL_COMPARE_MATCH_COUNTER,0
 	ret
 TURN_ON:
 	ldi temp,(1 << PB3)
 	out PORTB,temp
-	ldi GLOBAL_COMPARE_MATCH_COUNTER,0x00
+	ldi GLOBAL_COMPARE_MATCH_COUNTER,0
 	; Get back to where you left ;)
 	ret
 ;======================TOGGLE_LED=======================================
