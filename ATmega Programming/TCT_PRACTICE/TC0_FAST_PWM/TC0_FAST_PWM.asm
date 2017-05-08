@@ -64,15 +64,15 @@ CHECK_SW2:
 ;======================MAIN=============================================
 
 ;======================TOGGLE_MOTOR=======================================
-MOTOR_LOW:
-	ldi temp,(0 << PB3)
-	out PORTB,temp
-	ldi GLOBAL_COMPARE_MATCH_COUNTER,0
+MOTOR_HIGH:
+	; Put the value of OCR0 to 0b00100000
+	ldi TEMP,0b00100000
+	out OCR0,TEMP
 	ret
 MOTOR_LOW:
-	ldi temp,(1 << PB3)
-	out PORTB,temp
-	ldi GLOBAL_COMPARE_MATCH_COUNTER,0
-	; Get back to where you left ;)
+	; Put the value of OCR0 to 0b00100000
+	ldi TEMP,0b01000000
+	out OCR0,TEMP
+	ret
 	ret
 ;======================TOGGLE_LED=======================================
