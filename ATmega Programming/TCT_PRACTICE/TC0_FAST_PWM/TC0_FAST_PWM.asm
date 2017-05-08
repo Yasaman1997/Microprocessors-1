@@ -45,6 +45,11 @@ RESET_ISR:
 	ldi TEMP,0xFF
 	out OCR0,TEMP
 
+	; Set the PD7 and PD6 to input
+	ldi TEMP,(1 << PD6)|(1 << PD7)
+	out DDRD,TEMP
+
+
 	; Global Interrupt Enable
 	sei
 ;======================RESET_ISR========================================
