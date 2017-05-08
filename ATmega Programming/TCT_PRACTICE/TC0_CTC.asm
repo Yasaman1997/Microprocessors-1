@@ -99,14 +99,13 @@ TURN_OFF:
 	out PORTD,temp
 	ldi temp,(0 << PD5)
 	out PORTD,temp
-
+	ret
 	; Turn 'em on both
 TURN_ON:
 	ldi temp,(1 << PD4)
 	out PORTD,temp
 	ldi temp,(1 << PD5)
 	out PORTD,temp
-
 	; Get back to where you left ;)
 	ret
 ;======================TOGGLE_LED=======================================
