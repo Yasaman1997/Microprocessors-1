@@ -69,15 +69,15 @@ CHECK_SW2:
 	jmp start
 ;======================MAIN=============================================
 
-;======================TOGGLE_MOTOR=======================================
+;======================TOGGLE_MOTOR=====================================
 MOTOR_HIGH:
 	; Put the value of OCR0 to 0b00100000
-	ldi TEMP,0b00100000
+	ldi TEMP,0b00000100
 	out OCR0,TEMP
 	ret
 MOTOR_LOW:
 	; Put the value of OCR0 to 0b00100000
-	ldi TEMP,0b01000000
+	ldi TEMP,0b10000000
 	out OCR0,TEMP
 	ret
 ;======================TOGGLE_MOTOR=======================================
