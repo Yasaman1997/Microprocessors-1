@@ -46,7 +46,7 @@ RESET_ISR:
 	out OCR0,TEMP
 
 	; Set the PD7 and PD6 to input
-	ldi TEMP,(1 << PD6)|(1 << PD7)
+	ldi TEMP,(0 << PD6)|(0 << PD7)
 	out DDRD,TEMP
 
 
@@ -59,13 +59,14 @@ RESET_ISR:
 start:
 	; Wait for the PD7 to be pressed
 CHECK_SW1:
-	sbis PORTD,PD7	
+	sbis PIND,7	
 	jmp CHECK_SW2
 	call MOTOR_LOW
 CHECK_SW2:
-	sbis PORTD,PD6
+	sbis PIND,6
 	jmp start
 	call MOTOR_HIGH
+	jmp start
 ;======================MAIN=============================================
 
 ;======================TOGGLE_MOTOR=======================================
@@ -78,6 +79,5 @@ MOTOR_LOW:
 	; Put the value of OCR0 to 0b00100000
 	ldi TEMP,0b01000000
 	out OCR0,TEMP
-	ret
 	ret
 ;======================TOGGLE_MOTOR=======================================
