@@ -43,7 +43,7 @@ RESET_ISR:
 	; The clock source is selected by the clock select logic which is controlled 
     ; by the clock select (CS02:0) bits located in the Timer/Counter Control Register (TCCR0)
 	ldi TEMP,(1 << CS02) | (0 << CS01) | (1 << CS00)
-	out TCNT0,TEMP
+	out TCCR0,TEMP
 
 	; Configure the TC0 Mode
 	; Waveform Generation Mode Bits (WGM00 - WGM01)
@@ -60,7 +60,7 @@ RESET_ISR:
 	out TCCR0,TEMP
 
 	; Set PD5 as output
-	ldi TEMP (1 << PD5)
+	ldi TEMP,(1 << PD5)
 	out DDRD,TEMP
 	; Set PD4 as output 
 	ldi TEMP,(1 << PD4)
