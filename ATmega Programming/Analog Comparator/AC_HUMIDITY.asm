@@ -17,6 +17,17 @@
 	jmp ANA_COMP
 ;======================VECTORS==========================================
 
+;======================ANA_COMP_ISR======================================
+ANA_COMP:
+	cli
+	; Turn on the lights :D
+	ldi TEMP,(1 << PD5)
+	out PORTD,TEMP
+	
+	ret
+;======================ANA_COMP_ISR======================================
+
+
 ;======================RESET_ISR========================================
 RESET_ISR:
 	
@@ -47,3 +58,4 @@ start:
 	; Stay here until an interrupt occurs and causes the system to blink the LED
 	jmp start
 ;======================MAIN=============================================
+
