@@ -20,10 +20,19 @@
 ;======================ANA_COMP_ISR======================================
 ANA_COMP:
 	cli
+	sbis PORTD,5
+	jmp ON_MODE
+	jmp OFF_MODE
+ON_MODE:
 	; Turn on the lights :D
 	ldi TEMP,(1 << PD5)
 	out PORTD,TEMP
-	
+
+OFF_MODE:
+	; Turn off the lights :D
+	ldi TEMP,(0 << PD5)
+	out PORTD,TEMP
+
 	ret
 ;======================ANA_COMP_ISR======================================
 
