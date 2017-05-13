@@ -22,6 +22,13 @@ RESET_ISR:
 	ldi TEMP,LOW(RAMEND)
 	out SPL,TEMP
 
+	; Analog comparator control and status register (ACSR)
+	; Make sure ACD - Analog Comparator Disable is cleared
+	; Make sure ACBG - Analog Comparator Bandgap Select is cleared
+	; Make sure no Interrupts are enabled(done by default)
+	ldi TEMP,(0 << ACD)|(0 << ACBG)
+	out ACSR,TEMP
+
 	; Global Interrupt Enable
 	sei
 ;======================RESET_ISR========================================
