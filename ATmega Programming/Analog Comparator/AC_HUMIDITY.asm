@@ -27,12 +27,12 @@ ON_MODE:
 	; Turn on the lights :D
 	ldi TEMP,(1 << PD5)
 	out PORTD,TEMP
+	ret
 
 OFF_MODE:
 	; Turn off the lights :D
 	ldi TEMP,(0 << PD5)
 	out PORTD,TEMP
-
 	ret
 ;======================ANA_COMP_ISR======================================
 
