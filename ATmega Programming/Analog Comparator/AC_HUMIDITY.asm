@@ -41,3 +41,9 @@ RESET_ISR:
 	; Global Interrupt Enable
 	sei
 ;======================RESET_ISR========================================
+
+;======================MAIN=============================================
+start:
+	; Stay here until an interrupt occurs and causes the system to blink the LED
+	jmp start
+;======================MAIN=============================================
