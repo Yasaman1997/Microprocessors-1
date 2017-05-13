@@ -11,6 +11,10 @@
 ; RESET Vector
 .org $000
 	jmp RESET_ISR
+
+; Analog Comparator Interrupt Vector
+.org $020
+	jmp ANA_COMP
 ;======================VECTORS==========================================
 
 ;======================RESET_ISR========================================
