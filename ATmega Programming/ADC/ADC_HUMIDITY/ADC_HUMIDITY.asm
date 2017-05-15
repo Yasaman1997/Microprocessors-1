@@ -33,10 +33,9 @@ RESET_ISR:
 
 	; 2 - Choose whether the analog input channel and the differential gain by setting the MUX bits in the regsiter ADMUX
 	; Since the question is asking for an alarm in case the humidity of the environment is out of the domain,
-	; we need to use the differential gain by setting the following configurations
-	; Just make sure we don't delete the previous values
+	; In this section, we only use the single channel mode for the ADC1 and convert the analog input to a digital output
 	in ADMUX,TEMP
-	ori TEMP,(1 <<  MUX4)|(1 << MUX3)|(0 << MUX2)|(1 << MUX1)|(1 << MUX0)
+	ori TEMP,(0 <<  MUX4)|(0 << MUX3)|(0 << MUX2)|(0 << MUX1)|(1 << MUX0)
 	out ADMUX
 
 	; 3 - The ADC is enabled by setting the ADC Enable bit, ADEN in ADCSRA. Voltage reference and
