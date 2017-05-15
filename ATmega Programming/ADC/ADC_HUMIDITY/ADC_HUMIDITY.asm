@@ -4,6 +4,8 @@
 ; Created: 5/15/2017 5:10:46 PM
 ; Author : aligholamee
 ;
+.include "m16_LCD_4bit.inc"
+
 ;======================VECTORS==========================================
 .def TEMP = R16
 
@@ -54,3 +56,13 @@ start:
 	; stay here until a conversion completes
 	jmp start
 ;======================MAIN=============================================
+
+;======================ADC_CC===========================================
+ADC_CC:
+	; ADC Conversion Complete ISR
+	; Simply show the conversion result on the LCD
+	mov argument,ACDL
+	call lcd_putchar
+	mov arguemnt,ACDH
+	call lcd_putchar
+;======================ADC_CC===========================================
