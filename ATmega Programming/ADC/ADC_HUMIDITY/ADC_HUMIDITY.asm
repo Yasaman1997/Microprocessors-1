@@ -39,6 +39,16 @@ RESET_ISR:
 	ori TEMP,(1 <<  MUX4)|(1 << MUX3)|(0 << MUX2)|(1 << MUX1)|(1 << MUX0)
 	out ADMUX
 
+	; 3 - The ADC is enabled by setting the ADC Enable bit, ADEN in ADCSRA. Voltage reference and
+	; input channel selections will not go into effect until ADEN is set
+	; Turn the ADC Interrupt on
+	; Keep the prescaler values same as the default
+	ldi TEMP,(1 << ADEN)|(1 << ADIE)
+	out ADCSRA,TEMP
+
+	; 4 - Turn on the 
+	ldi TEMP,(1 << ADEN)
+	out ADCSRA,TEMP
 
 	; Global Interrupt Enable
 	sei
