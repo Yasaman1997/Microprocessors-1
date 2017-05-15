@@ -15,3 +15,16 @@
 .org $01C
 	jmp ADC_CC
 ;======================VECTORS==========================================
+
+;======================RESET_ISR========================================
+RESET_ISR:
+	
+	; Stack Init
+	ldi TEMP,HIGH(RAMEND)	
+	out SPH,TEMP
+	ldi TEMP,LOW(RAMEND)
+	out SPL,TEMP
+
+	; Global Interrupt Enable
+	sei
+;======================RESET_ISR========================================
