@@ -31,7 +31,13 @@ RESET_ISR:
 	ldi TEMP,(1 << REFS0)|(0 << REFS1)
 	out ADMUX,TEMP
 
-
+	; 2 - Choose whether the analog input channel and the differential gain by setting the MUX bits in the regsiter ADMUX
+	; Since the question is asking for an alarm in case the humidity of the environment is out of the domain,
+	; we need to use the differential gain by setting the following configurations
+	; Just make sure we don't delete the previous values
+	in ADMUX,TEMP
+	ori TEMP,(1 <<  MUX4)|(1 << MUX3)|(0 << MUX2)|(1 << MUX1)|(1 << MUX0)
+	out ADMUX
 
 
 	; Global Interrupt Enable
