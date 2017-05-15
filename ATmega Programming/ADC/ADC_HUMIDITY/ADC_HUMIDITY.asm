@@ -46,10 +46,6 @@ RESET_ISR:
 	ldi TEMP,(1 << ADEN)|(1 << ADIE)
 	out ADCSRA,TEMP
 
-	; 4 - Turn on the 
-	ldi TEMP,(1 << ADEN)
-	out ADCSRA,TEMP
-
 	; Global Interrupt Enable
 	sei
 ;======================RESET_ISR========================================
