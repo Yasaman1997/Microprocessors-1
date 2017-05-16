@@ -68,9 +68,10 @@ reset:
 	ori TEMP,(0 <<  MUX4)|(0 << MUX3)|(0 << MUX2)|(0 << MUX1)|(1 << MUX0)
 	out ADMUX,TEMP
 
-	; Start the conversion by writing a 1 to the ADSC bit 
+	; Start the conversion by writing a 1 to the ADATE bit, This will start the conversion automatically as soon as the
+	; connection is triggered toward the declared adc channel 
 	in TEMP,ADCSRA
-	ori TEMP,(1 <<  ADSC)
+	ori TEMP,(1 <<  ADATE)
 	out ADCSRA,TEMP
 
 	; Global Interrupt Enable
