@@ -59,10 +59,12 @@ start:
 
 ;======================ADC_CC===========================================
 ADC_CC:
+	cli
 	; ADC Conversion Complete ISR
 	; Simply show the conversion result on the LCD
 	mov argument,ACDL
 	call lcd_putchar
 	mov arguemnt,ACDH
 	call lcd_putchar
+	ret
 ;======================ADC_CC===========================================
