@@ -69,6 +69,11 @@ reset:
 	ldi TEMP2,(1 << ADEN)|(1 << ADIE)
 	out ADCSRA,TEMP2
 
+	; Start the conversion by writing a 1 to the ADSC bit 
+	in TEMP2,ADCSRA
+	ori TEMP2,(0 <<  ADSC)
+	out ADCSRA,TEMP2
+
 	; Global Interrupt Enable
 	sei
 
