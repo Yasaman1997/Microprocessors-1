@@ -5,12 +5,6 @@
 ; Author : aligholamee
 ;
 .include "m16_LCD_4bit.inc"
-;======================RESET_ISR========================================
-RESET_ISR:
-	
-
-;======================RESET_ISR========================================
-
 ;======================MAIN=============================================
 start:
 	; stay here until a conversion completes
