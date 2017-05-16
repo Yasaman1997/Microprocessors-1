@@ -14,7 +14,7 @@
 	;jmp RESET_ISR
 
 ; ADC Conversion Complete Interrupt Vector
-.org $01C
+;.org $01C
 	jmp ADC_CC
 ;======================VECTORS==========================================
 
@@ -36,9 +36,9 @@ RESET_ISR:
 	; 2 - Choose whether the analog input channel and the differential gain by setting the MUX bits in the regsiter ADMUX
 	; Since the question is asking for an alarm in case the humidity of the environment is out of the domain,
 	; In this section, we only use the single channel mode for the ADC1 and convert the analog input to a digital output
-	in ADMUX,TEMP2
+	in TEMP2,ADMUX
 	ori TEMP2,(0 <<  MUX4)|(0 << MUX3)|(0 << MUX2)|(0 << MUX1)|(1 << MUX0)
-	out ADMUX
+	out ADMUX,TEMP2
 
 	; 3 - The ADC is enabled by setting the ADC Enable bit, ADEN in ADCSRA. Voltage reference and
 	; input channel selections will not go into effect until ADEN is set
@@ -62,9 +62,11 @@ ADC_CC:
 	cli
 	; ADC Conversion Complete ISR
 	; Simply show the conversion result on the LCD
-	mov argument,ACDL
+	in TEMP,ADCL
+	mov argument,TEMP
 	call lcd_putchar
-	mov arguemnt,ACDH
+	in TEMP,ADCH
+	mov argument,TEMP
 	call lcd_putchar
 	ret
 ;======================ADC_CC===========================================
