@@ -28,13 +28,9 @@
 .def	argument= r17		;argument for calling subroutines
 .def	return	= r18		;return value from subroutines
 
-
-
 ;======================VECTORS==========================================
-
-; RESET Vector
 .org 0
-	rjmp reset
+rjmp reset
 
 ; ADC Conversion Complete Interrupt Vector
 .org $01C
@@ -42,53 +38,30 @@
 ;======================VECTORS==========================================
 
 reset:
-	; Stack Init
-	ldi TEMP,HIGH(RAMEND)	
-	out SPH,TEMP
-	ldi TEMP,LOW(RAMEND)
-	out SPL,TEMP
-	
-	; 1 - The ADC is enabled by setting the ADC Enable bit, ADEN in ADCSRA. Voltage reference and
-	; input channel selections will not go into effect until ADEN is set
-	; Turn the ADC Interrupt on
-	; Keep the prescaler values same as the default
-	ldi TEMP,(1 << ADEN)|(1 << ADIE)
-	out ADCSRA,TEMP
+	ldi	temp, low(RAMEND)
+	out	SPL, temp
+	ldi	temp, high(RAMEND)
+	out	SPH, temp
+	; ADCSRA config
+	ldi temp,(1 << ADATE)|(1 << ADEN)|(1 << ADIE)|(1 << ADSC)
+	out ADCSRA,temp
 
-	; I'll enable the needed bits for the analog to digital convertor in
-	; order to create an interrupt when the value goes between the MAX and MIN level
-	; 2 - Choose the reference by setting the appropriate bits of REFSn in the ADMUX register
-	ldi TEMP,(1 << REFS0)|(0 << REFS1)
-	out ADMUX,TEMP
-
-	; 3 - Choose whether the analog input channel and the differential gain by setting the MUX bits in the regsiter ADMUX
-	; Since the question is asking for an alarm in case the humidity of the environment is out of the domain,
-	; In this section, we only use the single channel mode for the ADC1 and convert the analog input to a digital output
-	in TEMP,ADMUX
-	ori TEMP,(0 <<  MUX4)|(0 << MUX3)|(0 << MUX2)|(0 << MUX1)|(1 << MUX0)
-	out ADMUX,TEMP
-
-	; Start the conversion by writing a 1 to the ADATE bit, This will start the conversion automatically as soon as the
-	; connection is triggered toward the declared adc channel 
-	in TEMP,ADCSRA
-	ori TEMP,(1 <<  ADATE)
-	out ADCSRA,TEMP
-
-	; Global Interrupt Enable
-sei
+	; ADMUX config
+	ldi temp,(0 << MUX4)|(0 << MUX3)|(0 << MUX2)|(0 << MUX1)|(1 << MUX0)|(1 << REFS0)|(0 << REFS1)
+	out ADMUX,temp
 
 ;LCD after power-up: ("*" means black bar)
 ;|****************|
 ;|		  |
 
-	call	LCD_init
+	rcall	LCD_init
 	
 ;LCD now:
 ;|&		  | (&: cursor, blinking)
 ;|		  |
 	
 	rcall	LCD_wait
-	ldi	argument, 'A'	;write 'A' to the LCD char data RAM
+	/*ldi	argument, 'A'	;write 'A' to the LCD char data RAM
 	rcall	LCD_putchar
 	
 ;|A&		  |
@@ -111,7 +84,7 @@ sei
 	
 	rcall	LCD_delay
 	pop	argument	;restore the character
-	rcall	LCD_putchar	;and print it again
+	rcall	LCD_putchar	;and print it again*/
 
 ;|AA&		  | (A has been read from position 0 and has then been written to the next pos.)
 ;|		  |
