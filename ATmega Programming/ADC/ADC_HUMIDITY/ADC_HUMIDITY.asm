@@ -7,21 +7,28 @@
 .include "m16_LCD_4bit.inc"
 .def TEMP2 = R19
 .def TEMP3 = R20
+.def ADCLOW = R21
+.def ADCHIGH = R22
 
 ;======================ADC_CC_INT=======================================
 .org $001C
 	jmp ADC_CC_INT
 ADC_CC_INT:
-	
 	ret
 ;======================ADC_CC_INT=======================================
+
 
 ;======================INIT=============================================
 initialize:
 	; ADCSRA config
 	ldi temp,(1 << ADEN)|(1 << ADPS2)|(1 << ADPS1)|(1 << ADPS0)|(1 << ADATE)|(1 << ADIE)
 	out ADCSRA,temp
+
+	; ADMUX config
+	ldi temp,(0 << MUX4)|(0 << MUX3)|(0 << MUX2)|(0 << MUX1)|(1 << MUX0)|(0 << REFS1)|(1 << REFS0)
+	out ADMUX,temp
 ;======================INIT=============================================
+
 
 ;======================MAIN=============================================
 start:
@@ -30,16 +37,14 @@ start:
 ;======================MAIN=============================================
 
 
-;======================ADC_CC===========================================
-ADC_CC:
-	cli
-	; ADC Conversion Complete ISR
-	; Simply show the conversion result on the LCD
-	in TEMP2,ADCL
-	in TEMP3,ADCH
-	mov argument,TEMP2
-	call lcd_putchar
-	mov argument,TEMP3
-	call lcd_putchar
+;======================ADC0 Conversion==================================
+ADC0_CON:
+	ldi TEMP2,0x00
+    out ADMUX,TEMP2
+	in TEMP2,ADCSRA
+	ori TEMP2,(1<<ADSC)
+	out ADCSRA,TEMP2
+	in ADCLOW,ADCL
+	in ADCHIGH,ADCH
 	ret
-;======================ADC_CC===========================================
+;======================ADC0 Conversion==================================
