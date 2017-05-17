@@ -24,35 +24,18 @@
 .equ	LCD_RW	= 2
 .equ	LCD_E	= 3
 
-.def	temp	= r16
+.def	temp	= r19
 .def	argument= r17		;argument for calling subroutines
 .def	return	= r18		;return value from subroutines
-.def TEMP2 = R19
-.def TEMP3 = R20
 
 .org 0
 rjmp reset
-
-; ADC Conversion Complete Interrupt Vector
-.org $01C
-	jmp ADC_CC
-
+.org 0x0200
 reset:
-	ldi	temp, low(RAMEND)
-	out	SPL, temp
-	ldi	temp, high(RAMEND)
-	out	SPH, temp
-	; ADCSRA config
-	ldi temp,(1 << ADATE)|(1 << ADEN)|(1 << ADIE)|(1 << ADSC)
-	out ADCSRA,temp
-
-	; ADMUX config
-	ldi temp,(0 << MUX4)|(0 << MUX3)|(0 << MUX2)|(0 << MUX1)|(1 << MUX0)|(1 << REFS0)|(0 << REFS1)
-	out ADMUX,temp
-
-	; Free runnning mode selection
-	ldi temp,(0 << ADTS2)|(0 << ADTS1)|(0 << ADTS0)
-	out SFIOR,temp
+	;ldi	temp, low(RAMEND)
+	;out	SPL, temp
+	;ldi	temp, high(RAMEND)
+	;out	SPH, temp
 
 ;LCD after power-up: ("*" means black bar)
 ;|****************|
@@ -245,15 +228,11 @@ LCD_delay:
 	clr	r2
 	LCD_delay_outer:
 	clr	r3
-	nop
-	LCD_delay_inner:
-	nop
-	dec	r3
-	nop
-	brne LCD_delay_inner
-	nop
+		LCD_delay_inner:
+		dec	r3
+		brne	LCD_delay_inner
 	dec	r2
-	brne LCD_delay_outer
+	brne	LCD_delay_outer
 ret
 
 LCD_init:
