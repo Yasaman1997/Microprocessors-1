@@ -20,9 +20,10 @@
 
 ;======================INT_VECTOR========================================
 .org 0x001c
-	jmp ADC_COMPLETE_ISR
+	rjmp ADC_COMPLETE_ISR
 ;======================INT_VECTOR========================================
 
+start:
 ;======================INITIALIZE========================================
 INITIALIZE:
 	ldi CNT1,0x00
@@ -39,7 +40,7 @@ INITIALIZE:
 	out DDRC,R16
 	call REF2_ADC_ANALYZE
 	call REF1_ADC_ANALYZE
-	jmp RE_COMPARE
+	rjmp RE_COMPARE
 ;======================INITIALIZE========================================
 
 ;======================RE_COMPARE========================================
@@ -56,15 +57,15 @@ RE_COMPARE:
 LED_1_ON_MODE:
 	ldi R16,0x01
 	out portc,R16
-	jmp END_OF_ROUTINE
+	rjmp END_OF_ROUTINE
 LED_2_ON_MODE:
 	ldi R16,0x02
 	out portc,R16
-	jmp END_OF_ROUTINE
+	rjmp END_OF_ROUTINE
 LED_OFF_MODE:
 	ldi R16,0x00
 	out portc,R16
-	jmp END_OF_ROUTINE
+	rjmp END_OF_ROUTINE
 COMPARE_REF_1:
 	cp ADC_HIGH_BYTE,VOLT_REF1_HIGH
 	brlo GENERALIZE_1
@@ -89,7 +90,7 @@ END_OF_ROUTINE:
 	inc CNT1
 	cpi CNT1,0xff
 	breq DISPLAY_ON_LCD
-	jmp RE_COMPARE
+	rjmp RE_COMPARE
 ;======================RE_COMPARE========================================
 
 ;======================DISPLAY_ON_LCD====================================
@@ -122,7 +123,7 @@ INTEGER_CONVERSION:
 ;======================INTEGER_CONVERSION================================
 
 END_OF_ROUTINE2:
-	jmp RE_COMPARE
+	rjmp RE_COMPARE
 
 ;======================DISPLAY_ON_LCD====================================
 DISPLAY_ON_LCD10:
@@ -130,63 +131,63 @@ DISPLAY_ON_LCD10:
 	call lcd_putchar
 	ldi argument,'0'
 	call lcd_putchar
-	jmp END_OF_ROUTINE2
+	rjmp END_OF_ROUTINE2
 
 DISPLAY_ON_LCD20:
 	ldi argument,'2'
 	call lcd_putchar
 	ldi argument,'0'
 	call lcd_putchar
-	jmp END_OF_ROUTINE2
+	rjmp END_OF_ROUTINE2
 
 DISPLAY_ON_LCD30:
 	ldi argument,'3'
 	call lcd_putchar
 	ldi argument,'0'
 	call lcd_putchar
-	jmp END_OF_ROUTINE2
+	rjmp END_OF_ROUTINE2
 
 DISPLAY_ON_LCD40:
 	ldi argument,'4'
 	call lcd_putchar
 	ldi argument,'0'
 	call lcd_putchar
-	jmp END_OF_ROUTINE2
+	rjmp END_OF_ROUTINE2
 
 DISPLAY_ON_LCD50:
 	ldi argument,'5'
 	call lcd_putchar
 	ldi argument,'0'
 	call lcd_putchar
-	jmp END_OF_ROUTINE2
+	rjmp END_OF_ROUTINE2
 
 DISPLAY_ON_LCD60:
 	ldi argument,'6'
 	call lcd_putchar
 	ldi argument,'0'
 	call lcd_putchar
-	jmp END_OF_ROUTINE2
+	rjmp END_OF_ROUTINE2
 
 DISPLAY_ON_LCD70:
 	ldi argument,'7'
 	call lcd_putchar
 	ldi argument,'0'
 	call lcd_putchar
-	jmp END_OF_ROUTINE2
+	rjmp END_OF_ROUTINE2
 
 DISPLAY_ON_LCD80:
 	ldi argument,'8'
 	call lcd_putchar
 	ldi argument,'0'
 	call lcd_putchar
-	jmp END_OF_ROUTINE2
+	rjmp END_OF_ROUTINE2
 
 DISPLAY_ON_LCD90:
 	ldi argument,'9'
 	call lcd_putchar
 	ldi argument,'0'
 	call lcd_putchar
-	jmp END_OF_ROUTINE2
+	rjmp END_OF_ROUTINE2
 ;======================DISPLAY_ON_LCD====================================
 
 ;======================WAIT HERE==========================================
@@ -252,5 +253,5 @@ ADC_COMPLETE_ISR:
 	ldi R16,(1<<ADEN)|(1<<ADPS2)|(1<<ADPS1)|(1<<ADPS0)|(1<<ADATE)|(1<<ADIE)
 	out ADCSRA,R16
 	sei
-	jmp RETURN_HERE
+	rjmp RETURN_HERE
 ;======================ADC Conversion Complete ISR=========================
