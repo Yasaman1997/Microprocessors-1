@@ -17,8 +17,11 @@
 ;======================RESET_ISR========================================
 RESET_ISR:
 	; Configure the clock generation mode
-	ldi TEMP,(0 << UMSEL)
-	out UCSRC,TEMP
+	; configure the USART polarity mode 
+	; The even parity will be used
+	ldi TEMP,(1 << UPM0)|(1 << UPM0)|(0 << UMSEL)
+	out UCSRC
+
 
 ;======================RESET_ISR========================================
 
