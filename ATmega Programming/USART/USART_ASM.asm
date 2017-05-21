@@ -19,9 +19,12 @@ RESET_ISR:
 	; Configure the clock generation mode
 	; Configure the USART polarity mode 
 	; The even parity will be used
-	; Configure the stop bits 
-	ldi TEMP,(1 << UPM0)|(1 << UPM0)|(0 << UMSEL)|(1 << USBS)
+	; Configure the stop bits
+	; Configure the data bits = 8 bits for data
+	ldi TEMP,(1 << UPM0)|(1 << UPM0)|(0 << UMSEL)|(1 << USBS)|(1 << UCSZ0)|(1 << UCSZ1)
 	out UCSRC,TEMP
+	ldi TEMP,(0 << UCSZ2)
+	out UCSRB,TEMP
 
 
 
