@@ -25,8 +25,8 @@ RESET_ISR:
 	; Configure the data bits = 8 bits for data
 	ldi TEMP,(1 << UPM0)|(1 << UPM0)|(0 << UMSEL)|(1 << USBS)|(1 << UCSZ0)|(1 << UCSZ1)
 	out UCSRC,TEMP
-	; Enable USART send and recieve
-	ldi TEMP,(0 << UCSZ2)|(1 << RXEN)|(1 << TXEN)
+	; Enable USART send and recieve + Their interrupts
+	ldi TEMP,(0 << UCSZ2)|(1 << RXEN)|(1 << TXEN)|(1 << TXIEN)|(1 << RXIEN)
 	out UCSRB,TEMP
 
 ;======================RESET_ISR========================================
