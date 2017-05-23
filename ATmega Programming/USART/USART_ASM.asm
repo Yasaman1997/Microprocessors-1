@@ -8,7 +8,6 @@
 
 .def TEMP = R16
 .def F_OSC = R17
-.def 
 ;======================VECTORS==========================================
 .org 0x00
 	jmp RESET_ISR
@@ -26,7 +25,7 @@ RESET_ISR:
 	ldi TEMP,(1 << UPM0)|(1 << UPM0)|(0 << UMSEL)|(1 << USBS)|(1 << UCSZ0)|(1 << UCSZ1)
 	out UCSRC,TEMP
 	; Enable USART send and recieve + Their interrupts
-	ldi TEMP,(0 << UCSZ2)|(1 << RXEN)|(1 << TXEN)|(1 << TXIEN)|(1 << RXIEN)
+	ldi TEMP,(0 << UCSZ2)|(1 << RXEN)|(1 << TXEN)|(1 << TXCIE)|(1 << RXCIE)
 	out UCSRB,TEMP
 
 ;======================RESET_ISR========================================
