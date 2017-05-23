@@ -10,6 +10,8 @@
 .def F_OSC = R17
 .def BAUD_HIGH = R18	
 .def BAUD_LOW = R19
+.def TEMP2 = R20
+.def BIT_CNT = R21
 ;======================VECTORS==========================================
 .org 0x00
 	jmp RESET_ISR
@@ -53,9 +55,59 @@ start:
 
 
 
-;======================PARITY CHECK=====================================
-PARITY_CHECK:
+;======================TRANSMITTER PARITY CHECK=====================================
+TRANSMITTER_PARITY_CHECK:
 	; Get the internals of the UDR 
 	; Simpley xor the result together
+	; The final parity result will be saved in the RXB8 and TXB8
+	ldi TEMP,TXB
+	; Loop through all the bits in the TXB
+	; change the parity according to what you see
+BIT_LOOPER:
+	; Check first bit
+	sbis TXB,0
+	call PARITY_ON
+
+	; Check second bit
+	sbis TXB,1
+	call PARITY_OFF
+
+	; Check third bit
+	sbis TXB,2
+	call PARITY_ON
+
+	; Check fourth bit
+	sbis TXB,3
+	call PARITY_OFF
+
+	; Check fifth bit
+	sbis TXB,4
+	call PARITY_ON
+
+	; Check sixth bit
+	sbis TXB,5
+	call PARITY_OFF
+
+	; Check seventh bit
+	sbis TXB,6
+	call PARITY_ON
 		
-;======================PARITY CHECK=====================================
+	; Check eighth bit
+	sbis TXB,7
+	call PARITY_OFF
+
+PARITY_ON:
+	; change the parity to 1
+	ldi TEMP2,(1 << TXB8)
+	out UCSRB,TEMP
+	ret
+
+PARITY_OFF:
+	; change the parity to 0
+	ldi TEMP2,(0 << TXB8)
+	out UCSRB,TEMP
+	ret
+	
+	; Go out of transmitter parity check
+	ret
+;======================TRANSMITTER PARITY CHECK=====================================
