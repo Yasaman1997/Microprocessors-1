@@ -57,8 +57,21 @@ DATA_TRANSMIT:
 	; Wait for the UDRE to get set(UDR CLEARED)
 	sbis UCSRA,UDRE
 	rjmp DATA_TRANSMIT
+	; Do a simple parity check before sending data
+	; This is not optional because the parity bit will be send with other 8 bits as bit #9
+	call TRANSMITTER_PARITY_CHECK
 	out UDR,DATA_TO_BE_SENT
 	; Data is now being sent
+	ret
+;======TRANSMITTING THE DATA=======
+
+
+;======RECIEVING THE DATA==========
+DATA_RECIEVE:
+	
+
+;======RECIEVING THE DATA==========
+
 
 	rjmp start
 ;======================MAIN PROGRAM=====================================
