@@ -55,12 +55,11 @@ start:
 
 
 
-;======================TRANSMITTER PARITY CHECK=====================================
+;======================TRANSMITTER PARITY CHECK=========================
 TRANSMITTER_PARITY_CHECK:
 	; Get the internals of the UDR 
 	; Simpley xor the result together
 	; The final parity result will be saved in the RXB8 and TXB8
-	out UDR,TEMP
 	; Loop through all the bits in the TXB
 	; change the parity according to what you see
 BIT_LOOPER:
@@ -98,16 +97,16 @@ BIT_LOOPER:
 
 PARITY_ON:
 	; change the parity to 1
-	ldi TEMP2,(1 << TXB8)
+	ldi TEMP,(1 << TXB8)
 	out UCSRB,TEMP
 	ret
 
 PARITY_OFF:
 	; change the parity to 0
-	ldi TEMP2,(0 << TXB8)
+	ldi TEMP,(0 << TXB8)
 	out UCSRB,TEMP
 	ret
 	
 	; Go out of transmitter parity check
 	ret
-;======================TRANSMITTER PARITY CHECK=====================================
+;======================TRANSMITTER PARITY CHECK=========================
