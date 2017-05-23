@@ -8,6 +8,8 @@
 
 .def TEMP = R16
 .def F_OSC = R17
+.def BAUD_HIGH = R18	
+.def BAUD_LOW = R19
 ;======================VECTORS==========================================
 .org 0x00
 	jmp RESET_ISR
@@ -32,7 +34,12 @@ RESET_ISR:
 	; Enable USART send and recieve + Their interrupts
 	ldi TEMP,(0 << UCSZ2)|(1 << RXEN)|(1 << TXEN)|(1 << TXCIE)|(1 << RXCIE)
 	out UCSRB,TEMP
+	; Configure the baud rate
+	out UBRRH,BAUD_HIGH
+	out UBRRL,BAUD_LOW
 
+	; Enable global interrupts
+	sei
 ;======================RESET_ISR========================================
 
 
