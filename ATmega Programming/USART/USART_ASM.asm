@@ -17,6 +17,11 @@
 
 ;======================RESET_ISR========================================
 RESET_ISR:
+	; Config the stack pointer
+	ldi TEMP,HIGH(RAMEND)
+	out SPH,TEMP
+	ldi TEMP,LOW(RAMEND)
+	out SPL,TEMP
 	; Configure the clock generation mode
 	; Configure the USART polarity mode 
 	; The even parity will be used
@@ -31,6 +36,7 @@ RESET_ISR:
 ;======================RESET_ISR========================================
 
 
+;======================RESET_ISR========================================
 
 ;======================MAIN PROGRAM=====================================
 start:
