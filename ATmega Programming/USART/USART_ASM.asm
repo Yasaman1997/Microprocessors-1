@@ -36,11 +36,11 @@ RESET_ISR:
 	; Configure the USART polarity mode 
 	; The even parity will be used
 	; Configure the stop bits
-	; Configure the data bits = 8 bits for data
+	; Configure the data bits = 9 bits for data
 	ldi TEMP,(1 << URSEL)|(0 << UPM0)|(0 << UPM0)|(0 << UMSEL)|(1 << USBS)|(1 << UCSZ0)|(1 << UCSZ1)
 	out UCSRC,TEMP
 	; Enable USART send and recieve + Their interrupts
-	ldi TEMP,(0 << UCSZ2)|(1 << RXEN)|(1 << TXEN)|(1 << TXCIE)|(1 << RXCIE)
+	ldi TEMP,(1 << UCSZ2)|(1 << RXEN)|(1 << TXEN)|(1 << TXCIE)|(1 << RXCIE)
 	out UCSRB,TEMP
 	; Enable global interrupts
 	sei
