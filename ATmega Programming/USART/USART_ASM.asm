@@ -60,40 +60,40 @@ TRANSMITTER_PARITY_CHECK:
 	; Get the internals of the UDR 
 	; Simpley xor the result together
 	; The final parity result will be saved in the RXB8 and TXB8
-	ldi TEMP,TXB
+	out UDR,TEMP
 	; Loop through all the bits in the TXB
 	; change the parity according to what you see
 BIT_LOOPER:
 	; Check first bit
-	sbis TXB,0
+	sbis UDR,0
 	call PARITY_ON
 
 	; Check second bit
-	sbis TXB,1
+	sbis UDR,1
 	call PARITY_OFF
 
 	; Check third bit
-	sbis TXB,2
+	sbis UDR,2
 	call PARITY_ON
 
 	; Check fourth bit
-	sbis TXB,3
+	sbis UDR,3
 	call PARITY_OFF
 
 	; Check fifth bit
-	sbis TXB,4
+	sbis UDR,4
 	call PARITY_ON
 
 	; Check sixth bit
-	sbis TXB,5
+	sbis UDR,5
 	call PARITY_OFF
 
 	; Check seventh bit
-	sbis TXB,6
+	sbis UDR,6
 	call PARITY_ON
 		
 	; Check eighth bit
-	sbis TXB,7
+	sbis UDR,7
 	call PARITY_OFF
 
 PARITY_ON:
