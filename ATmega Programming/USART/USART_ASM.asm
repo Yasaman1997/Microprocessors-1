@@ -76,7 +76,17 @@ DATA_RECIEVE:
 	in RECIEVE_STATUS,UCSRA
 	in TEMP2,UCSRB
 	in TEMP,UDR
+	; If error, return -1
+	andi r18,(1 << FE)|(1 << DOR)
+	breq USART_ReceiveNoError
 
+	ldi TEMP2, HIGH(-1)
+	ldi TEMP, LOW(-1)
+USART_ReceiveNoError:
+	; Filter the 9th bit, then return
+	lsr TEMP2
+	andi TEMP2, 0x01
+	ret
 ;======RECIEVING THE DATA==========
 
 
