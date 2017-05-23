@@ -12,6 +12,7 @@
 .def BAUD_LOW = R19
 .def TEMP2 = R20
 .def BIT_CNT = R21
+.def DATA_TO_BE_SENT = R22
 ;======================VECTORS==========================================
 .org 0x00
 	jmp RESET_ISR
@@ -50,6 +51,15 @@ RESET_ISR:
 
 ;======================MAIN PROGRAM=====================================
 start:
+
+;======TRANSMITTING THE DATA=======
+DATA_TRANSMIT:
+	; Wait for the UDRE to get set(UDR CLEARED)
+	sbis UCSRA,UDRE
+	rjmp DATA_TRANSMIT
+	out UDR,DATA_TO_BE_SENT
+	; Data is now being sent
+
 	rjmp start
 ;======================MAIN PROGRAM=====================================
 
