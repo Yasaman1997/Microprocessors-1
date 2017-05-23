@@ -13,6 +13,7 @@
 .def TEMP2 = R20
 .def BIT_CNT = R21
 .def DATA_TO_BE_SENT = R22
+.def RECIEVE_STATUS = R23
 ;======================VECTORS==========================================
 .org 0x00
 	jmp RESET_ISR
@@ -68,7 +69,13 @@ DATA_TRANSMIT:
 
 ;======RECIEVING THE DATA==========
 DATA_RECIEVE:
-	
+	; Wait for the data to be recieved 
+	sbis UCSRA,RXC
+	rjmp DATA_RECIEVE
+	; Get the status and 9th bit, then the data from buffer
+	in RECIEVE_STATUS,UCSRA
+	in TEMP2,UCSRB
+	in TEMP,UDR
 
 ;======RECIEVING THE DATA==========
 
