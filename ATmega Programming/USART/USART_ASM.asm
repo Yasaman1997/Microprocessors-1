@@ -24,6 +24,11 @@ RESET_ISR:
 	out SPH,TEMP
 	ldi TEMP,LOW(RAMEND)
 	out SPL,TEMP
+
+	; Configure the baud rate
+	out UBRRH,BAUD_HIGH
+	out UBRRL,BAUD_LOW
+
 	; Configure the clock generation mode
 	; Configure the USART polarity mode 
 	; The even parity will be used
@@ -34,10 +39,6 @@ RESET_ISR:
 	; Enable USART send and recieve + Their interrupts
 	ldi TEMP,(0 << UCSZ2)|(1 << RXEN)|(1 << TXEN)|(1 << TXCIE)|(1 << RXCIE)
 	out UCSRB,TEMP
-	; Configure the baud rate
-	out UBRRH,BAUD_HIGH
-	out UBRRL,BAUD_LOW
-
 	; Enable global interrupts
 	sei
 ;======================RESET_ISR========================================
