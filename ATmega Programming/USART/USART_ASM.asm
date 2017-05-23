@@ -37,7 +37,7 @@ RESET_ISR:
 	; The even parity will be used
 	; Configure the stop bits
 	; Configure the data bits = 8 bits for data
-	ldi TEMP,(1 << URSEL)|(1 << UPM0)|(1 << UPM0)|(0 << UMSEL)|(1 << USBS)|(1 << UCSZ0)|(1 << UCSZ1)
+	ldi TEMP,(1 << URSEL)|(0 << UPM0)|(0 << UPM0)|(0 << UMSEL)|(1 << USBS)|(1 << UCSZ0)|(1 << UCSZ1)
 	out UCSRC,TEMP
 	; Enable USART send and recieve + Their interrupts
 	ldi TEMP,(0 << UCSZ2)|(1 << RXEN)|(1 << TXEN)|(1 << TXCIE)|(1 << RXCIE)
@@ -55,5 +55,7 @@ start:
 
 ;======================PARITY CHECK=====================================
 PARITY_CHECK:
-	
+	; Get the internals of the UDR 
+	; Simpley xor the result together
+		
 ;======================PARITY CHECK=====================================
