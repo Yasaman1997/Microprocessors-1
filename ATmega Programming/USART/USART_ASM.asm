@@ -25,6 +25,9 @@ RESET_ISR:
 	ldi TEMP,LOW(RAMEND)
 	out SPL,TEMP
 
+	; Set the baud rate to 4800 bps
+	ldi BAUD_LOW,12
+	ldi BAUD_HIGH,0
 	; Configure the baud rate
 	out UBRRH,BAUD_HIGH
 	out UBRRL,BAUD_LOW
@@ -48,3 +51,9 @@ start:
 	rjmp start
 ;======================MAIN PROGRAM=====================================
 
+
+
+;======================PARITY CHECK=====================================
+PARITY_CHECK:
+	
+;======================PARITY CHECK=====================================
