@@ -6,18 +6,14 @@
 ;
 ; Program to connect the atmega16 with the virtual DB9 port through MAX232
 .include "m16_LCD_4bit.inc"
-.def TEMP = R16
-.def F_OSC = R17
-.def BAUD_HIGH = R18	
+.def F_OSC = R25	
 .def BAUD_LOW = R19
+.def BAUD_HIGH = R24
 .def TEMP2 = R20
 .def BIT_CNT = R21
 .def DATA_TO_BE_SENT = R22
 .def RECIEVE_STATUS = R23
 ;======================VECTORS==========================================
-.org 0x00
-	jmp RESET_ISR
-
 
 ;======================VECTORS==========================================
 
