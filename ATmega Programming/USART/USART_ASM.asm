@@ -5,7 +5,7 @@
 ; Author : aligholamee
 ;
 ; Program to connect the atmega16 with the virtual DB9 port through MAX232
-
+.include "m16_LCD_4bit.inc"
 .def TEMP = R16
 .def F_OSC = R17
 .def BAUD_HIGH = R18	
