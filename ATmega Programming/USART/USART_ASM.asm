@@ -13,6 +13,8 @@
 .def BIT_CNT = R21
 .def DATA_TO_BE_SENT = R22
 .def RECIEVE_STATUS = R23
+.def ROW = R26
+.def COL = R27
 ;======================VECTORS==========================================
 
 ;======================VECTORS==========================================
@@ -53,6 +55,27 @@ DATA_SENDING_SECTION:
 	; In this section, the keypad will be analyzed to see if any button is pressed
 	; Analayze the keypad
 	; If nothing was pressed, jump to recieve data section
+
+	; Check the keypad buttons press status
+	sbic PINC,0
+	call FIND_PRESSED
+	sbic PINC,1
+	call FIND_PRESSED
+	sbic PINC,2
+	call FIND_PRESSED
+	sbic PINC,3
+	call FIND_PRESSED
+	sbic PINC,4
+	call FIND_PRESSED
+	sbic PINC,5
+	call FIND_PRESSED
+	sbic PINC,6
+	call FIND_PRESSED
+	sbic PINC,7
+	call FIND_PRESSED
+	jmp RECIEVE_DATA_SECTION
+
+	; The call to the data_transmit will be refactored into the FIND_PRESSED routine
 	call DATA_TRANSMIT
 
 
@@ -102,7 +125,14 @@ USART_ReceiveNoError:
 ;======RECIEVING THE DATA==========
 
 
-	rjmp start
+;===========FIND KEY===============
+
+
+
+;===========FIND KEY===============
+
+
+
 ;======================MAIN PROGRAM=====================================
 
 
