@@ -17,18 +17,12 @@
 
 ;======================VECTORS==========================================
 
+;======================MAIN PROGRAM=====================================
+start:
 ;======================USART_INIT=======================================
-USART_INIT:
-
 	; Load row and col with 0 for compare purpose
 	ldi COL,0
-	ldi ROW,0
-
-	; Config the stack pointer
-	ldi TEMP,HIGH(RAMEND)
-	out SPH,TEMP
-	ldi TEMP,LOW(RAMEND)
-	out SPL,TEMP
+	ldi ROW,50
 
 	; Set the baud rate to 4800 bps
 	ldi BAUD_LOW,12
@@ -37,6 +31,10 @@ USART_INIT:
 	out UBRRH,BAUD_HIGH
 	out UBRRL,BAUD_LOW
 
+	; Enable USART send and recieve + Their interrupts
+	ldi TEMP,(1 << UCSZ2)|(1 << RXEN)|(1 << TXEN)|(1 << TXCIE)|(1 << RXCIE)
+	out UCSRB,TEMP
+
 	; Configure the clock generation mode
 	; Configure the USART polarity mode 
 	; The even parity will be used
@@ -44,21 +42,15 @@ USART_INIT:
 	; Configure the data bits = 9 bits for data
 	ldi TEMP,(1 << URSEL)|(0 << UPM0)|(0 << UPM0)|(0 << UMSEL)|(1 << USBS)|(1 << UCSZ0)|(1 << UCSZ1)
 	out UCSRC,TEMP
-	; Enable USART send and recieve + Their interrupts
-	ldi TEMP,(1 << UCSZ2)|(1 << RXEN)|(1 << TXEN)|(1 << TXCIE)|(1 << RXCIE)
-	out UCSRB,TEMP
-	; Enable global interrupts
-	sei
 ;======================USART_INIT=======================================
-
-;======================MAIN PROGRAM=====================================
-start:
-
+TEST:
+	inc ROW
+	call DATA_TRANSMIT
+	JMP TEST
 DATA_SENDING_SECTION:
 	; In this section, the keypad will be analyzed to see if any button is pressed
 	; Analayze the keypad
 	; If nothing was pressed, jump to recieve data section
-
 	; Check the keypad buttons press status
 	call FIND_PRESSED
 	; If nothing was pressed, skip the next instruction
@@ -89,7 +81,10 @@ DATA_TRANSMIT:
 	rjmp DATA_TRANSMIT
 	; Do a simple parity check before sending data
 	; This is not optional because the parity bit will be send with other 8 bits as bit #9
-	call TRANSMITTER_PARITY_CHECK
+	;call TRANSMITTER_PARITY_CHECK
+	; Copy 9th bit from r17 to TXB8
+	cbi UCSRB,TXB8
+	; Enable USART send and recieve + Their interrupts
 	out UDR,DATA_TO_BE_SENT
 	; Data is now being sent
 	ret
@@ -101,6 +96,8 @@ DATA_RECIEVE:
 	; Wait for the data to be recieved 
 	sbis UCSRA,RXC
 	rjmp DATA_RECIEVE
+	ldi argument,'A'
+	call LCD_putchar
 	; Get the status and 9th bit, then the data from buffer
 	in RECIEVE_STATUS,UCSRA
 	in TEMP2,UCSRB
@@ -171,6 +168,8 @@ DISPLAY_RECIEVED:
 	; load it into the argument of the LCD 
 	mov argument,TEMP
 	call lcd_putchar
+	ldi argument,'A'
+	call LCD_putchar
 	ret
 ;========DISPLAY RECIEVED==========
 
