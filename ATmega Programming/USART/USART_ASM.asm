@@ -77,6 +77,13 @@ RECIEVE_DATA_SECTION:
 
 ;======TRANSMITTING THE DATA=======
 DATA_TRANSMIT:
+	; Load the row*16+col into the DATA_TO_BE_SENT
+	lsl row
+	lsl row 
+	lsl row 
+	lsl row 
+	add row,col
+	mov DATA_TO_BE_SENT,row
 	; Wait for the UDRE to get set(UDR CLEARED)
 	sbis UCSRA,UDRE
 	rjmp DATA_TRANSMIT
