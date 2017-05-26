@@ -160,9 +160,11 @@ FIND_ROW:
 
 ;========DISPLAY RECIEVED==========
 DISPLAY_RECIEVED:
-
+	; The input character is in the temp register now
+	; load it into the argument of the LCD 
+	mov argument,TEMP
+	call lcd_putchar
 	ret
-
 ;========DISPLAY RECIEVED==========
 
 
