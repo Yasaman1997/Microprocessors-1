@@ -57,22 +57,8 @@ DATA_SENDING_SECTION:
 	; If nothing was pressed, jump to recieve data section
 
 	; Check the keypad buttons press status
-	sbic PINC,0
 	call FIND_PRESSED
-	sbic PINC,1
-	call FIND_PRESSED
-	sbic PINC,2
-	call FIND_PRESSED
-	sbic PINC,3
-	call FIND_PRESSED
-	sbic PINC,4
-	call FIND_PRESSED
-	sbic PINC,5
-	call FIND_PRESSED
-	sbic PINC,6
-	call FIND_PRESSED
-	sbic PINC,7
-	call FIND_PRESSED
+	call DATA_TRANSMIT
 	jmp RECIEVE_DATA_SECTION
 
 RECIEVE_DATA_SECTION:
@@ -154,8 +140,15 @@ FIND_ROW:
 	out PORTC,TEMP
 	
 	; Find the row easily by checking the PINC low bits
-	sbis 
-	call DATA_TRANSMIT
+	sbis PINC,0
+	ldi ROW,1
+	sbis PINC,1
+	ldi ROW,2
+	sbis PINC,2
+	ldi ROW,3
+	sbis PINC,3
+	ldi ROW,4
+	; now we have the pressed key row and column return to main routine
 	ret
 ;===========FIND KEY===============
 
