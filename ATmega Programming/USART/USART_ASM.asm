@@ -13,8 +13,8 @@
 .def BIT_CNT = R21
 .def DATA_TO_BE_SENT = R22
 .def RECIEVE_STATUS = R23
-.def ROW = R26
-.def COL = R27
+.def ROW = R14
+.def COL = R15
 ;======================VECTORS==========================================
 
 ;======================VECTORS==========================================
@@ -75,10 +75,6 @@ DATA_SENDING_SECTION:
 	call FIND_PRESSED
 	jmp RECIEVE_DATA_SECTION
 
-	; The call to the data_transmit will be refactored into the FIND_PRESSED routine
-	call DATA_TRANSMIT
-
-
 RECIEVE_DATA_SECTION:
 	; In this section the input buffer is loaded with some data
 	; So the DATA_RECIEVE routine will be called
@@ -126,11 +122,20 @@ USART_ReceiveNoError:
 
 
 ;===========FIND KEY===============
+FIND_PRESSED:
 
 
-
+	call DATA_TRANSMIT
+	ret
 ;===========FIND KEY===============
 
+
+;========DISPLAY RECIEVED==========
+DISPLAY_RECIEVED:
+
+	ret
+
+;========DISPLAY RECIEVED==========
 
 
 ;======================MAIN PROGRAM=====================================
