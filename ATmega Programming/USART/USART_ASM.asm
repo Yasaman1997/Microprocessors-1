@@ -21,6 +21,11 @@
 
 ;======================USART_INIT=======================================
 USART_INIT:
+
+	; Load row and col with 0 for compare purpose
+	ldi COL,0
+	ldi ROW,0
+
 	; Config the stack pointer
 	ldi TEMP,HIGH(RAMEND)
 	out SPH,TEMP
