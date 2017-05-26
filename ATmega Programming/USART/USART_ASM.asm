@@ -49,6 +49,22 @@ RESET_ISR:
 ;======================MAIN PROGRAM=====================================
 start:
 
+DATA_SENDING_SECTION:
+	; In this section, the keypad will be analyzed to see if any button is pressed
+	; Analayze the keypad
+	; If nothing was pressed, jump to recieve data section
+	call DATA_TRANSMIT
+
+
+RECIEVE_DATA_SECTION:
+	; In this section the input buffer is loaded with some data
+	; So the DATA_RECIEVE routine will be called
+	call DATA_RECIEVE
+	; After fetching the data, it must be displayed on the LCD
+	call DISPLAY_RECIEVED
+	; Hold the program in polling mode
+	rjmp start
+
 ;======TRANSMITTING THE DATA=======
 DATA_TRANSMIT:
 	; Wait for the UDRE to get set(UDR CLEARED)
