@@ -6,6 +6,8 @@
 ;
 ; Program to connect the atmega16 with the virtual DB9 port through MAX232
 .include "m16_LCD_4bit.inc"
+.def ROW = R26
+.def COL = R27
 .def F_OSC = R25	
 .def BAUD_LOW = R19
 .def BAUD_HIGH = R24
@@ -13,8 +15,6 @@
 .def BIT_CNT = R21
 .def DATA_TO_BE_SENT = R22
 .def RECIEVE_STATUS = R23
-.def ROW = R14
-.def COL = R15
 ;======================VECTORS==========================================
 
 ;======================VECTORS==========================================
@@ -123,8 +123,38 @@ USART_ReceiveNoError:
 
 ;===========FIND KEY===============
 FIND_PRESSED:
+	
+FIND_COL:
+	; Configure the DDRC
+	ldi TEMP,0x0F
+	out DDRC,TEMP
 
+	; Configure the pull-ups
+	; The ones that are input will be set as pull-up
+	ldi TEMP,0xF0
+	out PORTC,TEMP
 
+	; Find the column easily by checking the PINC high bits
+	sbis PINC,4
+	ldi COL,1
+	sbis PINC,5
+	ldi COL,2
+	sbis PINC,6
+	ldi COL,3
+	sbis PINC,7
+	ldi COL,4
+
+FIND_ROW:
+	; Configure the DDRC
+	ldi TEMP,0xF0
+	out DDRC,TEMP
+
+	; Configure the PORTC low bits pull-up
+	ldi TEMP,0x0F
+	out PORTC,TEMP
+	
+	; Find the row easily by checking the PINC low bits
+	sbis 
 	call DATA_TRANSMIT
 	ret
 ;===========FIND KEY===============
