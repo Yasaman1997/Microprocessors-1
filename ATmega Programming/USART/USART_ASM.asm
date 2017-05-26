@@ -58,8 +58,10 @@ DATA_SENDING_SECTION:
 
 	; Check the keypad buttons press status
 	call FIND_PRESSED
+	; If nothing was pressed, skip the next instruction
+	cpi COL,0
+	breq RECIEVE_DATA_SECTION
 	call DATA_TRANSMIT
-	jmp RECIEVE_DATA_SECTION
 
 RECIEVE_DATA_SECTION:
 	; In this section the input buffer is loaded with some data
