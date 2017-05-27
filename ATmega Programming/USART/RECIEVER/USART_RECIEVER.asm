@@ -11,7 +11,7 @@
 .def BAUD_LOW = R19
 .def BAUD_HIGH = R24
 .def TEMP2 = R20
-.def DATA_TO_BE_SENT = R22
+.def LCD_GUARD = R22
 .def RECIEVE_STATUS = R23
 ;======================VECTORS==========================================
 
@@ -20,6 +20,8 @@
 ;======================MAIN PROGRAM=====================================
 start:
 ;======================USART_INIT=======================================
+	; Set the LCD_GUARD to 15
+	ldi LCD_GUARD,10
 	; Load row and col with 0 for compare purpose
 	ldi COL,0
 	ldi ROW,100
@@ -73,10 +75,13 @@ USART_ReceiveNoError:
 	mov argument,TEMP
 	call LCD_putchar
 	call LCD_delay
-	cpi TEMP,8
+	dec LCD_GUARD
+	cpi LCD_GUARD,0
 	breq CLEAR_LCD
 	ret
 CLEAR_LCD:
+	call LCD_delay
+	ldi LCD_GUARD,10
 	call LCD_init
 	ret
 ;======RECIEVING THE DATA==========
@@ -94,69 +99,8 @@ DISPLAY_RECIEVED:
 	;call LCD_putchar
 	;ret
 ;========DISPLAY RECIEVED==========
-
+	rjmp RECIEVE_DATA_SECTION
 
 ;======================MAIN PROGRAM=====================================
 
-
-
-;======================TRANSMITTER PARITY CHECK=========================
-TRANSMITTER_PARITY_CHECK:
-	; Get the internals of the UDR 
-	; Simpley xor the result together
-	; The final parity result will be saved in the RXB8 and TXB8
-	; Loop through all the bits in the TXB
-	; change the parity according to what you see
-BIT_LOOPER:
-	; Check first bit
-	sbis UDR,0
-	call PARITY_ON
-
-	; Check second bit
-	sbis UDR,1
-	call PARITY_OFF
-
-	; Check third bit
-	sbis UDR,2
-	call PARITY_ON
-
-	; Check fourth bit
-	sbis UDR,3
-	call PARITY_OFF
-
-	; Check fifth bit
-	sbis UDR,4
-	call PARITY_ON
-
-	; Check sixth bit
-	sbis UDR,5
-	call PARITY_OFF
-
-	; Check seventh bit
-	sbis UDR,6
-	call PARITY_ON
-		
-	; Check eighth bit
-	sbis UDR,7
-	call PARITY_OFF
-
-PARITY_ON:
-	; change the parity to 1
-	ldi TEMP,(1 << TXB8)
-	out UCSRB,TEMP
-	ret
-
-PARITY_OFF:
-	; change the parity to 0
-	ldi TEMP,(0 << TXB8)
-	out UCSRB,TEMP
-	ret
-	
-	; Go out of transmitter parity check
-	ret
-;======================TRANSMITTER PARITY CHECK=========================
-
-
-;======================DELAY=========================
-;======================DELAY=========================
 
