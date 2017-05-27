@@ -55,8 +55,6 @@ DATA_RECIEVE:
 	; Wait for the data to be recieved 
 	sbis UCSRA,RXC
 	rjmp DATA_RECIEVE
-	ldi argument,'A'
-	call LCD_putchar
 	; Get the status and 9th bit, then the data from buffer
 	in RECIEVE_STATUS,UCSRA
 	in TEMP2,UCSRB
