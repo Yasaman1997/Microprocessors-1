@@ -57,6 +57,7 @@ end:
 	jmp end
 ;======TRANSMITTING THE DATA=======
 DATA_TRANSMIT:
+	call BIG_DELAY
 	call MIX_TOGETHER
 GET_BACK:
 	; Wait for the UDRE to get set(UDR CLEARED)
@@ -209,3 +210,10 @@ DATA_IS_D:
 DATA_IS_E:
 	ldi DATA_TO_BE_SENT,'E'
 	jmp GET_BACK
+
+BIG_DELAY:
+	ldi TEMP2,0xFF
+loop1:
+	dec TEMP2
+	brne loop1
+	ret
