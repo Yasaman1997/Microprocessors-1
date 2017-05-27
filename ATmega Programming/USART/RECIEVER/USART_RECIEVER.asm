@@ -69,6 +69,15 @@ USART_ReceiveNoError:
 	; Filter the 9th bit, then return
 	lsr TEMP2
 	andi TEMP2, 0x01
+
+	mov argument,TEMP
+	call LCD_putchar
+	call LCD_delay
+	cpi TEMP,8
+	breq CLEAR_LCD
+	ret
+CLEAR_LCD:
+	call LCD_init
 	ret
 ;======RECIEVING THE DATA==========
 
@@ -76,11 +85,14 @@ USART_ReceiveNoError:
 DISPLAY_RECIEVED:
 	; The input character is in the temp register now
 	; load it into the argument of the LCD 
-	mov argument,TEMP
-	call lcd_putchar
-	ldi argument,'A'
-	call LCD_putchar
-	ret
+	;cpi TEMP,48
+	;breq A_CHAR
+	;ldi argument,'N'
+	;ret
+;A_CHAR:
+	;ldi argument,'A'
+	;call LCD_putchar
+	;ret
 ;========DISPLAY RECIEVED==========
 
 
