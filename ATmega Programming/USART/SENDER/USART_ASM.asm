@@ -12,7 +12,7 @@
 .def BAUD_HIGH = R24
 .def TEMP2 = R20
 .def DATA_TO_BE_SENT = R22
-.def RECIEVE_STATUS = R23
+.def SEMAPHORE = R23
 ;======================VECTORS==========================================
 
 ;======================VECTORS==========================================
@@ -21,11 +21,11 @@
 start:
 ;======================USART_INIT=======================================
 	; Load row and col with 0 for compare purpose
-	ldi COL,0
-	ldi ROW,5
+	ldi COL,'0'
+	ldi ROW,'0'
 
 	; Set the baud rate to 4800 bps
-	ldi BAUD_LOW,51
+	ldi BAUD_LOW,12
 	ldi BAUD_HIGH,0
 	; Configure the baud rate
 	out UBRRH,BAUD_HIGH
@@ -44,28 +44,26 @@ start:
 	out UCSRC,TEMP
 ;======================USART_INIT=======================================
 DATA_SENDING_SECTION:
-	call DELAY_BIG
 	; In this section, the keypad will be analyzed to see if any button is pressed
 	; Analayze the keypad
 	; If nothing was pressed, jump to recieve data section
 	; Check the keypad buttons press status
-	call FIND_PRESSED
-	call DELAY_BIG
+	call FIND_PRESSED	
+	cpi ROW,'0'
+	breq DATA_SENDING_SECTION
 	call DATA_TRANSMIT
-	call DELAY_BIG
-	rjmp DATA_SENDING_SECTION
-
+	/*rjmp DATA_SENDING_SECTION*/
+	end:
+		jmp end
 ;======TRANSMITTING THE DATA=======
 DATA_TRANSMIT:
-	; creating a big delay for each transmission 
-	ldi TEMP2,0xFF
 	; Load the row*16+col into the DATA_TO_BE_SENT
-	lsl row
+	/*lsl row
 	lsl row 
 	lsl row 
 	lsl row 
 	add row,col
-	mov DATA_TO_BE_SENT,row
+	mov DATA_TO_BE_SENT,row*/
 	; Wait for the UDRE to get set(UDR CLEARED)
 	sbis UCSRA,UDRE
 	rjmp DATA_TRANSMIT
@@ -75,12 +73,10 @@ DATA_TRANSMIT:
 	; Copy 9th bit from r17 to TXB8
 	cbi UCSRB,TXB8
 	; Enable USART send and recieve + Their interrupts
-	out UDR,DATA_TO_BE_SENT
+	out UDR,ROW
 	; Data is now being sent
 	ret
 ;======TRANSMITTING THE DATA=======
-
-
 ;===========FIND KEY===============
 FIND_PRESSED:
 	
@@ -96,13 +92,13 @@ FIND_COL:
 
 	; Find the column easily by checking the PINC high bits
 	sbis PINC,4
-	ldi COL,1
+	ldi COL,'1'
 	sbis PINC,5
-	ldi COL,2
+	ldi COL,'2'
 	sbis PINC,6
-	ldi COL,3
+	ldi COL,'3'
 	sbis PINC,7
-	ldi COL,4
+	ldi COL,'4'
 
 FIND_ROW:
 	; Configure the DDRC
@@ -115,80 +111,12 @@ FIND_ROW:
 	
 	; Find the row easily by checking the PINC low bits
 	sbis PINC,0
-	ldi ROW,1
+	ldi ROW,'1'
 	sbis PINC,1
-	ldi ROW,2
+	ldi ROW,'2'
 	sbis PINC,2
-	ldi ROW,3
+	ldi ROW,'3'
 	sbis PINC,3
-	ldi ROW,4
+	ldi ROW,'4'
 	; now we have the pressed key row and column return to main routine
-	ret
-;===========FIND KEY===============
-	rjmp DATA_SENDING_SECTION
-
-;======================MAIN PROGRAM=====================================
-
-
-
-;======================TRANSMITTER PARITY CHECK=========================
-TRANSMITTER_PARITY_CHECK:
-	; Get the internals of the UDR 
-	; Simpley xor the result together
-	; The final parity result will be saved in the RXB8 and TXB8
-	; Loop through all the bits in the TXB
-	; change the parity according to what you see
-BIT_LOOPER:
-	; Check first bit
-	sbis UDR,0
-	call PARITY_ON
-
-	; Check second bit
-	sbis UDR,1
-	call PARITY_OFF
-
-	; Check third bit
-	sbis UDR,2
-	call PARITY_ON
-
-	; Check fourth bit
-	sbis UDR,3
-	call PARITY_OFF
-
-	; Check fifth bit
-	sbis UDR,4
-	call PARITY_ON
-
-	; Check sixth bit
-	sbis UDR,5
-	call PARITY_OFF
-
-	; Check seventh bit
-	sbis UDR,6
-	call PARITY_ON
-		
-	; Check eighth bit
-	sbis UDR,7
-	call PARITY_OFF
-
-PARITY_ON:
-	; change the parity to 1
-	ldi TEMP,(1 << TXB8)
-	out UCSRB,TEMP
-	ret
-
-PARITY_OFF:
-	; change the parity to 0
-	ldi TEMP,(0 << TXB8)
-	out UCSRB,TEMP
-	ret
-	
-	; Go out of transmitter parity check
-	ret
-;======================TRANSMITTER PARITY CHECK=========================
-DELAY_BIG:
-	ldi TEMP2,0xFF
-loop1:
-	dec TEMP2
-	brne loop1
 	ret

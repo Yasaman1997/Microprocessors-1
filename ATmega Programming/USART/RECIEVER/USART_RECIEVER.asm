@@ -49,21 +49,6 @@ RECIEVE_DATA_SECTION:
 	; Simply grab the data from the usart input 
 	; Tha DATA_RECIEVE routine has to be called all the time
 	call DATA_RECIEVE
-	; The result of the DATA_RECIEVE will be displayed on the LCD
-	;call DISPLAY_RECIEVED
-;========DISPLAY RECIEVED==========
-DISPLAY_RECIEVED:
-	; The input character is in the temp register now
-	; load it into the argument of the LCD 
-	;cpi TEMP,48
-	;breq A_CHAR
-	;ldi argument,'N'
-	;ret
-;A_CHAR:
-	;ldi argument,'A'
-	;call LCD_putchar
-	;ret
-;========DISPLAY RECIEVED==========
 	rjmp RECIEVE_DATA_SECTION
 
 ;======================MAIN PROGRAM=====================================
