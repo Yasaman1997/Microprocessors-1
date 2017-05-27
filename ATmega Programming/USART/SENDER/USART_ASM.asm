@@ -25,7 +25,7 @@ start:
 	ldi ROW,5
 
 	; Set the baud rate to 4800 bps
-	ldi BAUD_LOW,12
+	ldi BAUD_LOW,51
 	ldi BAUD_HIGH,0
 	; Configure the baud rate
 	out UBRRH,BAUD_HIGH
@@ -43,25 +43,22 @@ start:
 	ldi TEMP,(1 << URSEL)|(0 << UPM0)|(0 << UPM0)|(0 << UMSEL)|(1 << USBS)|(1 << UCSZ0)|(1 << UCSZ1)
 	out UCSRC,TEMP
 ;======================USART_INIT=======================================
-
-
 DATA_SENDING_SECTION:
+	call DELAY_BIG
 	; In this section, the keypad will be analyzed to see if any button is pressed
 	; Analayze the keypad
 	; If nothing was pressed, jump to recieve data section
 	; Check the keypad buttons press status
 	call FIND_PRESSED
+	call DELAY_BIG
 	call DATA_TRANSMIT
+	call DELAY_BIG
 	rjmp DATA_SENDING_SECTION
 
 ;======TRANSMITTING THE DATA=======
 DATA_TRANSMIT:
-
 	; creating a big delay for each transmission 
-DELAY_BIG:
-	ldi TEMP2,0x0F
-	dec TEMP2
-	brne DELAY_BIG
+	ldi TEMP2,0xFF
 	; Load the row*16+col into the DATA_TO_BE_SENT
 	lsl row
 	lsl row 
@@ -189,3 +186,9 @@ PARITY_OFF:
 	; Go out of transmitter parity check
 	ret
 ;======================TRANSMITTER PARITY CHECK=========================
+DELAY_BIG:
+	ldi TEMP2,0xFF
+loop1:
+	dec TEMP2
+	brne loop1
+	ret
