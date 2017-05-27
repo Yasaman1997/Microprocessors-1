@@ -56,6 +56,12 @@ DATA_SENDING_SECTION:
 
 ;======TRANSMITTING THE DATA=======
 DATA_TRANSMIT:
+
+	; creating a big delay for each transmission 
+DELAY_BIG:
+	ldi TEMP2,0x0F
+	dec TEMP2
+	brne DELAY_BIG
 	; Load the row*16+col into the DATA_TO_BE_SENT
 	lsl row
 	lsl row 
@@ -122,19 +128,7 @@ FIND_ROW:
 	; now we have the pressed key row and column return to main routine
 	ret
 ;===========FIND KEY===============
-
-
-;========DISPLAY RECIEVED==========
-DISPLAY_RECIEVED:
-	; The input character is in the temp register now
-	; load it into the argument of the LCD 
-	mov argument,TEMP
-	call lcd_putchar
-	ldi argument,'A'
-	call LCD_putchar
-	ret
-;========DISPLAY RECIEVED==========
-
+	rjmp DATA_SENDING_SECTION
 
 ;======================MAIN PROGRAM=====================================
 
