@@ -22,7 +22,7 @@ start:
 ;======================USART_INIT=======================================
 	; Load row and col with 0 for compare purpose
 	ldi COL,0
-	ldi ROW,50
+	ldi ROW,5
 
 	; Set the baud rate to 4800 bps
 	ldi BAUD_LOW,12
@@ -43,29 +43,16 @@ start:
 	ldi TEMP,(1 << URSEL)|(0 << UPM0)|(0 << UPM0)|(0 << UMSEL)|(1 << USBS)|(1 << UCSZ0)|(1 << UCSZ1)
 	out UCSRC,TEMP
 ;======================USART_INIT=======================================
-TEST:
-	inc ROW
-	call DATA_TRANSMIT
-	JMP TEST
+
+
 DATA_SENDING_SECTION:
 	; In this section, the keypad will be analyzed to see if any button is pressed
 	; Analayze the keypad
 	; If nothing was pressed, jump to recieve data section
 	; Check the keypad buttons press status
 	call FIND_PRESSED
-	; If nothing was pressed, skip the next instruction
-	cpi COL,0
-	breq RECIEVE_DATA_SECTION
 	call DATA_TRANSMIT
-
-RECIEVE_DATA_SECTION:
-	; In this section the input buffer is loaded with some data
-	; So the DATA_RECIEVE routine will be called
-	call DATA_RECIEVE
-	; After fetching the data, it must be displayed on the LCD
-	call DISPLAY_RECIEVED
-	; Hold the program in polling mode
-	rjmp start
+	rjmp DATA_SENDING_SECTION
 
 ;======TRANSMITTING THE DATA=======
 DATA_TRANSMIT:
@@ -89,31 +76,6 @@ DATA_TRANSMIT:
 	; Data is now being sent
 	ret
 ;======TRANSMITTING THE DATA=======
-
-
-;======RECIEVING THE DATA==========
-DATA_RECIEVE:
-	; Wait for the data to be recieved 
-	sbis UCSRA,RXC
-	rjmp DATA_RECIEVE
-	ldi argument,'A'
-	call LCD_putchar
-	; Get the status and 9th bit, then the data from buffer
-	in RECIEVE_STATUS,UCSRA
-	in TEMP2,UCSRB
-	in TEMP,UDR
-	; If error, return -1
-	andi r18,(1 << FE)|(1 << DOR)
-	breq USART_ReceiveNoError
-
-	ldi TEMP2, HIGH(-1)
-	ldi TEMP, LOW(-1)
-USART_ReceiveNoError:
-	; Filter the 9th bit, then return
-	lsr TEMP2
-	andi TEMP2, 0x01
-	ret
-;======RECIEVING THE DATA==========
 
 
 ;===========FIND KEY===============
