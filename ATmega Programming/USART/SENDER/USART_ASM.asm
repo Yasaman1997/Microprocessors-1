@@ -53,17 +53,12 @@ DATA_SENDING_SECTION:
 	breq DATA_SENDING_SECTION
 	call DATA_TRANSMIT
 	/*rjmp DATA_SENDING_SECTION*/
-	end:
-		jmp end
+end:
+	jmp end
 ;======TRANSMITTING THE DATA=======
 DATA_TRANSMIT:
-	; Load the row*16+col into the DATA_TO_BE_SENT
-	/*lsl row
-	lsl row 
-	lsl row 
-	lsl row 
-	add row,col
-	mov DATA_TO_BE_SENT,row*/
+	call MIX_TOGETHER
+GET_BACK:
 	; Wait for the UDRE to get set(UDR CLEARED)
 	sbis UCSRA,UDRE
 	rjmp DATA_TRANSMIT
@@ -73,7 +68,7 @@ DATA_TRANSMIT:
 	; Copy 9th bit from r17 to TXB8
 	cbi UCSRB,TXB8
 	; Enable USART send and recieve + Their interrupts
-	out UDR,ROW
+	out UDR,DATA_TO_BE_SENT
 	; Data is now being sent
 	ret
 ;======TRANSMITTING THE DATA=======
@@ -120,3 +115,97 @@ FIND_ROW:
 	ldi ROW,'4'
 	; now we have the pressed key row and column return to main routine
 	ret
+
+MIX_TOGETHER:
+	cpi ROW,'0'
+	breq ROW_1
+	cpi ROW,'1'
+	breq ROW_2
+	cpi ROW,'2'
+	breq ROW_3
+	cpi ROW,'3'
+	breq ROW_4
+	
+ROW_1:
+	cpi COL,'0'
+	breq DATA_IS_0
+	cpi COL,'1'
+	breq DATA_IS_1
+	cpi COL,'2'
+	breq DATA_IS_2
+	cpi COL,'3'
+	breq DATA_IS_3
+ROW_2:
+	cpi COL,'0'
+	breq DATA_IS_4
+	cpi COL,'1'
+	breq DATA_IS_5
+	cpi COL,'2'
+	breq DATA_IS_6
+	cpi COL,'3'
+	breq DATA_IS_7
+ROW_3:
+	cpi COL,'0'
+	breq DATA_IS_8
+	cpi COL,'1'
+	breq DATA_IS_9
+	cpi COL,'2'
+	breq DATA_IS_A
+	cpi COL,'3'
+	breq DATA_IS_B
+ROW_4:
+	cpi COL,'0'
+	breq DATA_IS_C
+	cpi COL,'1'
+	breq DATA_IS_D
+	cpi COL,'2'
+	breq DATA_IS_E
+	/*cpi COL,'3'
+	breq DATA_IS_F*/
+
+
+DATA_IS_0:
+	ldi DATA_TO_BE_SENT,'0'
+	jmp GET_BACK
+DATA_IS_1:
+	ldi DATA_TO_BE_SENT,'1'
+	jmp GET_BACK
+DATA_IS_2:
+	ldi DATA_TO_BE_SENT,'2'
+	jmp GET_BACK
+DATA_IS_3:
+	ldi DATA_TO_BE_SENT,'3'
+	jmp GET_BACK
+DATA_IS_4:
+	ldi DATA_TO_BE_SENT,'4'
+	jmp GET_BACK
+DATA_IS_5:
+	ldi DATA_TO_BE_SENT,'5'
+	jmp GET_BACK
+DATA_IS_6:
+	ldi DATA_TO_BE_SENT,'6'
+	jmp GET_BACK
+DATA_IS_7:
+	ldi DATA_TO_BE_SENT,'7'
+	jmp GET_BACK
+DATA_IS_8:
+	ldi DATA_TO_BE_SENT,'8'
+	jmp GET_BACK
+DATA_IS_9:
+	ldi DATA_TO_BE_SENT,'9'
+	jmp GET_BACK
+DATA_IS_A:
+	ldi DATA_TO_BE_SENT,'A'
+	jmp GET_BACK
+DATA_IS_B:
+	ldi DATA_TO_BE_SENT,'B'
+	jmp GET_BACK
+DATA_IS_C:
+	ldi DATA_TO_BE_SENT,'C'
+	jmp GET_BACK
+DATA_IS_D:
+	ldi DATA_TO_BE_SENT,'D'
+	jmp GET_BACK
+DATA_IS_E:
+	ldi DATA_TO_BE_SENT,'E'
+	jmp GET_BACK
