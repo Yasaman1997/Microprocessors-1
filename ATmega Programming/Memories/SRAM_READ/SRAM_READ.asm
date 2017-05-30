@@ -9,6 +9,8 @@
 
 ;============== DEFS =================
 .def TEMP = R16
+.def DESIRED_ADDRESS_L = R17
+.def DESIRED_ADDRESS_H = R18
 ;============== DEFS =================
 
 ;============ VECTORS ================
@@ -33,10 +35,19 @@ RESET_ISR:
 	ldi TEMP,0x00
 	out DDRA,TEMP
 	
-	ret
+	; start the main program
+	rjmp start
 ;=========== RESET ISR ===============
 
 ;========== MAIN PROGRAM =============
 start:
+	; Load the desired address: 0x1100
+	ldi DESIRED_ADDRESS_L,0x00
+	ldi DESIRED_ADDRESS_H,0x11
+	rjmp MEM_READ
 	rjmp start
 ;========== MAIN PROGRAM =============
+
+;========== MEMORY READ ==============
+
+;========== MEMORY READ ==============
