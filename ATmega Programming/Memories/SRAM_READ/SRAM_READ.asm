@@ -11,6 +11,7 @@
 .def TEMP = R16
 .def DESIRED_ADDRESS_L = R17
 .def DESIRED_ADDRESS_H = R18
+.def DATA_READ = R19
 ;============== DEFS =================
 
 ;============ VECTORS ================
@@ -50,4 +51,19 @@ start:
 
 ;========== MEMORY READ ==============
 
+;========== MEMORY READ ==============
+MEM_READ:
+	out PORTC,DESIRED_ADDRESS_L
+	; Enable the chip select for the sram #3
+	andi DESIRED_ADDRESS_H,0b01011111
+	out PORTD,DEISRED_ADDRESS_H
+	; 6 nops = 6 * 62.5 ns
+	nop 
+	nop
+	nop
+	nop
+	nop
+	nop
+	in DATA_READ,PINC
+	ret
 ;========== MEMORY READ ==============
