@@ -9,6 +9,7 @@
 
 ;============== DEFS ==============
 .def TEMP = R16
+.def IN_BUFF_DAT = R17
 ;============== DEFS ==============
 
 ;============= VECTORS ============
@@ -66,7 +67,10 @@ DEV3_POLL:
 DEV_FOUND:
 	; Get the data from buffers and store them somewhere :D
 GET_DATA_FROM_BUFFER:
-
+	nop 
+	nop
+	nop
+	in IN_BUFF_DAT,PINA
 	; Set the port A to output to send the data
 SEND_DATA_TO_LATCH:
 	ldi TEMP,0xFF
