@@ -28,8 +28,8 @@ RESET_ISR:
 	out SPH,TEMP
 
 	; configure interrupt 0
-	; Configure the Rising Edge in the interrupt sense control
-	ldi TEMP,(1 << ISC01) | (1 << ISC00)
+	; Configure the any logical change :D in the interrupt sense control
+	ldi TEMP,(0 << ISC01) | (1 << ISC00)
 	out MCUCR,TEMP
 
 	; Enable INT0
@@ -96,7 +96,7 @@ start:
 	ldi TEMP,0b00000111
 	out DDRB,TEMP
 	; Enable all buffers
-	ldi TEMP,0b00000000
+	ldi TEMP,0b00000011
 	out PORTB,TEMP	
 	; stay here untill an interrupt occurs
 	rjmp start
