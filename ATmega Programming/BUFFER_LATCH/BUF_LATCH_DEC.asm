@@ -95,6 +95,9 @@ start:
 	; set the port b to output
 	ldi TEMP,0b00000111
 	out DDRB,TEMP
+	; Enable all buffers
+	ldi TEMP,0b00000000
+	out PORTB,TEMP	
 	; stay here untill an interrupt occurs
 	rjmp start
 ;=========== MAIN PROGRAM =========
