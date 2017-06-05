@@ -152,37 +152,37 @@ LINE_0:
 	call DISPLAY_0
 	ret
 LINE_1:
-	sbrc PINA,1
+	sbrc NOT_OF_IN_BUFF_DAT,1
 	rjmp LINE_2
 	call DISPLAY_1
 	ret
 LINE_2:
-	sbrc PINA,2
+	sbrc NOT_OF_IN_BUFF_DAT,2
 	rjmp LINE_3
 	call DISPLAY_2
 	ret
 LINE_3:
-	sbrc PINA,3
+	sbrc NOT_OF_IN_BUFF_DAT,3
 	rjmp LINE_4
 	call DISPLAY_3
 	ret
 LINE_4:
-	sbrc PINA,4
+	sbrc NOT_OF_IN_BUFF_DAT,4
 	rjmp LINE_5
 	call DISPLAY_4
 	ret
 LINE_5:
-	sbrc PINA,5
+	sbrc NOT_OF_IN_BUFF_DAT,5
 	rjmp LINE_6
 	call DISPLAY_5
 	ret
 LINE_6:
-	sbrc PINA,6
+	sbrc NOT_OF_IN_BUFF_DAT,6
 	rjmp LINE_7
 	call DISPLAY_6
 	ret
 LINE_7:
-	sbrc PINA,7
+	sbrc NOT_OF_IN_BUFF_DAT,7
 	ret
 	call DISPLAY_7
 	ret
