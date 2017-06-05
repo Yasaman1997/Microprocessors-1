@@ -37,5 +37,10 @@ RESET_ISR:
 
 	; Global interrupt enable
 	sei
+	rjmp start
+;============ RESET ISR ===========
 
-
+;=========== MAIN PROGRAM =========
+start:
+	
+;=========== MAIN PROGRAM =========
