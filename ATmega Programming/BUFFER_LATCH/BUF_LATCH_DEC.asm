@@ -75,7 +75,7 @@ GET_DATA_FROM_BUFFER:
 SEND_DATA_TO_LATCH:
 	ldi TEMP,0xFF
 	out DDRA,TEMP
-
+	out PINA,IN_BUFF_DAT
 	; now get back to where u left :D
 	ret
 ;=========== INT0 ISR =============
