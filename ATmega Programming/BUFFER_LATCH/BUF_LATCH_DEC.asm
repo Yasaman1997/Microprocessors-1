@@ -43,6 +43,12 @@ RESET_ISR:
 
 ;=========== INT0 ISR =============
 ISR_0:
+	; Get the data from buffers and store them somewhere :D
+GET_DATA_FROM_BUFFER:
+	nop 
+	nop
+	nop
+	in IN_BUFF_DAT,PINA
 	; find which device has made the interrupt
 	; use polling method to find the device that has driven the interrupt
 DEV1_POLL:
@@ -65,12 +71,6 @@ DEV3_POLL:
 	out PORTB,TEMP
 	; turn on the 7 Segment according to the interrupt number
 DEV_FOUND:
-	; Get the data from buffers and store them somewhere :D
-GET_DATA_FROM_BUFFER:
-	nop 
-	nop
-	nop
-	in IN_BUFF_DAT,PINA
 	; Set the port A to output to send the data
 SEND_DATA_TO_LATCH:
 	ldi TEMP,0xFF
