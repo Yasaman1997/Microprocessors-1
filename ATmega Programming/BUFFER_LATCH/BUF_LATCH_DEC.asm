@@ -82,7 +82,7 @@ SEND_DATA_TO_LATCH:
 	out DDRA,TEMP
 	; Check which line has made Hi-Z :)
 	call LINE_CHECK
-	out PINA,IN_BUFF_DAT
+	out PINA,FINAl_RESULT
 	; now get back to where u left :D
 	ret
 ;=========== INT0 ISR =============
@@ -111,31 +111,31 @@ start:
 
 ;======= 7 Segment Display ========
 DISPLAY_0:
-	ldi FINAL_RESULT,0x00
+	ldi FINAL_RESULT,0xCF
 	ret
 DISPLAY_1:
-	ldi FINAL_RESULT,0x00
+	ldi FINAL_RESULT,0xA4
 	ret
 DISPLAY_2:
-	ldi FINAL_RESULT,0x00
+	ldi FINAL_RESULT,0xB0
 	ret
 DISPLAY_3:
 	ldi FINAL_RESULT,0x00
 	ret
 DISPLAY_4:
-	ldi FINAL_RESULT,0x00
+	ldi FINAL_RESULT,0x99
 	ret
 DISPLAY_5:
-	ldi FINAL_RESULT,0x00
+	ldi FINAL_RESULT,0x92
 	ret
 DISPLAY_6:
-	ldi FINAL_RESULT,0x00
+	ldi FINAL_RESULT,0x82
 	ret
 DISPLAY_7:
-	ldi FINAL_RESULT,0x00
+	ldi FINAL_RESULT,0xF8
 	ret
 DISPLAY_8:
-	ldi FINAL_RESULT,0x00
+	ldi FINAL_RESULT,0x80
 	ret
 DISPLAY_9:
 	ldi FINAL_RESULT,0x00
