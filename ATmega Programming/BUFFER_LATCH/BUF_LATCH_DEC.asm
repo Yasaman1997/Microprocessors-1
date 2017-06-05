@@ -43,9 +43,28 @@ RESET_ISR:
 ;=========== INT0 ISR =============
 ISR_0:
 	; find which device has made the interrupt
-
+	; use polling method to find the device that has driven the interrupt
+DEV1_POLL:
+	sbis PINC,0
+	rjmp DEV2_POLL
+	; turn on the latch to show the result on the desired 7-segment
+	ldi TEMP,0b00000000
+	out PORTB,TEMP
+DEV2_POLL:
+	sbis PINC,1
+	rjmp DEV3_POLL
+	; turn on the latch to show the result on the desired 7-segment
+	ldi TEMP,0b00000001
+	out PORTB,TEMP
+DEV3_POLL:
+	sbis PINC,2
+	rjmp DEV_FOUND
+	; turn on the latch to show the result on the desired 7-segment
+	ldi TEMP,0b00000010
+	out PORTB,TEMP
 	; turn on the 7 Segment according to the interrupt number
-
+DEV_FOUND:
+	; Set the por
 	; now get back to where u left :D
 ;=========== INT0 ISR =============
 
@@ -61,6 +80,9 @@ start:
 	; So the PORT C will be used as input
 	ldi TEMP,0x00
 	out PORTC,TEMP
+	; set the port b to output
+	ldi TEMP,0b00000111
+	out PORTB,TEMP
 	; stay here untill an interrupt occurs
 	rjmp start
 ;=========== MAIN PROGRAM =========
