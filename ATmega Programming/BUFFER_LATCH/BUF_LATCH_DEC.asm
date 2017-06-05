@@ -57,6 +57,7 @@ DEV1_POLL:
 	; turn on the latch to show the result on the FIRST 7-segment
 	ldi TEMP,0b00000000
 	out PORTB,TEMP
+
 DEV2_POLL:
 	sbis PINC,1
 	rjmp DEV3_POLL
@@ -75,6 +76,8 @@ DEV_FOUND:
 SEND_DATA_TO_LATCH:
 	ldi TEMP,0xFF
 	out DDRA,TEMP
+	; Check which line has made Hi-Z :)
+	call LINE_CHECK
 	out PINA,IN_BUFF_DAT
 	; now get back to where u left :D
 	ret
@@ -101,3 +104,72 @@ start:
 	; stay here untill an interrupt occurs
 	rjmp start
 ;=========== MAIN PROGRAM =========
+
+;======= 7 Segment Display ========
+DISPLAY_0:
+
+DISPLAY_1:
+
+DISPLAY_2:
+
+DISPLAY_3:
+
+DISPLAY_4:
+
+DISPLAY_5:
+
+DISPLAY_6:
+
+DISPLAY_7:
+
+DISPLAY_8:
+
+DISPLAY_9:
+;======= 7 Segment Display ========
+
+
+;========== LINE CHECK ============
+LINE_CHECK:
+	
+LINE_0:
+	sbic PINA,0
+	rjmp LINE_2
+	call DISPLAY_0
+	ret
+LINE_1:
+	sbic PINA,1
+	rjmp LINE_2
+	call DISPLAY_1
+	ret
+LINE_2:
+	sbic PINA,2
+	rjmp LINE_3
+	call DISPLAY_2
+	ret
+LINE_3:
+	sbic PINA,3
+	rjmp LINE_4
+	call DISPLAY_3
+	ret
+LINE_4:
+	sbic PINA,4
+	rjmp LINE_5
+	call DISPLAY_4
+	ret
+LINE_5:
+	sbic PINA,5
+	rjmp LINE_6
+	call DISPLAY_5
+	ret
+LINE_6:
+	sbic PINA,6
+	rjmp LINE_7
+	call DISPLAY_6
+	ret
+LINE_7:
+	sbic PINA,7
+	ret
+	call DISPLAY_7
+	ret
+;========== LINE CHECK ============
+
