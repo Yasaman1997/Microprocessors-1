@@ -40,7 +40,27 @@ RESET_ISR:
 	rjmp start
 ;============ RESET ISR ===========
 
+;=========== INT0 ISR =============
+ISR_0:
+	; find which device has made the interrupt
+
+	; turn on the 7 Segment according to the interrupt number
+
+	; now get back to where u left :D
+;=========== INT0 ISR =============
+
+
 ;=========== MAIN PROGRAM =========
 start:
-	
+	; Set the port A to input and get the data
+	ldi TEMP,0x00
+	out PORTA,TEMP
+	; To find the device that has made the interrupt
+	; I'll connect the all ports of each device together in logical OR gate and connect the output of these 
+	; 3 logical OR gates to the port C
+	; So the PORT C will be used as input
+	ldi TEMP,0x00
+	out PORTC,TEMP
+	; stay here untill an interrupt occurs
+	rjmp start
 ;=========== MAIN PROGRAM =========
