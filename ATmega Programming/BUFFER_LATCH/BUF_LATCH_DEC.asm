@@ -10,6 +10,8 @@
 ;============== DEFS ==============
 .def TEMP = R16
 .def IN_BUFF_DAT = R17
+.def FINAL_RESULT = R18
+.def NOT_OF_IN_BUFF_DAT = R19
 ;============== DEFS ==============
 
 ;============= VECTORS ============
@@ -49,6 +51,8 @@ GET_DATA_FROM_BUFFER:
 	nop
 	nop
 	in IN_BUFF_DAT,PINA
+	mov NOT_OF_IN_BUFF_DAT,IN_BUFF_DAT
+	neg NOT_OF_IN_BUFF_DAT
 	; find which device has made the interrupt
 	; use polling method to find the device that has driven the interrupt
 DEV1_POLL:
@@ -107,24 +111,35 @@ start:
 
 ;======= 7 Segment Display ========
 DISPLAY_0:
-
+	ldi FINAL_RESULT,0x00
+	ret
 DISPLAY_1:
-
+	ldi FINAL_RESULT,0x00
+	ret
 DISPLAY_2:
-
+	ldi FINAL_RESULT,0x00
+	ret
 DISPLAY_3:
-
+	ldi FINAL_RESULT,0x00
+	ret
 DISPLAY_4:
-
+	ldi FINAL_RESULT,0x00
+	ret
 DISPLAY_5:
-
+	ldi FINAL_RESULT,0x00
+	ret
 DISPLAY_6:
-
+	ldi FINAL_RESULT,0x00
+	ret
 DISPLAY_7:
-
+	ldi FINAL_RESULT,0x00
+	ret
 DISPLAY_8:
-
+	ldi FINAL_RESULT,0x00
+	ret
 DISPLAY_9:
+	ldi FINAL_RESULT,0x00
+	ret
 ;======= 7 Segment Display ========
 
 
@@ -132,42 +147,42 @@ DISPLAY_9:
 LINE_CHECK:
 	
 LINE_0:
-	sbic PINA,0
+	sbrc NOT_OF_IN_BUFF_DAT,0
 	rjmp LINE_2
 	call DISPLAY_0
 	ret
 LINE_1:
-	sbic PINA,1
+	sbrc PINA,1
 	rjmp LINE_2
 	call DISPLAY_1
 	ret
 LINE_2:
-	sbic PINA,2
+	sbrc PINA,2
 	rjmp LINE_3
 	call DISPLAY_2
 	ret
 LINE_3:
-	sbic PINA,3
+	sbrc PINA,3
 	rjmp LINE_4
 	call DISPLAY_3
 	ret
 LINE_4:
-	sbic PINA,4
+	sbrc PINA,4
 	rjmp LINE_5
 	call DISPLAY_4
 	ret
 LINE_5:
-	sbic PINA,5
+	sbrc PINA,5
 	rjmp LINE_6
 	call DISPLAY_5
 	ret
 LINE_6:
-	sbic PINA,6
+	sbrc PINA,6
 	rjmp LINE_7
 	call DISPLAY_6
 	ret
 LINE_7:
-	sbic PINA,7
+	sbrc PINA,7
 	ret
 	call DISPLAY_7
 	ret
