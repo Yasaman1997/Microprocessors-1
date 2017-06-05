@@ -18,6 +18,24 @@
 	rjmp ISR_0
 ;============= VECTORS ============
 
+;============ RESET ISR ===========
+RESET_ISR:
+	; Setup the stack pointer
+	ldi TEMP,LOW(RAMEND)
+	out SPL,TEMP
+	ldi TEMP,HIGH(RAMEND)
+	out SPH,TEMP
 
+	; configure interrupt 0
+	; Configure the Rising Edge in the interrupt sense control
+	ldi TEMP,(1 << ISC01) | (1 << ISC00)
+	out MCUCR,TEMP
+
+	; Enable INT0
+	ldi TEMP, (1 << INT0) 
+	out GICR, TEMP
+
+	; Global interrupt enable
+	sei
 
 
