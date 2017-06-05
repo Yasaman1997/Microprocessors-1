@@ -64,8 +64,16 @@ DEV3_POLL:
 	out PORTB,TEMP
 	; turn on the 7 Segment according to the interrupt number
 DEV_FOUND:
-	; Set the por
+	; Get the data from buffers and store them somewhere :D
+GET_DATA_FROM_BUFFER:
+
+	; Set the port A to output to send the data
+SEND_DATA_TO_LATCH:
+	ldi TEMP,0xFF
+	out DDRA,TEMP
+
 	; now get back to where u left :D
+	ret
 ;=========== INT0 ISR =============
 
 
@@ -73,16 +81,16 @@ DEV_FOUND:
 start:
 	; Set the port A to input and get the data
 	ldi TEMP,0x00
-	out PORTA,TEMP
+	out DDRA,TEMP
 	; To find the device that has made the interrupt
 	; I'll connect the all ports of each device together in logical OR gate and connect the output of these 
 	; 3 logical OR gates to the port C
 	; So the PORT C will be used as input
 	ldi TEMP,0x00
-	out PORTC,TEMP
+	out DDRC,TEMP
 	; set the port b to output
 	ldi TEMP,0b00000111
-	out PORTB,TEMP
+	out DDRB,TEMP
 	; stay here untill an interrupt occurs
 	rjmp start
 ;=========== MAIN PROGRAM =========
