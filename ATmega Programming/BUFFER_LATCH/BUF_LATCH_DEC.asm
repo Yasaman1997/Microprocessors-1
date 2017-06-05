@@ -48,19 +48,19 @@ ISR_0:
 DEV1_POLL:
 	sbis PINC,0
 	rjmp DEV2_POLL
-	; turn on the latch to show the result on the desired 7-segment
+	; turn on the latch to show the result on the FIRST 7-segment
 	ldi TEMP,0b00000000
 	out PORTB,TEMP
 DEV2_POLL:
 	sbis PINC,1
 	rjmp DEV3_POLL
-	; turn on the latch to show the result on the desired 7-segment
+	; turn on the latch to show the result on the SECOND 7-segment
 	ldi TEMP,0b00000001
 	out PORTB,TEMP
 DEV3_POLL:
 	sbis PINC,2
 	rjmp DEV_FOUND
-	; turn on the latch to show the result on the desired 7-segment
+	; turn on the latch to show the result on the THIRD 7-segment
 	ldi TEMP,0b00000010
 	out PORTB,TEMP
 	; turn on the 7 Segment according to the interrupt number
