@@ -49,25 +49,27 @@ start:
 	rjmp MEM_WRITE
 	rjmp start
 ;========== MAIN PROGRAM =============
-
+here:
+	rjmp here
 ;========== MEMORY WRITE ==============
 MEM_WRITE:
-	; Make PGM high then low to write the data
-	sbi PORTB,1
 	; Put the data on the port a
 	out PORTA,DATA_TO_BE_WRITTEN
 	; put the address low byte on the address lines
 	out PORTC,DESIRED_ADDRESS_L
-	; Select the chip #5
-	andi DESIRED_ADDRESS_H,0b10100000
+	; EPROM Chip Enable
+	andi DESIRED_ADDRESS_H,0b11011111
+	; Make PGM high then low to write the data
+	; Make OE high to avoid reading
+	ori DESIRED_ADDRESS_H,0b11000000
 	; put the address high byte on the address lines
 	out PORTD,DESIRED_ADDRESS_H
 	; 2 nops = 2 * 62.5 ns > Twlwh
 	nop 
 	nop
 	; Make PGM low to write the data
-	cbi PORTB,1
+	cbi PORTD,7
 	; 1 nop = 1 * 62.5 ns > Twhdw
-	nop	
-	ret
+	nop
+	rjmp here
 ;========== MEMORY WRITE ==============

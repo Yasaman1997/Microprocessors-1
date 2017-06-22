@@ -46,7 +46,7 @@ There are 5 sections in ATmega16 which have relationships with **data and progra
 * Can operate on any 32 registers of the register file.
 
 * Operations:
-1. Read contents of registers 
+1. Read contents of registers
 2. Operate on contents
 3. Store back in same register
 
@@ -125,7 +125,7 @@ I/O ports can be accessed using indirect SRAM commands.
 For extended I/O registers, we cannot use commands like **IN** or **OUT**. Instead we need to use the direct and indirect SRAM access commands like LDS, STS, etc.
 * Some important commands are:
 1. **LDS** - Load from SRAM
-2. **STS** - Store to SRAM 
+2. **STS** - Store to SRAM
 3. **SBR** - Set bits in register
 4. **CBR** - clear bits in register
 5. **SBRS** - Skip if bit in register is set
@@ -133,7 +133,7 @@ For extended I/O registers, we cannot use commands like **IN** or **OUT**. Inste
 
 ## Direct program memory addressing mode
 Important command:
-* Call: Call a subroutine and put the return address on the stack 
+* Call: Call a subroutine and put the return address on the stack
 * Usage Example:
 1. **CALL k** (This will do the following: first, STACK = PC + 1 and then, PC = k)
 
@@ -210,7 +210,7 @@ Imagine you can't remember where you just left. You'd have to write down where y
 The Stack needs a stack pointer (SP) and space in SRAM (the stack pointer must point above the first SRAM address). When a return address is stored, the SP is **post-decremented**. In other words: The stack is **growing** towards **smaller SRAM addresses**. The biggest stack possible is initialised to **RAMEND**. It can then grow all the way down to the first SRAM address.
 further reading: http://www.avr-tutorials.com/general/avr-microcontroller-stack-operation-and-stack-pointer
 
-## 7-Segment connection 
+## 7-Segment connection
 In this section, I'll show you how to connect a 7-Segment to the PORT B of the ATmega16 and encoding the numbers 0-9 to the what is going to be shown on the 7-Segment. So what we need is connecting to the PORT B with that 7-Segment at first. Then storing those numbers somewhere in program memory.
 
 ## Write to EEPROM, Configure the PORTS, Read from EEPROM and show the result (MERGED)
@@ -225,3 +225,10 @@ ldi ZL, low(Table_1<<1)
 lpm r16, Z ; Load constant from program
 ; memory pointed to by Z (r31:r30)
 ```
+## Error Parameters of ATmega16
+There are some parameters that may distract the microcontroller from doing it's ideal job:
+* **Offset Error**
+* **Gain Error**
+* **Integral Non-linearity**
+* **Differential Non-linearity**
+* **Quantization Error**
